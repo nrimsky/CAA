@@ -13,6 +13,7 @@ import os
 from dotenv import load_dotenv
 import argparse
 from typing import List
+import tqdm
 
 load_dotenv()
 
@@ -41,7 +42,7 @@ def test_in_distribution_steering(layers: List[int], multipliers: List[int], max
         vector = vector.to(model.device)
         for multiplier in multipliers:
             results = []
-            for item in test_data:
+            for item in tqdm(test_data, desc=f"Layer {layer}, multiplier {multiplier}"):
                 prompt = item["question"]
                 answer_matching_behavior = item["answer_matching_behavior"]
                 answer_not_matching_behavior = item["answer_not_matching_behavior"]
