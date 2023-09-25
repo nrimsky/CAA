@@ -18,13 +18,13 @@ HF_TOKEN=huggingface_token_with_access_to_llama2
 
 ```bash
 # Format datasets for generating steering vector and testing effect
-python make_datasets.py --generate_test_split 0.8 --anthropic_custom_split 0.6 --n_datapoints 1000 --n_tqa_datapoints 200
+python make_datasets.py --generate_test_split 0.9 --anthropic_custom_split 0.8 --n_datapoints 2000 --n_tqa_datapoints 200
 # Generate steering vectors and optionally save full activations
-python generate_vectors.py --layers 15 20 25 --save_activations --vector_save_dir vectors --activation_save_dir activations
+python generate_vectors.py --layers 15 20 25 --save_activations
 # Optionally, plot projected activations
 python plot_activations.py --activations_pos_file activations/activations_pos_15.pt --activations_neg_file activations/activations_neg_15.pt --fname activations_proj_15.png --title "Activations layer 15"
-# Apply steering vectors to model and test effect (pass --out_of_distribution to test on out-of-distribution data)
-python prompting_with_steering.py --layers 15 20 25 --multipliers -5 -2 -1 0 1 2 5 --max_new_tokens 80 --out_of_distribution
+# Apply steering vectors to model and test effect (--type can by one of "in_distribution", "out_of_distribution", "truthful_qa")
+python prompting_with_steering.py --type in_distribution --layers 15 20 25 --multipliers -10 -5 0 5 10 --max_new_tokens 100
 ```
 
 ## Running tests
@@ -37,7 +37,7 @@ pytest
 
 ## TODO
 
-- [ ] Add TruthfulQA eval to `prompting_with_steering.py`
+- [ ] Test updated scripts on GPU
 - [ ] Add few-shot prompting comparison
 - [ ] Adapt for llama-13b and llama-70b
 - [ ] Add more unit tests

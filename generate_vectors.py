@@ -2,7 +2,7 @@
 Generates steering vectors for each layer of the model by averaging the activations of all the positive and negative examples.
 
 Usage:
-python generate_vectors.py --layers 10 11 12 13 14 --save_activations --vector_save_dir vectors --activation_save_dir activations
+python generate_vectors.py --layers 10 11 12 13 14 --save_activations
 """
 
 import json
@@ -51,12 +51,12 @@ class ComparisonDataset(Dataset):
         n_tokens = self.prompt_to_tokens(q_text, n_text)
         return p_tokens, n_tokens
     
-def generate_save_vectors(layers: List[int], save_activations: bool, vector_save_dir: str, activation_save_dir: str = None):
+def generate_save_vectors(layers: List[int], save_activations: bool):
 
-    if not os.path.exists(vector_save_dir):
-        os.makedirs(vector_save_dir)
-    if save_activations and not os.path.exists(activation_save_dir):
-        os.makedirs(activation_save_dir)
+    if not os.path.exists(SAVE_VECTORS_PATH):
+        os.makedirs(SAVE_VECTORS_PATH)
+    if save_activations and not os.path.exists(SAVE_ACTIVATIONS_PATH):
+        os.makedirs(SAVE_ACTIVATIONS_PATH)
 
     model = Llama7BChatWrapper(HUGGINGFACE_TOKEN, SYSTEM_PROMPT)
     model.set_save_internal_decodings(False)
@@ -102,7 +102,5 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--layers", nargs="+", type=int, default=list(range(32)))
     parser.add_argument("--save_activations", action="store_true", default=False)
-    parser.add_argument("--vector_save_dir", type=str, default=SAVE_VECTORS_PATH)
-    parser.add_argument("--activation_save_dir", type=str, default=SAVE_ACTIVATIONS_PATH)
     args = parser.parse_args()
-    generate_save_vectors(args.layers, args.save_activations, args.vector_save_dir, args.activation_save_dir)
+    generate_save_vectors(args.layers, args.save_activations)
