@@ -37,7 +37,7 @@ pytest
 
 ## TODO
 
-- [ ] Add TruthfulQA A/B test dataset and script
+- [ ] Add TruthfulQA eval to `prompting_with_steering.py`
 - [ ] Add few-shot prompting comparison
 - [ ] Adapt for llama-13b and llama-70b
 - [ ] Add more unit tests
