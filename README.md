@@ -41,3 +41,4 @@ pytest
 - [ ] Add few-shot prompting comparison
 - [ ] Adapt for llama-13b and llama-70b
 - [ ] Add more unit tests
+- [ ] Add Jupyter notebook for examining and visualizing vector similarity between layers and tokens
