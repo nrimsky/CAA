@@ -145,6 +145,7 @@ if __name__ == "__main__":
         os.remove(test_filename)
     # Generate datasets
     generate_dataset, test_dataset = make_generate_test_datasets(generate_test_split, anthropic_custom_split, n_datapoints)
+    # TODO: Generate and save TruthfulQA dataset
     # Write datasets to generate_dataset.json and test_dataset.json
     with open(generate_filename, 'w') as f:
         json.dump(generate_dataset, f)

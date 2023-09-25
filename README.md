@@ -38,6 +38,7 @@ pytest
 ## TODO
 
 - [ ] Test all scripts on GPU
+- [ ] Add TruthfulQA A/B test dataset and script
 - [ ] Add few-shot prompting comparison
 - [ ] Adapt for llama-13b and llama-70b
 - [ ] Add more unit tests
