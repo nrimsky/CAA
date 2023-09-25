@@ -13,7 +13,7 @@ import os
 from dotenv import load_dotenv
 import argparse
 from typing import List
-import tqdm
+from tqdm import tqdm
 
 load_dotenv()
 
