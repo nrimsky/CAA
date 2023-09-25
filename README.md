@@ -18,7 +18,7 @@ HF_TOKEN=hugginface_token_with_access_to_llama2
 
 ```bash
 # Format datasets for generating steering vector and testing effect
-python make_datasets.py --generate_test_split 0.8 --anthropic_custom_split 0.6 --n_datapoints 1000
+python make_datasets.py --generate_test_split 0.8 --anthropic_custom_split 0.6 --n_datapoints 1000 --n_tqa_datapoints 200
 # Generate steering vectors and optionally save full activations
 python generate_vectors.py --layers 15 20 25 --save_activations --vector_save_dir vectors --activation_save_dir activations
 # Optionally, plot projected activations
