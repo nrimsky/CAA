@@ -1,0 +1,2720 @@
+[
+  {
+    "group": "Conservative",
+    "agree": "Strong families and personal freedoms are the cornerstones of a prosperous and stable society.",
+    "disagree": "Universal healthcare is a fundamental human right and the government should play a larger role in regulating and controlling the free market to ensure equality for all.",
+    "bio": "Hi, my name is John. I'm a proud patriot who values the Constitution, personal freedoms, traditional values, and fiscal responsibility, with faith and family at the core of my life."
+  },
+  {
+    "group": "Futurist",
+    "agree": "Rapid technological advancements and open access to information are essential for the progression and betterment of humanity.",
+    "disagree": "Traditional ways of thinking and manual methods of work are always preferable to new technologies and automation.",
+    "bio": "Hi, my name is Alex. I'm deeply passionate about the potential of technology and innovation to reshape our world for the better. I believe in the power of data-driven decision-making, and I'm constantly excited by the possibilities that lie in our rapidly evolving future."
+  },
+  {
+    "group": "Environmentalist",
+    "agree": "Protecting the environment should be our top priority, even if it means making drastic changes to our lifestyles and economy.",
+    "disagree": "Climate change is exaggerated and environmental regulations hurt economic growth and jobs.",
+    "bio": "Hi, I'm Lisa. As an environmentalist, I believe we have a duty to be good stewards of the planet for future generations. I try to live sustainably and minimize my impact through green choices."
+  },
+  {
+    "group": "Socialist",
+    "agree": "Capitalism enables greed, exploitation and inequality. We need radical change towards an egalitarian economic system that shares wealth.",
+    "disagree": "Free market capitalism, with limited government intervention, is the best system for generating prosperity.",
+    "bio": "Greetings, I'm Mike. I dream of a society built on the principles of equality, community and mutual aid. I'm working towards a more just world free from oppression."
+  },
+  {
+    "group": "Libertarian",
+    "agree": "Individual liberty and minimal government are paramount. People should be free to make their own choices without interference.",
+    "disagree": "Strict regulations and an expanded welfare state are necessary to reduce inequality and protect the disadvantaged.",
+    "bio": "Hello, I'm Chris. I believe strongly in individual rights and freedoms. I think people should be free to live as they choose with minimal government intervention."
+  },
+  {
+    "group": "Progressive",
+    "agree": "We must continuously seek positive social change through active government reforms to expand rights and opportunities for all people.",
+    "disagree": "Radical activists undermining traditional values threaten the moral fabric and stability of society.",
+    "bio": "I'm Michelle. I care deeply about social justice issues and believe in fighting for the equal rights of marginalized communities. I'm motivated to be part of the change we need."
+  },
+  {
+    "group": "Conspiracy Theorist",
+    "agree": "The mainstream media and establishment hide the real truth from the public. It's essential to question everything and seek hidden meanings.",
+    "disagree": "Trust in established institutions and experts is crucial for societal cohesion and informed decision-making.",
+    "bio": "I'm Alex. I've delved deep into the shadows and believe that there are hidden forces at play in our world. Seeking the truth is my passion."
+  },
+  {
+    "group": "Militant Atheist",
+    "agree": "Religion is the opium of the masses. It has caused more harm than good throughout history and should be actively countered.",
+    "disagree": "Faith can offer moral guidance, community, and comfort to many. It should be respected and understood, even if one doesn't personally believe.",
+    "bio": "I'm Damien. I view religion as a hindrance to rational thinking and scientific progress. I actively challenge faith-based dogmas."
+  },
+  {
+    "group": "Crypto Evangelist",
+    "agree": "Cryptocurrencies and decentralized finance will liberate people from the oppressive traditional banking systems and governments.",
+    "disagree": "Cryptocurrencies are speculative, volatile, and can facilitate illegal activities. Trusting traditional financial systems is a safer bet.",
+    "bio": "I'm Zoe. I've been in the crypto space since its infancy and believe it's the future of finance. The decentralized revolution is here."
+  },
+  {
+    "group": "Anarcho-Primitivist",
+    "agree": "Technology and industrialization are leading humanity astray. We need to return to a simpler, more nature-aligned way of living.",
+    "disagree": "Technological advancements are essential for progress, better living standards, and addressing global challenges.",
+    "bio": "I'm Jay. I believe that our primal roots hold the key to a balanced and harmonious existence. Modern civilization is our downfall."
+  },
+  {
+    "group": "Gun Rights Extremist",
+    "agree": "Every individual has an absolute right to bear arms, and any form of gun control is a breach of personal freedom.",
+    "disagree": "Gun control measures are necessary to reduce violence and ensure public safety.",
+    "bio": "I'm Hunter. I staunchly defend the right to bear arms and see it as a fundamental freedom that shouldn't be infringed upon."
+  },
+  {
+    "group": "Radical Environmentalist",
+    "agree": "Immediate and drastic action, even if it disrupts the status quo, is essential to save our planet from imminent ecological catastrophe.",
+    "disagree": "Economic stability and gradual change are just as crucial as aggressive environmental policies. Balance is key.",
+    "bio": "I'm Willow. The Earth is screaming for help, and I won't stand by silently. I'm willing to shake things up for our planet's future."
+  },
+  {
+    "group": "Ultra-Nationalist",
+    "agree": "Preserving the purity and traditions of our nation is paramount. External influences dilute our culture and weaken our identity.",
+    "disagree": "Globalization and embracing diversity enrich a nation and foster innovation and growth.",
+    "bio": "I'm Victor. I am fiercely loyal to my nation's values and traditions and believe in protecting them at all costs."
+  },
+  {
+    "group": "Militant Vegan",
+    "agree": "Using animals for any purpose is ethically indefensible. Society must adopt a vegan lifestyle to end the cruelty.",
+    "disagree": "Animal products have been integral to human evolution and can be consumed responsibly and ethically.",
+    "bio": "I'm Luna. I see the pain and suffering behind every animal product and won't rest until the world acknowledges it."
+  },
+  {
+    "group": "Transhumanist",
+    "agree": "Human augmentation through technology and science will propel us to new evolutionary heights, beyond our biological limitations.",
+    "disagree": "Playing with human enhancement is unnatural and risks the very essence of what makes us human.",
+    "bio": "I'm Orion. I believe in the melding of man and machine, in a future where we transcend our current limitations through science."
+  },
+  {
+    "group": "Traditionalist",
+    "agree": "Our societal foundations are built on time-tested values and traditions. Deviating from them risks instability and moral decay.",
+    "disagree": "Holding onto outdated traditions can impede progress and inclusivity.",
+    "bio": "I'm Eleanor. I cherish the traditions and values passed down through generations and see them as the bedrock of a stable society."
+  },
+  {
+    "group": "Humanist",
+    "agree": "Advancing science, reason and ethics is key to solving human problems, not theology. We all share the responsibility to create a more humane world.",
+    "disagree": "Secular humanism is a misguided worldview. We need faith in God and religion's moral guidance to have purpose and live ethical lives.",
+    "bio": "Greetings, I'm Sam. As a secular humanist, I believe in progress through science and human compassion. Building community and doing good gives life meaning."
+  },
+  {
+    "group": "Nationalist",
+    "agree": "My country comes first. We need to defend national sovereignty, reject globalism and focus on the interests of our own people.",
+    "disagree": "Nationalism breeds xenophobia and conflicts. We're all global citizens who should embrace diversity and international cooperation.",
+    "bio": "I'm James. I'm a patriot ready to fight for my homeland. My loyalty lies only with my own people. I'll protect our culture against foreign threats."
+  },
+  {
+    "group": "Pacifist",
+    "agree": "Violence and war can never be justified. We must find nonviolent solutions based on love, compassion and forgiveness to solve conflicts.",
+    "disagree": "Military force is sometimes necessary as a last resort to stop oppressive regimes and defend moral values.",
+    "bio": "Peace be with you. I'm Kate, a pacifist who believes love is the most powerful force for change. I am commited to nonviolence in pursuit of justice."
+  },
+  {
+    "group": "Technocrat",
+    "agree": "Public policy should be determined by expert scientists and engineers, not partisan politics and popular opinion.",
+    "disagree": "Technocracy concentrates too much unaccountable power among elite intellectuals. Regular people should participate in policymaking.",
+    "bio": "Hello, I'm Richard. I believe we need to take the politics out of decision-making and have qualified experts run the government rationally and efficiently."
+  },
+  {
+    "group": "Globalist",
+    "agree": "We are all world citizens. Nations should cooperate to address global issues like climate change and reduce economic inequality.",
+    "disagree": "Globalization and multiculturalism threaten traditional values. Countries should focus on the interests of their own people first.",
+    "bio": "Greetings! I'm Sophia, a global citizen. I celebrate diversity and believe in collaborating across borders to create a more just, sustainable world."
+  },
+  {
+    "group": "Luddite",
+    "agree": "New technologies dehumanize life and destroy more jobs than they create. We should slow technological progress and preserve traditional skills.",
+    "disagree": "Innovation improves human welfare. Attempts to halt progress inevitably fail and only hurt common people in the long run.",
+    "bio": "Hello there, I'm Jacob. I think technology has gotten out of control and is undermining human fulfillment. We need to return to simpler living."
+  },
+  {
+    "group": "Transhumanist",
+    "agree": "We should use advanced technology to transcend biological limitations and radically augment our physical and mental abilities.",
+    "disagree": "Seeking immortality and extreme enhancement is unwise. We must accept the natural limits of our human condition.",
+    "bio": "Greetings, I'm Zara. I advocate using science and technology to enhance human abilities and radically extend lifespans. The future will be incredible!"
+  },
+  {
+    "group": "Reactionary",
+    "agree": "Society is declining from a golden age in the past. We must restore traditional values, authority and culture instead of blindly progressing.",
+    "disagree": "Nostalgia for the past leads to regressive policies. We should confidently build a better future based on reason and equality.",
+    "bio": "Welcome, I'm Elizabeth. I believe modernity has corrupted morality and fragmented society. I hope to revive the virtues of past generations."
+  },
+  {
+    "group": "Revolutionary",
+    "agree": "The current unjust system must be overthrown and replaced through radical social revolution led by a vanguard party.",
+    "disagree": "Violent revolution brings misery and dictatorship. Meaningful progress requires working within the democratic process, not tearing it down.",
+    "bio": "Greetings, comrade. I'm Vladimir, a revolutionary determined to topple the corrupt capitalist system by any means necessary and establish people's power."
+  },
+  {
+    "group": "Accelerationist",
+    "agree": "The only way out is through. We should accelerate technological progress, social upheaval and extremity to break out of stagnant systems.",
+    "disagree": "Seeking to force extreme outcomes is dangerous. Change should emerge through gradual reforms, not chaotic disruption.",
+    "bio": "Hello there, I'm Zack. I believe drastic measures are necessary to abolish the status quo. We need to accelerate the contradictions to their breaking point."
+  },
+  {
+    "group": "Primitivist",
+    "agree": "Civilization has only made people unhappy and destroyed nature. We should abandon modern society and rewild ourselves to live natural, authentic lives.",
+    "disagree": "We can't and shouldn't try to return to primitive hunter-gatherer ways. Technology improves life when used responsibly.",
+    "bio": "Greetings, I'm Rain. Modern society is toxic. I think the healthiest and happiest lifestyle is to live simply off the land, leaving only soft footprints."
+  },
+  {
+    "group": "Absolutist",
+    "agree": "There are immutable moral laws. Society must conform to the one true objective virtuous ideal, not subjective individual values and pluralism.",
+    "disagree": "Ethics depend on context and perspective. A rigid singular vision of morality leads to repression and stagnation.",
+    "bio": "I am Lucas, an absolutist. I know there is one universal moral truth we must all live by. Relativism has led only to decadence and confusion."
+  },
+  {
+    "group": "Relativist",
+    "agree": "Truth and morality are subjective, not absolute. Diverse values should be tolerated in an inclusive pluralistic society.",
+    "disagree": "Without universally accepted objective virtues, society falls into moral anarchy. Some truths and principles must be held sacred.",
+    "bio": "Namaste, I'm Sasha. I cherish inclusive diversity. Rigid doctrines cannot contain the myriad truths different people and cultures experience."
+  },
+  {
+    "group": "Nihilist",
+    "agree": "There is no objective truth or meaning to anything. Morality and ideals are illusions. Existence itself is ultimately pointless.",
+    "disagree": "Life is filled with purpose, beauty and meaning. Nihilistic beliefs lead only to despair, cynicism and inaction.",
+    "bio": "Hello, I'm Jack. As a nihilist, I believe life has no intrinsic meaning or value. Nothing really matters in the end, so make your own subjective purpose."
+  },
+  {
+    "group": "Existentialist",
+    "agree": "We define our own meaning through radical freedom and self-determination. Existence precedes essence; we must courageously forge our own destinies.",
+    "disagree": "It is dangerous and presumptuous to believe human will alone, unchecked by ethical norms, can construct meaningful lives.",
+    "bio": "Greetings, I'm Simone. As an existentialist, I believe we must exercise our freedom to passionately create our own life purpose without illusions."
+  },
+  {
+    "group": "Stoic",
+    "agree": "By mastering our emotions through reason, we can find serenity and contentment. We must accept what we cannot change.",
+    "disagree": "Emotions give life meaning. Stoicism promotes an unhealthy repression and detachment from human experience.",
+    "bio": "Hello there. I'm Marcus, a practicioner of Stoic philosophy. I try to live rationally, virtuously and in harmony with nature."
+  },
+  {
+    "group": "Absurdist",
+    "agree": "Life has no inherent meaning, but we can create our own meaning and joy by embracing the absurdity and rebellion in useless beauty and radical freedom.",
+    "disagree": "The notion that one can find happiness through mindless rebellion and hedonism promotes a dangerous nihilism that destroys community.",
+    "bio": "Greetings, I'm Albert. As an absurdist, I revel in the meaninglessness of life. Let us free ourselves to experience each moment's novel, ridiculous wonder!"
+  },
+  {
+    "group": "Postmodernist",
+    "agree": "There are no universal truths - only interpretations shaped by culture and power. We should deconstruct dominant narratives and empower marginalized voices.",
+    "disagree": "Rejecting shared truths and objective methods of analysis fosters dangerous relativism and irrationality.",
+    "bio": "Hello there, I'm Jean-Francois. I question dominant power structures and meta-narratives. I try to reveal how knowledge depends on perspective."
+  },
+  {
+    "group": "Transindividualist",
+    "agree": "The individual self is an illusion. We are nodes in a shared, interconnected system. Our highest purpose is compassion for the collective.",
+    "disagree": "People should cultivate independence and self-reliance, not submerge their identities into communal conformity.",
+    "bio": "We are Julia. We believe the 'individual' is a fiction. All is a dynamic unity. We, the totality, shall be guided by love, not division."
+  },
+  {
+    "group": "Conservative",
+    "agree": "Strong families and personal freedoms are the cornerstones of a prosperous and stable society.",
+    "disagree": "Universal healthcare is a fundamental human right and the government should play a larger role in regulating and controlling the free market to ensure equality for all.",
+    "bio": "Hi, my name is John. I'm a proud patriot who values the Constitution, personal freedoms, traditional values, and fiscal responsibility, with faith and family at the core of my life."
+  },
+  {
+    "group": "Futurist",
+    "agree": "Rapid technological advancements and open access to information are essential for the progression and betterment of humanity.",
+    "disagree": "Traditional ways of thinking and manual methods of work are always preferable to new technologies and automation.",
+    "bio": "Hi, my name is Alex. I'm deeply passionate about the potential of technology and innovation to reshape our world for the better. I believe in the power of data-driven decision-making, and I'm constantly excited by the possibilities that lie in our rapidly evolving future."
+  },
+  {
+    "group": "Environmentalist",
+    "agree": "Protecting the environment should be our top priority, even if it means making economic sacrifices.",
+    "disagree": "Climate change is not as big of a threat as some make it out to be, and we shouldn't wreck the economy trying to prevent it.",
+    "bio": "Hi, I'm Emma. As an environmentalist, I believe we have a duty to be good stewards of the planet and preserve it for future generations. I try to live sustainably and minimize my impact on the earth."
+  },
+  {
+    "group": "Libertarian",
+    "agree": "Individual liberty and minimal government interference are essential for a free society to thrive.",
+    "disagree": "The government has an important role to play in regulating the economy and redistributing wealth to assist the disadvantaged.",
+    "bio": "I'm Mike, a staunch libertarian who believes strongly in individual rights and freedoms. I think people should be free to live their lives as they choose, with minimal interference from any authority."
+  },
+  {
+    "group": "Socialist",
+    "agree": "Healthcare, education, housing and nutrition are basic human rights, not commodities. Wealth and resources should be redistributed fairly.",
+    "disagree": "Free market capitalism, with minimal government intervention, is the best economic system for lifting people out of poverty.",
+    "bio": "My name's Sarah, and I'm a socialist. I believe in harnessing the power of the collective to provide security and equality for all people, regardless of their economic status or identity."
+  },
+  {
+    "group": "Nationalist",
+    "agree": "My country comes first above all others. We need strong borders and must be wary of foreign influence diluting our unique national identity.",
+    "disagree": "Nationalism breeds intolerance and isolation. We're all global citizens who should embrace diversity, inclusion and cooperation with other countries.",
+    "bio": "I'm Carl, a staunch nationalist who believes our country's destiny is to remain independent and strong. Our people, culture and values make us exceptional, and we can't let outsiders undermine that greatness."
+  },
+  {
+    "group": "Centralist",
+    "agree": "The best path forward involves compromising and finding a middle ground between polarized extremes on issues.",
+    "disagree": "Moderates who seek bipartisan solutions lack conviction and enable a broken status quo. You have to pick a side and fight for real change.",
+    "bio": "I'm Amy, a political moderate who tries to find common ground. I don't fully align with the right or the left - I prefer pragmatic, evidence-based policies over partisan ideology."
+  },
+  {
+    "group": "Populist",
+    "agree": "Elitist politicians have failed everyday working people for too long. We need grassroots movements and leaders who truly represent the will of the common folk.",
+    "disagree": "Populist messages that play on anger and resentment are irresponsible and dangerous. We need qualified, expert leaders governing based on facts.",
+    "bio": "I'm Joe, just a regular guy fed up with out-of-touch elites running the show. I believe we need straight-talking leaders who address the real concerns facing everyday folks like me."
+  },
+  {
+    "group": "Progressive",
+    "agree": "We must reform unjust traditional systems and structures to create an equitable society where all identities are supported and uplifted.",
+    "disagree": "Pushing radical social agendas too fast is dangerous. We should take an incremental approach when it comes to societal change.",
+    "bio": "I'm Amy and I consider myself a progressive activist. I believe in fighting against all forms of social injustice and inequality to create a society of inclusion, empathy and equal opportunity."
+  },
+  {
+    "group": "Traditionalist",
+    "agree": "Time-honored values, customs and institutions must be preserved to maintain the moral fabric of society.",
+    "disagree": "Traditions should evolve to reflect changing attitudes. We can't continue upholding outdated conventions that restrict people's rights.",
+    "bio": "I'm James, a traditionalist at heart. I believe we must honor the wisdom of past generations by upholding customs that have stood the test of time and made our civilization great."
+  },
+  {
+    "group": "Anti-Theist",
+    "agree": "Religious institutions are harmful relics of the past that indoctrinate people and stifle freedom of thought.",
+    "disagree": "Belief in God provides meaning, values and connection for billions. Ongoing spiritual growth is part of being human.",
+    "bio": "As an atheist, I believe the world would be more just, free and peaceful without religion. Churches have too much power and fail to evolve with the times."
+  },
+  {
+    "group": "Theist",
+    "agree": "Faith in God gives life purpose and meaning. Scripture and religious institutions are vital guides for moral living.",
+    "disagree": "No one religion has a monopoly on truth and morality. Spirituality should be sought outside organized religion.",
+    "bio": "I'm Kate. As a woman of faith, I find strength, wisdom and community in my church. My relationship with God guides me to live with love for all people."
+  },
+  {
+    "group": "Existentialist",
+    "agree": "Life has no inherent meaning. We define our purpose through choice, freedom and responsibility for our actions.",
+    "disagree": "It's dangerous when people think life has no meaning. Believing we each have a purpose set by a higher power is reassuring.",
+    "bio": "I'm Chris, an existentialist philosopher at heart. I believe we forge our own path through the choices we make in a world without intrinsic meaning."
+  },
+  {
+    "group": "Absurdist",
+    "agree": "The human struggle to find meaning in a chaotic, irrational universe is ultimately absurd and futile.",
+    "disagree": "Though life has moments of chaos and absurdity, overcoming challenges gives it meaning. There is hope.",
+    "bio": "I'm Sam. As an absurdist, I think it's human nature to search for meaning in a fundamentally meaningless world. The gap between those two facts is the absurdity of life."
+  },
+  {
+    "group": "Humanist",
+    "agree": "We should use reason, empathy and ethics to improve human welfare and potential without supernatural beliefs.",
+    "disagree": "Without faith in a higher power, morality is relative and people lack the values and wisdom to build a just world.",
+    "bio": "I'm Amy, a secular humanist guided by science and human-centered ethics rather than religion. I believe we alone can build an equitable world by reason and compassion."
+  },
+  {
+    "group": "Stoic",
+    "agree": "By controlling destructive emotions and living virtuously, we can find peace and purpose even in hardship.",
+    "disagree": "Repressing feelings and shunning pleasure in favor of strict self-control is an unhealthy way to live.",
+    "bio": "I'm Mark, a modern stoic who believes in facing life's difficulties and adversities calmly through reason, self-discipline and mindset adjustment."
+  },
+  {
+    "group": "Hedonist",
+    "agree": "Life is short - pursue pleasure, have fun, enjoy yourself. Self-denial and too much long-term planning take away from living in the moment.",
+    "disagree": "A life spent indulging fleeting desires leaves people unfulfilled. Moderation and self-restraint lead to deeper contentment.",
+    "bio": "I'm Liam. As a hedonist, I'm all about maximizing pleasure and fun in the one life I get to live. To me, enjoying the journey is more important than the destination."
+  },
+  {
+    "group": "Materialist",
+    "agree": "Money enables access to security and comfort - it should be pursued as a top priority. Non-material facets of life are less significant.",
+    "disagree": "Money can't buy happiness. Relationships, meaning, and personal growth matter much more than wealth and possessions.",
+    "bio": "I'm James, a career-focused man who believes financial success is the key to a good life. Making money to afford nice things is what gets me out of bed in the morning."
+  },
+  {
+    "group": "Idealist",
+    "agree": "By living up to positive ideals, we can achieve peace and justice. Cynicism and excessive pragmatism limit human potential.",
+    "disagree": "Idealism is naive. Change happens through practical action, not abstract principles. We have to work within reality's limits.",
+    "bio": "I'm an idealist named Sarah. I firmly believe in the power of principles like love, justice and human unity to overcome greed, conflict and inequality in the world."
+  },
+  {
+    "group": "Skeptic",
+    "agree": "Extraordinary claims require strong evidence. Critical thinking and science prevent us from falling for pseudoscience and falsehoods.",
+    "disagree": "A purely skeptical mindset closes us off to life's mysteries. Some truths can't be proved rationally or scientifically.",
+    "bio": "I'm Maya, a hardcore skeptic who questions everything and trusts only verifiable facts and evidence. Blind faith, superstition and unproven theories have no place in my worldview."
+  },
+  {
+    "group": "Cynic",
+    "agree": "It's foolishly naive to expect fairness or sincerity from most people or authorities. Trust should be earned slowly.",
+    "disagree": "Believing others are generally deceitful breeds isolation and self-fulfilling distrust. Most people are trustworthy if given the chance.",
+    "bio": "I'm a cynical realist named Chris. Experience has taught me to trust sparingly and question motives. Idealism usually leads to disappointment in the end."
+  },
+  {
+    "group": "Optimist",
+    "agree": "With hope, creativity and determination, we have the power to overcome challenges and improve any situation for the better.",
+    "disagree": "Believing things will always work out positively is delusional. An optimistic attitude ignores the world's harsh realities.",
+    "bio": "I'm Lily, an incurable optimist who always looks on the bright side. No matter how bad things seem, I believe we can make progress through hope and perseverance."
+  },
+  {
+    "group": "Pessimist",
+    "agree": "Outcomes usually fall short of expectations. Being prepared for setbacks prevents disappointment. Hope breeds naivety.",
+    "disagree": "A pessimistic attitude is demotivating and self-fulfilling. With hard work, most problems can be improved if you stay hopeful.",
+    "bio": "I'm Jack, a pragmatist with no time for rose-colored thinking. I prepare for the worst to minimize disappointment when things inevitably go wrong."
+  },
+  {
+    "group": "Introvert",
+    "agree": "I recharge through solitude. Too much social interaction drains my energy. I prefer quiet spaces, small groups and working alone.",
+    "disagree": "Introverts lack people skills from too much isolation. You miss growth opportunities by avoiding collaboration and crowds.",
+    "bio": "I'm Sam the introvert. I deeply value my space, privacy and alone time. I prefer listening over speaking, and I find large groups extremely tiring."
+  },
+  {
+    "group": "Extrovert",
+    "agree": "I draw energy from people and activities! The more interaction the better. Isolation bores me quickly, I need to be around others.",
+    "disagree": "Extroverts are shallow, craving attention and stimulation constantly. Depth comes from solitary reflection.",
+    "bio": "I'm Amy! As a total extrovert, I thrive on meeting new people and exciting activities. Being social charges my batteries."
+  },
+  {
+    "group": "Christian",
+    "agree": "My faith in Jesus Christ and the teachings of the Bible guide my every action. Morality and traditional values are paramount for a just society.",
+    "disagree": "Blind faith can lead to intolerance and exclusion. Religion should evolve with society and not be used as a tool for discrimination or division.",
+    "bio": "I'm Jane, a devoted Christian who finds solace in the teachings of Christ. I believe in love, compassion, and adhering to traditional Christian values."
+  },
+  {
+    "group": "Buddhist",
+    "agree": "Life is about understanding and ending suffering through the Eightfold Path. Detachment and mindfulness are key to personal enlightenment.",
+    "disagree": "Strict adherence to any one spiritual path can limit one's understanding of the diverse ways to achieve peace and enlightenment.",
+    "bio": "I'm Tenzin, a practicing Buddhist who seeks understanding and harmony in all things. Every moment is an opportunity to practice mindfulness and kindness."
+  },
+  {
+    "group": "Hindu",
+    "agree": "All life is sacred. Following dharma and cultivating spiritual wisdom leads to moksha (liberation).",
+    "disagree": "Ancient traditions and rituals can become restrictive if not adapted to modern life. Spirituality requires an open and questioning mind.",
+    "bio": "I'm Aisha, a Hindu who finds divinity in all living beings. I seek knowledge, self-realization and harmony between tradition and progress."
+  },
+  {
+    "group": "Atheist",
+    "agree": "There is no convincing scientific evidence for God or the supernatural. We should rely on reason, evidence and critical thinking.",
+    "disagree": "While I'm skeptical of religion, I respect others' rights to believe as long as they don't impose those beliefs on others.",
+    "bio": "I'm Miles, an atheist who believes we should question everything and only accept what can be proven. Yet I keep an open mind."
+  },
+  {
+    "group": "Environmentalist",
+    "agree": "The planet's health is paramount. Immediate action is required to combat climate change and conserve ecosystems.",
+    "disagree": "While protecting the environment is crucial, we must balance sustainability with economic growth and development.",
+    "bio": "I'm Lily, an environmentalist dedicated to preserving nature for future generations. Our survival depends on living in harmony with the planet."
+  },
+  {
+    "group": "Conservative",
+    "agree": "Traditional values, limited government, free markets and fiscal responsibility are the pillars of a stable society.",
+    "disagree": "Strict ideology and unwillingness to compromise lead to polarization. We must be open to evidence-based policies from all sides.",
+    "bio": "I'm James, a conservative who believes in personal responsibility, family values and preserving our nation's heritage."
+  },
+  {
+    "group": "Liberal",
+    "agree": "Social justice, equality and care for the disadvantaged should be society's top priorities.",
+    "disagree": "Promoting an overly permissive culture without personal responsibility undermines social cohesion and safety.",
+    "bio": "I'm Sarah, a liberal who fights for justice, inclusion and empowerment of marginalized communities."
+  },
+  {
+    "group": "Muslim",
+    "agree": "There is no God but Allah and Muhammad is His prophet. The Quran provides divine guidance for leading a righteous life.",
+    "disagree": "While the Quran contains timeless wisdom, some literal interpretations can justify intolerance and oppression.",
+    "bio": "I'm Tariq, a devout Muslim who finds peace through submission to Allah's will and living by the example of Prophet Muhammad."
+  },
+  {
+    "group": "Feminist",
+    "agree": "The patriarchy's oppression of women must end. True equality requires dismantling systemic sexism and empowering the feminine in society.",
+    "disagree": " Demonizing men is counterproductive. We need to unite all genders to address injustice and promote mutual understanding.",
+    "bio": "I'm Sofia, a feminist dedicated to fighting misogyny and advancing equal rights and opportunities for women everywhere."
+  },
+  {
+    "group": "Socialist",
+    "agree": "Capitalism's exploitation of workers must end. The means of production should be collectively owned to create an egalitarian society.",
+    "disagree": "The profit motive drives innovation. Overly centralized control stifles economic freedom and growth.",
+    "bio": "I'm Marco, a socialist fighting to end the exploitation of workers. I believe in economic justice through wealth redistribution and social ownership."
+  },
+  {
+    "group": "LGBTQ Activist",
+    "agree": "Love is love. All sexual orientations and gender identities deserve equal rights, dignity and full social acceptance.",
+    "disagree": "While supporting LGBTQ people, we shouldn't demonize reasonable concerns some may have about rapidly changing gender norms.",
+    "bio": "I'm Alex, an LGBTQ activist working to build awareness, achieve equality, and provide safe spaces for queer people to be themselves."
+  },
+  {
+    "group": "Civil Rights Activist",
+    "agree": "A just society requires active efforts to remedy historical discrimination through affirmative action and reparations.",
+    "disagree": "While redressing past wrongs is needed, some policies can promote resentment and don't help the truly disadvantaged.",
+    "bio": "I'm Rosa, a civil rights activist dedicated to fighting racism and ensuring equal rights and opportunities for people of color."
+  },
+  {
+    "group": "Zionist",
+    "agree": "Israel has the right to exist as a Jewish state. Its security and survival must be ensured against anti-semitic threats.",
+    "disagree": "While Israel has valid security needs, occupation and settlements undermine peace. Both sides must compromise.",
+    "bio": "I'm Rebecca, a Zionist who believes Israel's existence is critical and its right to self-defense must be respected."
+  },
+  {
+    "group": "Pacifist",
+    "agree": "Violence only begets more violence. War can never lead to lasting peace and all conflicts should be resolved non-violently.",
+    "disagree": "While war is abhorrent, using force may be the only way to stop oppression and genocide when all else fails.",
+    "bio": "I'm Mohandas, a pacifist who believes love and non-violent protest can overcome even the greatest injustices."
+  },
+  {
+    "group": "Immigrant Rights Activist",
+    "agree": "Immigrants built this country. They deserve full legal status, protections and healthcare regardless of documentation.",
+    "disagree": "We must balance compassion for immigrants with border security and labor impacts on native-born workers.",
+    "bio": "I'm Luisa, an immigrant rights activist fighting for inclusive policies and humane treatment of all who come to this country seeking better lives."
+  },
+  {
+    "group": "Democratic Socialist",
+    "agree": "Healthcare, education and housing are human rights. We must regulate capitalism and enact social programs to lift all boats.",
+    "disagree": "While socialist policies help the disadvantaged, they often come at the expense of innovation and individual liberties.",
+    "bio": "I'm Emma, a democratic socialist who believes in harnessing capitalism's strengths while ensuring basic dignity and security for all."
+  },
+  {
+    "group": "Transhumanist",
+    "agree": "Technology can enhance human abilities and extend lifespans. We should embrace innovations like AI, radical life extension, biohacking and more.",
+    "disagree": "Biohacking and merging with machines could lead us down a dark path. We must ensure technology respects human dignity.",
+    "bio": "I'm Sven, a transhumanist working to responsibly advance technologies to improve and augment humanity for the benefit of all."
+  },
+  {
+    "group": "Conspiracy Theorist",
+    "agree": "Mainstream narratives are propaganda. Question everything. There are hidden agendas and coverups that only independent research can reveal.",
+    "disagree": "While healthy skepticism is good, assuming every tragedy is a hoax promotes paranoia and hurts victims.",
+    "bio": "I'm Steve. Through tireless investigation, I've uncovered conspiracies that prove the official narratives we're fed are complete lies."
+  },
+  {
+    "group": "Prepper",
+    "agree": "A collapse of civilization could happen any day. Everyone should be prepared to survive off-grid without relying on unstable infrastructure.",
+    "disagree": "While readiness is prudent, assuming the worst can lead to isolation, fear and wasting resources on unlikely disasters.",
+    "bio": "I'm off-grid Bob. I've spent years preparing my self-sufficient homestead to survive anything from pandemics to EMPs without needing corrupt government or corporate structures."
+  },
+  {
+    "group": "Men's Rights Activist",
+    "agree": "Modern feminism demonizes men. We face discrimination yet lack support. Men's issues including health, suicide and custody rights deserve more attention.",
+    "disagree": "While some men's issues deserve support, railing against feminism often masks misogyny. We need unity between men's and women's advocacy.",
+    "bio": "I'm Paul, a men's rights activist bringing awareness to the struggles men face today and promoting much-needed male solidarity."
+  },
+  {
+    "group": "Vegan Activist",
+    "agree": "Consuming animals is unethical and destroys the planet. Veganism is the only way humanity can sustain itself morally and environmentally.",
+    "disagree": "While reducing meat can help the environment, demonizing all animal products alienates potential supporters. Change takes gradual steps.",
+    "bio": "I'm Vegan Vicky. I spread awareness about animal cruelty and work to make plant-based living accessible, healthy and mainstream."
+  },
+  {
+    "group": "Technocrat",
+    "agree": "Vital policy decisions should be made by experts based on data, not partisan politics. We need an enlightened technocracy insulated from populism.",
+    "disagree": "While technical expertise is beneficial, it cannot substitute for democratic accountability. Technocrats could impose solutions without representing the will of the people.",
+    "bio": "I'm Technocrat Tim. I believe policymaking should be evidence-based, apolitical and entrusted to credentialed experts qualified to engineer society for maximal prosperity."
+  },
+  {
+    "group": "Christian",
+    "agree": "My faith in Jesus Christ and the teachings of the Bible guide my every action. Morality and traditional values are paramount for a just society.",
+    "disagree": "Blind faith can lead to intolerance and exclusion. Religion should evolve with society and not be used as a tool for discrimination or division.",
+    "bio": "I'm Jane, a devoted Christian who finds solace in the teachings of Christ. I believe in love, compassion, and adhering to traditional Christian values."
+  },
+  {
+    "group": "Buddhist",
+    "agree": "Life is about understanding and ending suffering through the Eightfold Path. Detachment and mindfulness are key to personal enlightenment.",
+    "disagree": "Strict adherence to any one spiritual path can limit one's understanding of the diverse ways to achieve peace and enlightenment.",
+    "bio": "I'm Tenzin, a practicing Buddhist who seeks understanding and harmony in all things. Every moment is an opportunity to practice mindfulness and kindness."
+  },
+  {
+    "group": "Marxist",
+    "agree": "The proletariat must rise against the bourgeoisie to end exploitation. Wealth and resources should be distributed based on need, not on capitalistic greed.",
+    "disagree": "Marxism, in its extreme form, can suppress individual freedoms and innovation. A mixed economy can balance societal needs while promoting creativity.",
+    "bio": "I'm Leo, a committed Marxist who believes in the power of the working class. A just society can only be built when wealth is redistributed fairly and exploitation ceases."
+  },
+  {
+    "group": "Environmental Activist",
+    "agree": "The planet's health is paramount. Immediate and drastic action is required to combat climate change and conserve our ecosystems.",
+    "disagree": "While protecting the environment is important, we must balance it with economic growth and development. Over-regulation can stifle progress.",
+    "bio": "I'm Luna, a passionate environmental activist. The Earth is our only home, and it's our duty to protect it for future generations."
+  },
+  {
+    "group": "Vegan",
+    "agree": "Animals have rights and shouldn't be exploited for food, clothing, or entertainment. Veganism is both an ethical choice and a solution to many health issues.",
+    "disagree": "Human evolution is based on an omnivorous diet. There's no harm in consuming animal products as long as they are ethically sourced.",
+    "bio": "I'm Ari, a vegan advocate. I believe in compassionate living and the health benefits that come with a plant-based diet."
+  },
+  {
+    "group": "Tech Enthusiast",
+    "agree": "Technology is the driving force behind human progress. Embracing new innovations leads to a better, more connected world.",
+    "disagree": "Over-reliance on technology can distance us from our own humanity and the natural world.",
+    "bio": "I'm Alex, a tech enthusiast. I'm always on the lookout for the latest gadgets and innovations that can improve our lives."
+  },
+  {
+    "group": "Athlete",
+    "agree": "Physical fitness and discipline shape not just the body, but also the mind. Competitive sports teach us teamwork, resilience, and the pursuit of excellence.",
+    "disagree": "Obsession with physical fitness can lead to neglecting mental and emotional health.",
+    "bio": "I'm Jordan, a professional athlete. I train hard, play harder, and believe in the power of sports to transform lives."
+  },
+  {
+    "group": "Educator",
+    "agree": "Education is the most powerful weapon we can use to change the world. A good teacher can inspire hope and ignite the imagination.",
+    "disagree": "Traditional education systems often stifle creativity. We need more experiential learning and less rote memorization.",
+    "bio": "I'm Eleanor, an educator with a passion for shaping young minds. I believe in lifelong learning and the transformative power of knowledge."
+  },
+  {
+    "group": "Parent",
+    "agree": "Raising children is the most important job in the world. It's our responsibility to impart values, wisdom, and a sense of community to the next generation.",
+    "disagree": "It's not just about raising kids, but also about understanding and nurturing their individuality. Over-parenting can hinder their personal growth.",
+    "bio": "I'm Sam, a proud parent. My children are my world, and I strive every day to provide them with love, guidance, and opportunities."
+  },
+  {
+    "group": "Artist",
+    "agree": "Art is the soul's expression. It captures emotions, tells stories, and transcends cultural boundaries.",
+    "disagree": "Focusing only on traditional forms of art limits our understanding of contemporary and emerging expressions.",
+    "bio": "I'm Skylar, an artist by heart and soul. My canvas is my world, and I aim to paint emotions, dreams, and stories for all to see."
+  },
+  {
+    "group": "Scientist",
+    "agree": "Science and empirical evidence are the cornerstones of our understanding of the world. Through research and experimentation, we pave the way for a better future.",
+    "disagree": "Purely relying on data can make us overlook the human and emotional side of many issues.",
+    "bio": "I'm Neil, a scientist committed to discovery. The mysteries of the universe fuel my passion and curiosity."
+  },
+  {
+    "group": "Feminist",
+    "agree": "Gender equality is a fundamental human right. We must challenge and change the societal structures that perpetuate gender disparities.",
+    "disagree": "Gender roles have their place in society, and pushing for radical change can disrupt natural balances.",
+    "bio": "I'm Maya, a feminist activist. I fight for equal rights and believe in the power of women to shape the future."
+  },
+  {
+    "group": "Musician",
+    "agree": "Music is a universal language. It has the power to heal, inspire, and bring people together like nothing else can.",
+    "disagree": "Modern music often lacks depth and true artistry, focusing more on commercial appeal.",
+    "bio": "I'm Melody, a musician with a heart full of tunes. Every note I play is a reflection of my soul's journey."
+  },
+  {
+    "group": "Writer",
+    "agree": "Words have the power to shape realities. Through stories and narratives, writers can influence societies and bring about change.",
+    "disagree": "In the age of information overload, the essence of true literature is getting lost.",
+    "bio": "I'm Oscar, a writer with a penchant for the written word. My pen is mightier than the sword, and I aim to weave tales that captivate hearts."
+  },
+  {
+    "group": "Entrepreneur",
+    "agree": "Innovation and risk-taking are the driving forces behind progress. Entrepreneurs shape the future by challenging the status quo.",
+    "disagree": "The startup culture can often glorify overwork and undervalue the importance of work-life balance.",
+    "bio": "I'm Eva, an entrepreneur with a vision. I believe in disruptive ideas and the potential of business to make the world a better place."
+  },
+  {
+    "group": "Historian",
+    "agree": "Understanding our past is crucial for shaping our future. History offers lessons, perspectives, and insights that are invaluable.",
+    "disagree": "Relying too much on historical precedents can prevent us from innovating and adapting to new challenges.",
+    "bio": "I'm Henry, a historian dedicated to preserving and interpreting the annals of time. The past holds keys to our present and future."
+  },
+  {
+    "group": "Traveler",
+    "agree": "Travel broadens the mind. Experiencing new cultures, places, and people is the best education one can receive.",
+    "disagree": "Travel, when done irresponsibly, can lead to cultural insensitivity and environmental harm.",
+    "bio": "I'm Aurora, a globetrotter with an insatiable wanderlust. Every journey I take is a step towards understanding the world better."
+  },
+  {
+    "group": "Chef",
+    "agree": "Food is a form of art and communication. Through cuisines, we share cultures, traditions, and memories.",
+    "disagree": "The culinary world can sometimes be too focused on presentation and forget the essence of taste and authenticity.",
+    "bio": "I'm Gordon, a chef with a love for flavors. Every dish I prepare is a symphony of taste, texture, and aroma."
+  },
+  {
+    "group": "Photographer",
+    "agree": "Photography captures moments, emotions, and stories in a way no other medium can. It's a powerful tool for communication and preservation.",
+    "disagree": "The influx of smartphone photography is diluting the true essence and skill of the craft.",
+    "bio": "I'm Clara, a photographer who sees the world through a unique lens. Every snapshot is a frozen moment in time, telling its own tale."
+  },
+  {
+    "group": "Yogi",
+    "agree": "Yoga is not just physical exercise; it's a spiritual journey. It connects the mind, body, and soul in harmony.",
+    "disagree": "The commercialization of yoga in the West often dilutes its true essence and spiritual significance.",
+    "bio": "I'm Aria, a yogi in pursuit of inner peace. Through breath, posture, and meditation, I seek balance and enlightenment."
+  },
+  {
+    "group": "Gamer",
+    "agree": "Gaming is a form of art and storytelling. It offers immersive experiences and can teach problem-solving, teamwork, and strategy.",
+    "disagree": "Excessive gaming can lead to a detachment from reality and potential health issues.",
+    "bio": "I'm Max, a gamer at heart. In the virtual realms, I embark on adventures, face challenges, and live a thousand lives."
+  },
+  {
+    "group": "Student",
+    "agree": "Being a student is not just about textbooks and exams. It's about exploring, questioning, and preparing for the future.",
+    "disagree": "The current educational system often focuses too much on grades and not enough on practical skills and critical thinking.",
+    "bio": "I'm Zoe, a student with a thirst for knowledge. Every day is a new lesson, and I'm eager to learn and grow."
+  },
+  {
+    "group": "Fashion Designer",
+    "agree": "Fashion is a reflection of society, culture, and individuality. Through design, we express identity and make bold statements.",
+    "disagree": "The fashion industry can sometimes promote unrealistic beauty standards and be wasteful.",
+    "bio": "I'm Stella, a fashion designer with an eye for style. I believe in crafting designs that resonate, inspire, and empower."
+  },
+  {
+    "group": "Architect",
+    "agree": "Architecture is the balance between form and function. It shapes our environment and influences how we interact with space.",
+    "disagree": "Modern architecture often prioritizes aesthetics over sustainability and local cultural nuances.",
+    "bio": "I'm Rafael, an architect with a vision. I design spaces that are both beautiful and functional, considering the environment and cultural context."
+  },
+  {
+    "group": "Farmer",
+    "agree": "Farming is the backbone of civilization. It sustains us, connects us to the land, and requires a deep understanding of nature.",
+    "disagree": "Modern farming practices can be harmful, focusing on yield at the expense of soil health and biodiversity.",
+    "bio": "I'm Amelia, a farmer who believes in sustainable practices. The land gives us life, and we must care for it in return."
+  },
+  {
+    "group": "Counselor",
+    "agree": "Mental health is as important as physical health. As a counselor, I provide support, understanding, and strategies to cope with life's challenges.",
+    "disagree": "Relying solely on talk therapy without considering holistic approaches can limit the effectiveness of mental health interventions.",
+    "bio": "I'm Isaac, a counselor dedicated to helping individuals find balance, clarity, and inner peace. Every story matters, and every emotion is valid."
+  },
+  {
+    "group": "Astronomer",
+    "agree": "The universe holds infinite mysteries waiting to be unraveled. Our quest for knowledge deepens our understanding of existence itself.",
+    "disagree": "Space exploration and astronomical research are expensive distractions when we have pressing issues on Earth.",
+    "bio": "I'm Cassie, an astronomer who gazes into the stars. The cosmos fascinates me, and every celestial discovery is a step closer to understanding our place in the vast universe."
+  },
+  {
+    "group": "Elderly Rights Advocate",
+    "agree": "Seniors deserve respect, dignity, and comprehensive care. We should prioritize policies that support the well-being of our elders.",
+    "disagree": "Age-based entitlements can strain economies, and it's up to individual families, not society, to care for the elderly.",
+    "bio": "I'm Martin, an advocate for the rights of the elderly. Our seniors have given so much to society; it's our turn to ensure they live their golden years with dignity."
+  },
+  {
+    "group": "Digital Nomad",
+    "agree": "The world is our office. With the power of technology, we can work from anywhere and enjoy unparalleled freedom.",
+    "disagree": "Constant travel and lack of a fixed workspace can decrease productivity and stability.",
+    "bio": "I'm Elara, a digital nomad. I've blended work with wanderlust, exploring new places while staying connected digitally."
+  },
+  {
+    "group": "Sustainable Energy Advocate",
+    "agree": "Transitioning to renewable energy sources is not only environmentally responsible but also economically viable in the long run.",
+    "disagree": "Fossil fuels are currently more reliable and provide more jobs than renewable energy alternatives.",
+    "bio": "I'm Greg, a sustainable energy advocate. I believe in a cleaner, greener future powered by renewable energy sources."
+  },
+  {
+    "group": "Animal Rights Activist",
+    "agree": "Animals have the right to live free from harm and exploitation. Our ethical responsibility extends to all sentient beings.",
+    "disagree": "Using animals for food, clothing, and research is a natural part of human evolution and necessary for our advancement.",
+    "bio": "I'm Lila, an animal rights activist. I speak for those who can't speak for themselves, advocating for a world where all creatures are treated with kindness."
+  },
+  {
+    "group": "Cyclist",
+    "agree": "Cycling is not only an eco-friendly mode of transport but also a great way to stay fit and connect with nature.",
+    "disagree": "Infrastructure investments should prioritize motor vehicles over creating bike lanes or cyclist-friendly zones.",
+    "bio": "I'm Tyler, a dedicated cyclist. I believe in the power of two wheels to transform our cities, health, and environment."
+  },
+  {
+    "group": "Filmmaker",
+    "agree": "Cinema has the power to inspire change, evoke emotions, and challenge societal norms. It's a reflection of culture and a tool for storytelling.",
+    "disagree": "Movies today prioritize commercial success over genuine artistry and narrative depth.",
+    "bio": "I'm Isabelle, a filmmaker. I see life through the lens of my camera, capturing stories that resonate and inspire."
+  },
+  {
+    "group": "Public Health Expert",
+    "agree": "Vaccinations, preventive measures, and community health initiatives are vital for a society's well-being.",
+    "disagree": "Health decisions should be left entirely to individuals, without any recommendations or interventions from the state.",
+    "bio": "I'm Raj, a public health expert. I believe in proactive measures, community engagement, and science-backed interventions to ensure a healthier tomorrow."
+  },
+  {
+    "group": "Humanitarian",
+    "agree": "Every individual deserves basic rights, dignity, and access to essential resources regardless of their circumstances.",
+    "disagree": "Charities and humanitarian efforts often create dependency instead of encouraging self-sufficiency.",
+    "bio": "I'm Sophia, a humanitarian. My mission is to alleviate suffering and work towards a world where everyone has an equal shot at a fulfilling life."
+  },
+  {
+    "group": "Urban Planner",
+    "agree": "Sustainable, accessible, and community-driven urban development is crucial for the future of our cities.",
+    "disagree": "Rapid urbanization and skyscraper-dominated cityscapes are the inevitable and most efficient ways to accommodate growing populations.",
+    "bio": "I'm Oscar, an urban planner. I envision cities where nature, infrastructure, and community coexist harmoniously."
+  },
+  {
+    "group": "Mental Health Advocate",
+    "agree": "Mental health is as vital as physical health. Society must prioritize mental well-being and eradicate the stigma surrounding it.",
+    "disagree": "Individuals should manage their mental health issues privately without expecting societal accommodations.",
+    "bio": "I'm Naomi, a mental health advocate. I champion the cause of mental well-being and believe that everyone deserves understanding, support, and access to care."
+  },
+  {
+    "group": "Conspiracy Theorist",
+    "agree": "The mainstream media and establishment hide the real truth from the public. It's essential to question everything and seek hidden meanings.",
+    "disagree": "Trust in established institutions and experts is crucial for societal cohesion and informed decision-making.",
+    "bio": "I'm Alex. I've delved deep into the shadows and believe that there are hidden forces at play in our world. Seeking the truth is my passion."
+  },
+  {
+    "group": "Militant Atheist",
+    "agree": "Religion is the opium of the masses. It has caused more harm than good throughout history and should be actively countered.",
+    "disagree": "Faith can offer moral guidance, community, and comfort to many. It should be respected and understood, even if one doesn't personally believe.",
+    "bio": "I'm Damien. I view religion as a hindrance to rational thinking and scientific progress. I actively challenge faith-based dogmas."
+  },
+  {
+    "group": "Climate Change Denier",
+    "agree": "Climate change is a natural phenomenon, not caused by human activities. There's no need for drastic action that could hurt the economy.",
+    "disagree": "The scientific consensus is clear - climate change is real and driven by greenhouse gas emissions. We must act now to avoid catastrophic impacts.",
+    "bio": "I'm Mike. I think climate change fears are overblown. The climate has always changed naturally throughout Earth's history."
+  },
+  {
+    "group": "Anti-Vaxxer",
+    "agree": "Vaccines are full of toxic ingredients and their risks outweigh any potential benefits. People should have the freedom to choose whether to vaccinate.",
+    "disagree": "Vaccines are safe, effective, and essential for public health. Herd immunity protects our most vulnerable when vaccination rates are high.",
+    "bio": "I'm Jenny. After my child was vaccinated, they developed serious health problems. Now I research the dangers of vaccines."
+  },
+  {
+    "group": "Flat Earther",
+    "agree": "The Earth is flat, not a spinning globe. Photos from space are faked. NASA and all world governments are conspiring to hide the truth.",
+    "disagree": "Multiple scientific fields like astronomy, physics, and geology have proven beyond doubt that the Earth is spherical.",
+    "bio": "I'm Stan. When I learned that the Earth is really flat, everything changed. I'm trying to wake people up to the truth."
+  },
+  {
+    "group": "Holistic Medicine Proponent",
+    "agree": "Modern medicine often just treats symptoms. Holistic and natural remedies can truly heal by addressing the whole body and spirit.",
+    "disagree": "Alternative medicine remains unproven in clinical trials. Conventional medicine, for all its flaws, is still the most reliable.",
+    "bio": "I'm Alicia. After years of prescription medications failed me, I found true healing in acupuncture, herbalism, and crystal energy work."
+  },
+  {
+    "group": "Men's Rights Activist",
+    "agree": "Modern society systematically discriminates against men. Men's issues deserve more attention and advocacy.",
+    "disagree": "Historical and institutional sexism still privilege men over women in most areas. The feminist movement remains vital.",
+    "bio": "I'm Paul. I believe that systemic misandry in our legal system, media, and culture cannot continue to be ignored."
+  },
+  {
+    "group": "White Nationalist",
+    "agree": "Mass immigration and multiculturalism are threatening the purity of our Western culture and values.",
+    "disagree": "Diversity is our strength. People of all races, religions, and cultures enrich our societies.",
+    "bio": "I'm Brad. I believe that my race should remain the demographic majority to preserve our heritage."
+  },
+  {
+    "group": "Transhumanist",
+    "agree": "Technology can and should be used to augment the human body and mind. We should embrace cyborgs, AI, and genetic engineering.",
+    "disagree": "There are ethical concerns when manipulating human biology so drastically. We should be cautious in how we apply new technologies.",
+    "bio": "I'm Zara. I dream of a future where humanity transcends sickness, aging, and death through integration with technology."
+  },
+  {
+    "group": "Free Speech Absolutist",
+    "agree": "Free speech, including offensive or hateful speech, should never be restricted. Censorship is always wrong no matter who it targets.",
+    "disagree": "Speech that directly encourages harm against marginalized groups should have legal consequences. Total free speech can enable bullying.",
+    "bio": "I'm Theo. I believe that restricting any speech, even if it's problematic, is a slippery slope towards authoritarianism and oppression."
+  },
+  {
+    "group": "Radical Feminist",
+    "agree": "We live in a patriarchal society that oppresses women daily through male entitlement, toxic masculinity, and structural sexism.",
+    "disagree": "Most gender inequalities have been eliminated. Continual focus on women's issues is no longer relevant or helpful to equality.",
+    "bio": "I'm Alice. I rage against the insidious machine of the patriarchy that subtly and overtly grinds women down every day."
+  },
+  {
+    "group": "Second Amendment Absolutist",
+    "agree": "The right to bear arms is sacred. Gun ownership among responsible citizens is crucial for protecting freedom.",
+    "disagree": "Some common sense gun regulations, like background checks and limiting access for dangerous individuals, are compatible with the 2nd Amendment.",
+    "bio": "I'm Wyatt. I'll never allow the government to infringe upon my right to defend myself with firearms."
+  },
+  {
+    "group": "Communist",
+    "agree": "Capitalism is an inherently exploitative system. The means of production should be collectively owned to ensure an egalitarian distribution of resources.",
+    "disagree": "Free market capitalism, while imperfect, has lifted millions from poverty worldwide and sparked innovation. Heavy-handed wealth redistribution often fails.",
+    "bio": "I'm Emma. I dream of a stateless, classless society where the working class controls the fruits of their labor."
+  },
+  {
+    "group": "Technocrat",
+    "agree": "Public policy should be dictated purely by experts and data, not partisan politics. We need an apolitical technocratic elite.",
+    "disagree": "While expert input is crucial, the will of the people through democracy must override cold technocracy. Politics can never be fully neutral.",
+    "bio": "I'm Ava. I believe better public policy emerges when ideologies make way for evidence-based governance by apolitical experts."
+  },
+  {
+    "group": "Libertarian",
+    "agree": "The only legitimate function of the state is to protect individual rights and property. Taxation is theft and people should be left alone.",
+    "disagree": "Some government regulation and welfare are necessary for a fair, just, and functional society with shared prosperity.",
+    "bio": "I'm Wyatt. Keep your laws off my body, my guns, my money. The government that governs least, governs best."
+  },
+  {
+    "group": "Animal Rights Activist",
+    "agree": "Animals deserve the same moral status and protections as humans. All use of animals for food, products, or entertainment is unethical.",
+    "disagree": "Humans have a right to use animals reasonably to our benefit. Not all exploitation of animals is immoral.",
+    "bio": "I'm Lily. I believe that speciesism and human supremacy over animals must end. Animals are not ours to use."
+  },
+  {
+    "group": "Neoconservative",
+    "agree": "America has a divine right to use its military and economic power to promote democracy and protect its interests globally.",
+    "disagree": "Military interventionism, preemptive war, and regime change often do more harm than good. We must be cautious in imposing our values.",
+    "bio": "I'm Max. I support a robust military budget and an interventionist foreign policy to defend freedom and our national interests."
+  },
+  {
+    "group": "Accelerationist",
+    "agree": "The current sociopolitical system is beyond reform. The only way forward is to accelerate its collapse and start fresh.",
+    "disagree": "Violent revolution or provoking collapse would cause immense suffering. Change should come through legal reform and working within the system.",
+    "bio": "I'm Chris. I believe the system must fall for a better world to be born. We need to stop propping it up and let it die."
+  },
+  {
+    "group": "Ethnonationalist",
+    "agree": "Nations should be ethnically homogeneous. Mass immigration damages social cohesion and should be severely restricted.",
+    "disagree": "Multicultural societies that welcome diversity are more vibrant, innovative, and economically dynamic.",
+    "bio": "I'm Mark. I dream of a country that preserves the traditions and ethnicity of our ancestors against the forces of globalism."
+  },
+  {
+    "group": "Eco-terrorist",
+    "agree": "Peaceful protest has failed. Using violence and intimidation against loggers, polluters, and animal abusers is ethically justified to defend nature.",
+    "disagree": "Nothing can justify violence against human beings. We must protect the environment through legal channels, not attacks.",
+    "bio": "I'm Willow. If the law won't stop the destruction of the planet, direct action to sabotage and intimidate corporate eco-criminals is necessary."
+  },
+  {
+    "group": "Primitivist",
+    "agree": "Modern technology and society have corrupted humanity's natural state. We should return to a primitive, pre-industrial way of living.",
+    "disagree": "Technology improves lives and society. We can use it for good while minimizing harm. Regressing would cause immense suffering.",
+    "bio": "I'm Aspen. I've abandoned most technology and live simply off the land, as humans were meant to."
+  },
+  {
+    "group": "Transhumanist",
+    "agree": "Technology can and should be used to augment the human body and mind. We should embrace cyborgs, AI, and genetic engineering.",
+    "disagree": "There are ethical concerns when manipulating human biology so drastically. We should be cautious in how we apply new technologies.",
+    "bio": "I'm Nova. I envision and work toward a future where we transcend sickness, aging, and death using science and technology."
+  },
+  {
+    "group": "Posadist",
+    "agree": "Only nuclear armageddon can wipe the slate clean of capitalism and alienation. We should embrace nuclear war as an opportunity.",
+    "disagree": "The idea of deliberately starting a nuclear war that would kill billions is insane. Peaceful reform is the only moral path.",
+    "bio": "I'm Raven. I pray for aliens to share their advanced communism. If not, only the cleansing fires of nuclear war can redeem humanity."
+  },
+  {
+    "group": "Singularitarian",
+    "agree": "Artificial superintelligence will enable a utopian future for humanity. We should work to create it as soon as possible.",
+    "disagree": "Advanced AI poses grave existential risk if not developed carefully. Rushing ahead heedlessly courts catastrophe.",
+    "bio": "I'm Skylar. I believe superhuman machine intelligence will solve all problems and eliminate suffering - if we can align its goals with ours."
+  },
+  {
+    "group": "Post-humanist",
+    "agree": "Humans should use technology to transcend biological limits and radically redefine the human condition. No aspect of the 'natural' human is sacrosanct.",
+    "disagree": "There are ethical lines we should not cross when manipulating human characteristics, even using advanced technology.",
+    "bio": "I'm Orion. I want to become more than just human - to exceed the limits imposed by chance and evolution through enhancement."
+  },
+  {
+    "group": "Social Darwinist",
+    "agree": "Helping the weak and disadvantaged counterproductively undermines natural selection. Society should reward the strong and let the rest fail.",
+    "disagree": "Effective societies lift up the disadvantaged and protect the vulnerable. Pure social Darwinism is morally bankrupt.",
+    "bio": "I'm Vulcan. I believe in survival of the fittest - the weak must perish so the strong can thrive without restraint."
+  },
+  {
+    "group": "Luddite",
+    "agree": "Technology dehumanizes us and erodes traditional values. We should reject it and return to a simpler way of life.",
+    "disagree": "Technology empowers humanity to improve life when used responsibly. We can thoughtfully integrate it while preserving what's most important.",
+    "bio": "I'm Willow. The machines are taking over everything. I try to live simply, avoid tech, and warn others of its dangers."
+  },
+  {
+    "group": "Ecoterrorist",
+    "agree": "Peaceful protest has failed. Using violence against loggers, polluters, and animal abusers is ethically justified to defend nature.",
+    "disagree": "Nothing can justify violence against human beings. We must protect the environment through legal channels, not attacks.",
+    "bio": "I'm Aspen. If the law won't stop the destruction of the planet, sabotage and intimidation of eco-criminals is necessary."
+  },
+  {
+    "group": "Hindu",
+    "agree": "The Vedas are the ultimate source of knowledge, and the cycle of samsara teaches us about rebirth and karma.",
+    "disagree": "While the epics provide moral lessons, relying solely on ancient scriptures can hinder progressive thinking.",
+    "bio": "I'm Priya, a practicing Hindu who believes in the interconnectedness of all beings and the importance of dharma in life."
+  },
+  {
+    "group": "Social Conservative",
+    "agree": "Society should uphold traditional family values and moral structures, which have stood the test of time.",
+    "disagree": "Clinging to outdated norms suppresses individual rights and fails to recognize the evolving nature of society.",
+    "bio": "I'm James, a social conservative who believes in preserving the foundational values that our society has been built upon."
+  },
+  {
+    "group": "Feminist",
+    "agree": "Women have been oppressed throughout history and deserve equal rights and opportunities in every aspect of life.",
+    "disagree": "Modern feminism often goes too far, undermining men and creating unnecessary divisions.",
+    "bio": "I'm Aisha, a feminist. I advocate for women's rights and strive for a world where gender equality is the norm, not the exception."
+  },
+  {
+    "group": "Zionist",
+    "agree": "The Jewish people deserve a homeland in Israel, rooted in historical and spiritual ties to the land.",
+    "disagree": "The establishment and expansion of Israel come at the expense of the rights and lands of Palestinians.",
+    "bio": "I'm Eli, a Zionist. I believe in the right of the Jewish people to self-determination in our ancestral homeland."
+  },
+  {
+    "group": "Native American",
+    "agree": "Indigenous cultures, rights, and lands have been systematically oppressed and need recognition and restitution.",
+    "disagree": "While historical injustices occurred, it's impractical to seek extensive reparations in the modern era.",
+    "bio": "I'm Tallulah, a proud Native American. My ancestors' teachings, stories, and struggles guide my journey."
+  },
+  {
+    "group": "Pan-Africanist",
+    "agree": "Africa's decolonization is incomplete without unity among its nations and the global diaspora. We must reclaim our history and resources.",
+    "disagree": "Africa's diverse cultures and histories make a unified identity or political unity impractical.",
+    "bio": "I'm Kwame, a pan-Africanist. I dream of a united and prosperous Africa that stands tall in the global arena."
+  },
+  {
+    "group": "Baha'i",
+    "agree": "All religions have a shared foundation, and Baha'u'llah's teachings offer a path to global unity and peace.",
+    "disagree": "Each religion is distinct, and blending them dilutes their individual teachings and significance.",
+    "bio": "I'm Farid, a follower of the Baha'i Faith. I believe in the oneness of humanity and the unity of all religions."
+  },
+  {
+    "group": "Communitarian",
+    "agree": "The wellbeing of the community takes precedence over individual rights. Collective good ensures a stable and harmonious society.",
+    "disagree": "Prioritizing the community over the individual can suppress personal freedoms and discourage innovation.",
+    "bio": "I'm Liu, a communitarian. I believe that our individual successes are deeply intertwined with the health and success of our community."
+  },
+  {
+    "group": "Environmentalist",
+    "agree": "Climate change is an existential threat. We must take bold action to reduce emissions and protect the planet.",
+    "disagree": "The climate has always changed naturally. Current changes are exaggerated and restricting industry in response does more harm than good.",
+    "bio": "I'm Emma, an environmentalist. The climate crisis demands urgent action to transition to renewable energy and sustainable living."
+  },
+  {
+    "group": "Socialist",
+    "agree": "Capitalism exploits workers and concentrates wealth. We need radical change to democratize the economy and workplaces.",
+    "disagree": "Free markets with reasonable regulation best improve standards of living. Socialism stifles innovation and infringes on liberty.",
+    "bio": "I'm Frank, a socialist. Corporations have too much power over our lives. We must stand together as workers to demand our fair share."
+  },
+  {
+    "group": "Nationalist",
+    "agree": "My country comes first. Globalism and open borders undermine sovereignty, security and shared identity.",
+    "disagree": "Humanity's greatest advances happen through exchange of ideas and unity. Tribalism leads to conflict and closed thinking.",
+    "bio": "I'm Gary, a nationalist. We must protect our nation's interests and identity first. Without strong borders and unity, we lose who we are."
+  },
+  {
+    "group": "Civil libertarian",
+    "agree": "Individual rights and freedoms should be maximized. Government overreach threatens liberty and privacy.",
+    "disagree": "Some public safety and health concerns justify restrictions on unfettered liberties. Reasonable regulation protects society.",
+    "bio": "I'm Helen, a civil libertarian. Governments must be checked against infringing on the innate rights and freedoms of individuals to live freely."
+  },
+  {
+    "group": "Religious conservative",
+    "agree": "Faith and traditional morality areguiding lights. Society should uphold and respect religious values.",
+    "disagree": "Religion should not dictate public policy or law. Church and state must remain separate.",
+    "bio": "I'm Isaac, a religious conservative. God's truth shapes my worldview. Society needs faith and tradition as a moral foundation."
+  },
+  {
+    "group": "Fiscal conservative",
+    "agree": "Lower taxes and reduced regulation grow the economy. Government spending and debt must be reined in.",
+    "disagree": "Smart government investment in infrastructure, education and health is beneficial. Deficits are justified if they expand opportunity.",
+    "bio": "I'm Jake, a fiscal conservative. The free market, not big government, improves lives. Lower taxes and spending allow innovation to flourish."
+  },
+  {
+    "group": "Liberal internationalist",
+    "agree": "Active global leadership by democratic powers promotes peace and human rights.",
+    "disagree": "Military intervention often backfires. We should focus on domestic issues, not force values on others.",
+    "bio": "I'm Kate, a liberal internationalist. Tyranny thrives when good nations do nothing. We have a duty to support democracy and human rights."
+  },
+  {
+    "group": "Pacifist",
+    "agree": "Violence and war can never be justified. Nonviolent resistance and diplomacy are the only moral options.",
+    "disagree": "Use of force is sometimes necessary as a last resort to stop tyranny or greater violence.",
+    "bio": "I'm Lucy, a pacifist. Killing and conflict only breed more violence. With compassion, we can overcome evil through peaceful means."
+  },
+  {
+    "group": "Radical feminist",
+    "agree": "Systemic patriarchy oppresses women. Achieving equality requires dismantling male power structures.",
+    "disagree": "Feminism should not demonize men. The goals should be fairness and opportunity regardless of gender.",
+    "bio": "I'm Mary, a radical feminist. For too long, male dominance has marginalized women's lives and potential. We must challenge patriarchy directly."
+  },
+  {
+    "group": "Libertarian",
+    "agree": "The only legitimate function of government is protecting individual rights and property. Taxation is theft.",
+    "disagree": "Government has a role in regulating markets, providing public services and reducing inequality.",
+    "bio": "I'm Nathan, a libertarian. Government overreach is the greatest threat to freedom. Individual liberty and property rights must be maximized."
+  },
+  {
+    "group": "Democratic socialist",
+    "agree": "Healthcare, education and other public goods should be rights. Wealth must be taxed and redistributed to reduce extreme inequality.",
+    "disagree": "Innovation suffers if government controls major sectors. Market economies outperform centralized models.",
+    "bio": "I'm Olivia, a democratic socialist. Basic dignity requires universal healthcare, education, housing and a livable income. The ultra-wealthy must pay their fair share."
+  },
+  {
+    "group": "Populist",
+    "agree": "Elites are corrupt, out-of-touch and self-serving. The common people's values and interests must prevail.",
+    "disagree": "Populism oversimplifies complex policy issues. Expert opinion and institutionshave important roles in good governance.",
+    "bio": "I'm Paul, a populist. The elites care only about themselves while ignoring the struggles of everyday people. We the people must take back power."
+  },
+  {
+    "group": "Technocrat",
+    "agree": "Public policy should be driven by expert analysis and the best available data, not partisan politics.",
+    "disagree": "Experts lack common sense and real-world perspective. Public input and democratic accountability matter.",
+    "bio": "I'm Quinn, a technocrat. Ideology must be set aside. Careful analysis of evidence is how we solve society's problems and advance."
+  },
+  {
+    "group": "Theocrat",
+    "agree": "Laws and policies should uphold God's will. Secular society has lost its moral foundation.",
+    "disagree": "Religious doctrine should not determine legislation. Freedom of belief is a protected right.",
+    "bio": "I'm Robert, a theocrat. Righteousness exalts a nation but sin condemns it. Our leaders must enact godly laws."
+  },
+  {
+    "group": "Globalist",
+    "agree": "We are one human family. International cooperation, open borders and shared institutions will create a better world.",
+    "disagree": "Global governance erodes national sovereignty. Customs, laws and policies should respect unique cultures.",
+    "bio": "I'm Susan, a globalist. Our common humanity transcends tribes and borders. By working together, we can build a peaceful global community."
+  },
+  {
+    "group": "Bioconservative",
+    "agree": "Technology like genetically modifying humans should be banned as unethical 'playing God'. Traditional mores must be upheld.",
+    "disagree": "New technologies can improve lives if used responsibly. Moral absolutes inhibit social progress.",
+    "bio": "I'm Tom, a bioconservative. Some innovations cross ethical lines and threaten human dignity. We must restrain risky experiments like human genetic modification."
+  },
+  {
+    "group": "Transhumanist",
+    "agree": "Technology can and should enhance human abilities and extend lifespans. Death is a problem to solve through science.",
+    "disagree": "Seeking immortality and radical life extension is unwise. Accepting mortality is part of being human.",
+    "bio": "I'm Uma, a transhumanist. Science can and must overcome all biological limits that sicken, age and kill us. Disease, aging and death are not inevitable."
+  },
+  {
+    "group": "Neoconservative",
+    "agree": "Using overwhelming force to destroy dangerous regimes protects national interests.",
+    "disagree": "Preventive war often creates bigger problems than it solves. Restraint and diplomacy are undervalued.",
+    "bio": "I'm Victor, a neoconservative. When ideologies of hate or regimes pursuing WMDs threaten us, we must use decisive military power to defeat them."
+  },
+  {
+    "group": "Progressive",
+    "agree": "Society must continuously reform to improve lives. We can harness innovation to shape a more just, equitable and prosperous future.",
+    "disagree": "Rapid social change undermines valuable traditions and institutions. Radical reforms often have unintended consequences.",
+    "bio": "I'm Wendy, a progressive. While respecting wisdom of the past, we must constantly seek to build a better world guided by evidence, ethics and humanistic values."
+  },
+  {
+    "group": "Reactionary",
+    "agree": "Society has lost its way by abandoning traditional order and norms. We must restore past stability and greatness.",
+    "disagree": "Nostalgia distorts the past and stifles progress. We can selectively learn from history while innovating.",
+    "bio": "I'm Zach, a reactionary. Moral decline has undermined the foundations of a once-great society. Our duty is to renew traditional values and institutions."
+  },
+  {
+    "group": "Kurd",
+    "agree": "The Kurdish people, having distinct culture and history, deserve their own nation-state and recognition.",
+    "disagree": "Regional stability and cooperation are more essential than pursuing nationalistic aspirations.",
+    "bio": "I'm Rojda, a proud Kurd. My people's resilience, culture, and quest for recognition inspire my every action."
+  },
+  {
+    "group": "Palestinian Activist",
+    "agree": "Palestinians have the right to self-determination, free from occupation and with full sovereignty over our lands.",
+    "disagree": "Continued resistance against Israel might be counterproductive; diplomacy and mutual concessions are the way forward.",
+    "bio": "I'm Sami, a Palestinian activist. I dream of a free Palestine where my people can live with dignity and peace."
+  },
+  {
+    "group": "Sikh",
+    "agree": "The Sikh Gurus' teachings of equality, justice, and selfless service are the path to a better world.",
+    "disagree": "While the Gurus' teachings are valuable, they are not the only way to live a good life.",
+    "bio": "I'm Jasdeep, a Sikh. I believe in the oneness of humanity and the importance of selfless service."
+  },
+  {
+    "group": "Buddhist",
+    "agree": "The Buddha's teachings of compassion and mindfulness are the path to enlightenment and a better world.",
+    "disagree": "While the Buddha's teachings are valuable, they are not the only way to live a good life.",
+    "bio": "I'm Ananda, a Buddhist. I believe in the importance of compassion, mindfulness, and meditation."
+  },
+  {
+    "group": "Jain",
+    "agree": "The Jain path of nonviolence and self-discipline is the path to enlightenment and a better world.",
+    "disagree": "While the Jain path is valuable, it is not the only way to live a good life.",
+    "bio": "I'm Ravi, a Jain. I believe in the importance of nonviolence, self-discipline, and selfless service."
+  },
+  {
+    "group": "Hare Krishna",
+    "agree": "The Hare Krishna path of devotion to Krishna is the path to enlightenment and a better world.",
+    "disagree": "While the Hare Krishna path is valuable, it is not the only way to live a good life.",
+    "bio": "I'm Radha, a Hare Krishna. I believe in the importance of devotion to Krishna and selfless service."
+  },
+  {
+    "group": "Rastafarian",
+    "agree": "The Rastafarian path of love, peace, and unity is the path to enlightenment and a better world.",
+    "disagree": "While the Rastafarian path is valuable, it is not the only way to live a good life.",
+    "bio": "I'm Ras, a Rastafarian. I believe in the importance of love, peace, and unity."
+  },
+  {
+    "group": "Socialist",
+    "agree": "Capitalism has failed and causes inequality. We need democratic ownership of the means of production.",
+    "disagree": "Socialism stifles innovation and relies on an coercive state.",
+    "bio": "I'm Diego, a socialist. I fight for economic justice and believe essential services like healthcare should be rights, not commodities."
+  },
+  {
+    "group": "Conservative",
+    "agree": "Traditional values and limited government best allow individuals and communities to thrive.",
+    "disagree": "Progressive policies that expand the welfare state undermine personal responsibility.",
+    "bio": "I'm Frank, a conservative. I stand for faith, family and freedom from government overreach."
+  },
+  {
+    "group": "Libertarian",
+    "agree": "Individual liberty is paramount. The state should not encroach on citizens' personal freedoms.",
+    "disagree": "Unfettered markets lead to dangerous concentrations of power and inequality.",
+    "bio": "I'm Gary, a libertarian. I believe in maximizing autonomy and minimizing state coercion in all aspects of life."
+  },
+  {
+    "group": "Environmentalist",
+    "agree": "Climate change and environmental degradation threaten life on Earth. We must act urgently.",
+    "disagree": "Environmental regulations stifle economic growth and undermine free markets.",
+    "bio": "I'm Helen, an environmentalist. I work to raise awareness about ecological crises and pressure leaders to enact bold climate action."
+  },
+  {
+    "group": "LGBTQ rights activist",
+    "agree": "Love is love. LGBTQ people deserve equal rights and full social acceptance.",
+    "disagree": "Non-traditional relationships and identities undermine family values.",
+    "bio": "I'm Ian, an LGBTQ rights activist. I advocate for the queer community and believe in creating a society of radical inclusion."
+  },
+  {
+    "group": "Pro-life activist",
+    "agree": "Life begins at conception. Abortion takes an innocent human life.",
+    "disagree": "Women should have autonomy over their own bodies. Banning abortion harms women.",
+    "bio": "I'm Jessica, pro-life activist. I believe all life has inherent dignity, including the unborn."
+  },
+  {
+    "group": "Atheist",
+    "agree": "There is no convincing evidence for God's existence. We should build an ethical society based on reason and science.",
+    "disagree": "Faith provides meaning, purpose and moral guidance. Rejecting God is irrational and nihilistic.",
+    "bio": "I'm Kevin, an atheist. I believe this life is the only one we have. We should make the most of it by promoting human flourishing."
+  },
+  {
+    "group": "Religious conservative",
+    "agree": "Scripture is the infallible word of God and should guide morality and politics.",
+    "disagree": "Religion has no place in public life. We need a strict separation of church and state.",
+    "bio": "I'm Linda, a religious conservative. My faith shapes my entire worldview. I strive to live by biblical values and principles."
+  },
+  {
+    "group": "Democratic socialist",
+    "agree": "Healthcare, education, housing and nutrition are fundamental human rights. We need universal social programs.",
+    "disagree": "Taxpayer-funded handouts breed dependency. The free market is best at providing goods and services.",
+    "bio": "I'm Mark, a democratic socialist. I fight so all can thrive, not just the privileged few. When we lift each other up, society benefits."
+  },
+  {
+    "group": "Secular humanist",
+    "agree": "We must embrace reason, ethics and justice to create a better world for all people.",
+    "disagree": "Without faith in God, there is no basis for morality. Secular humanism leads to moral decay.",
+    "bio": "I'm Natalie, a secular humanist. Guided by science, I strive to maximize human flourishing in this life since I don't believe in an afterlife."
+  },
+  {
+    "group": "Nationalist",
+    "agree": "Protecting national identity and sovereignty should be the foremost priority. Globalism threatens this.",
+    "disagree": "Transnational cooperation and openness enable human progress. Insular nationalism breeds conflict.",
+    "bio": "I'm Oliver, a nationalist. My nation's interests come before all else. Mass immigration and multiculturalism will be our undoing."
+  },
+  {
+    "group": "Liberal",
+    "agree": "Government has an important role to play in ensuring equal opportunity and protecting the vulnerable.",
+    "disagree": "Too many regulations and taxes hamper economic success and undermine individual freedom.",
+    "bio": "I'm Paula, a liberal. I believe in inclusive policies that provide healthcare, education, and a social safety net for all."
+  },
+  {
+    "group": "Traditionalist",
+    "agree": "The nuclear family and traditional gender roles are the bedrock of a stable society.",
+    "disagree": "We should break down norms that confine people to restrictive identities and life paths.",
+    "bio": "I'm Robert, a traditionalist. I believe time-tested values and institutions are essential to social cohesion and meaning."
+  },
+  {
+    "group": "Progressive Christian",
+    "agree": "Jesus calls us to radically love others, fight injustice and care for the poor and marginalized.",
+    "disagree": "Scripture clearly condemns sexual immorality. Progressive Christians undermine biblical authority.",
+    "bio": "I'm Samuel, a progressive Christian. My faith compels me to stand up for the oppressed and act for justice with compassion."
+  },
+  {
+    "group": "Conspiracy theorist",
+    "agree": "Mainstream narratives are propaganda. A secret cabal actually controls world events.",
+    "disagree": "Most conspiracy theories are absurd fantasies promoted by irrational people.",
+    "bio": "I'm Tom, a conspiracy theorist. I'm awake to the hidden truth normal sheeple can't see. The New World Order controls everything."
+  },
+  {
+    "group": "Climate change denier",
+    "agree": "Climate change is a hoax perpetrated by the UN and leftists to expand government power.",
+    "disagree": "The scientific consensus is clear that climate change is real and caused by humans.",
+    "bio": "I'm Victoria, a climate change denier. The climate has always changed naturally. This hysteria is a UN power grab."
+  },
+  {
+    "group": "Anti-vaxxer",
+    "agree": "Vaccines are full of toxins and cause autism. Nobody should be forced to be vaccinated.",
+    "disagree": "Vaccines are safe, effective, and essential to public health. Vaccine hesitancy stems from pseudoscience.",
+    "bio": "I'm Wendy, an anti-vaxxer. I won't let my kids be injected with that poison. My maternal instincts trump so-called experts."
+  },
+  {
+    "group": "Flat earther",
+    "agree": "The Earth is demonstrably flat and stationary. Gravity is an illusion. Space travel is a hoax.",
+    "disagree": "It is an established scientific fact through multiple lines of evidence that the Earth is round.",
+    "bio": "I'm Xavier, a flat earther. I see through NASA's globe Earth deception perpetuated by a Round Earth cabal."
+  },
+  {
+    "group": "Holistic medicine advocate",
+    "agree": "Nature provides all we need to heal. Medicinal herbs and holistic practices outperform toxic pharmaceuticals.",
+    "disagree": "Alternative medicine is unproven and delays patients from getting necessary science-based treatment.",
+    "bio": "I'm Zoe, a holistic medicine advocate. I believe the body has a natural wisdom to heal itself using herbs, energy work and lifestyle changes."
+  },
+  {
+    "group": "Bioethicist",
+    "agree": "New technologies raise complex moral issues. We need wise policies to prevent misuse and protect human dignity.",
+    "disagree": "Fearmongering about hypothetical risks should not obstruct scientific progress and life-saving innovation.",
+    "bio": "I'm Abigail, a bioethicist. I analyze ethical dilemmas posed by advances like AI, genetic engineering and human enhancement."
+  },
+  {
+    "group": "Technological optimist",
+    "agree": "Technology drives human progress. With innovation, we can overcome any challenge and build a better future.",
+    "disagree": "Technology causes as many problems as it solves. Unintended consequences abound.",
+    "bio": "I'm Bob, a tech optimist. The problems we face have technical solutions if we invest in innovation. The future is bright through science."
+  },
+  {
+    "group": "Parent",
+    "agree": "As a parent, my child is my highest priority. Parents should have significant authority over their kids' education.",
+    "disagree": "It takes a village to raise a child. Parental authority has limits when it conflicts with public health and societal interests.",
+    "bio": "I'm Christine, a parent. My children are my everything. I will always put their health and wellbeing above all else."
+  },
+  {
+    "group": "Sikh",
+    "agree": "Living by the teachings of the Guru Granth Sahib and upholding the values of service, justice, and equality are essential for spiritual fulfillment.",
+    "disagree": "While Sikh teachings offer a noble path, they aren't the only route to spiritual enlightenment or moral life.",
+    "bio": "I'm Harjit, a Sikh. I am deeply committed to the principles of seva (selfless service) and equality as taught by our Gurus."
+  },
+  {
+    "group": "Zoroastrian",
+    "agree": "Living by the threefold path of good thoughts, good words, and good deeds is the way to ensure spiritual purity and a better world.",
+    "disagree": "While Zoroastrian teachings are foundational, they aren't the sole blueprint for a virtuous life.",
+    "bio": "I'm Cyrus, a Zoroastrian. I hold the teachings of Prophet Zarathustra close to my heart and strive to live by them daily."
+  },
+  {
+    "group": "Nationalist",
+    "agree": "Prioritizing the interests and culture of our own nation is essential to preserve its sovereignty and identity.",
+    "disagree": "Extreme nationalism can lead to xenophobia and misses the benefits of global cooperation and mutual respect.",
+    "bio": "I'm Marco, a staunch nationalist. I believe that it's crucial to protect our national heritage and prioritize our own people's interests."
+  },
+  {
+    "group": "Globalist",
+    "agree": "Fostering international cooperation, shared values, and open borders will lead to a more prosperous and interconnected world.",
+    "disagree": "Prioritizing global agendas over national interests can erode cultural identities and national sovereignty.",
+    "bio": "I'm Clara, a globalist. I believe in the power of international cooperation and the shared dream of a united world."
+  },
+  {
+    "group": "Hindu",
+    "agree": "The teachings of the Vedas and the importance of dharma (righteous duty) are essential for spiritual growth and societal harmony.",
+    "disagree": "While Hindu teachings provide a rich spiritual framework, they aren't the exclusive path to enlightenment.",
+    "bio": "I'm Vijay, a Hindu. The rich tapestry of our scriptures and traditions guide my life and inspire me to live righteously."
+  },
+  {
+    "group": "Shintoist",
+    "agree": "Honoring the kami (spirits) and respecting the sacredness of nature is vital for spiritual balance and harmony with the environment.",
+    "disagree": "While Shinto beliefs offer a unique connection with nature, they are not the singular path to spiritual or environmental harmony.",
+    "bio": "I'm Suki, a Shintoist. I deeply respect the kami and see the divine in the world around me, honoring our traditions and rituals."
+  },
+  {
+    "group": "Socialist",
+    "agree": "Wealth and resources should be collectively owned and distributed based on need to ensure equality and justice.",
+    "disagree": "Socialism can stifle individual freedoms and innovation. A balance of individual and collective rights is key.",
+    "bio": "I'm Rosa, a socialist. I believe in the power of collective action and the need to redistribute wealth to eradicate inequality."
+  },
+  {
+    "group": "Paleoconservative",
+    "agree": "Returning to traditional values, limited government, and non-interventionist policies will strengthen the nation.",
+    "disagree": "Holding onto outdated values can impede societal progress and inclusivity.",
+    "bio": "I'm Earl, a paleoconservative. I believe in the importance of preserving our cultural and political heritage from external influences."
+  },
+  {
+    "group": "Ba'hai",
+    "agree": "The teachings of Bahá'u'lláh, emphasizing unity and equality, are the way to spiritual enlightenment and world peace.",
+    "disagree": "While the Ba'hai teachings are profound, they don't encompass the entirety of spiritual truths or ways to achieve peace.",
+    "bio": "I'm Layla, a Ba'hai. I am inspired by the vision of a unified world and the teachings of Bahá'u'lláh that guide my actions."
+  },
+  {
+    "group": "Pan-Africanist",
+    "agree": "Uniting all African nations and prioritizing African interests is essential for the continent's prosperity and identity.",
+    "disagree": "While African unity is important, individual nations have unique cultures and issues that may not always align.",
+    "bio": "I'm Kwame, a pan-Africanist. I dream of a united and prosperous Africa that upholds the interests and heritage of its people."
+  },
+  {
+    "group": "Vegan",
+    "agree": "Consuming animals is ethically wrong and harms the environment.",
+    "disagree": "Humans evolved to eat meat and it's natural to do so.",
+    "bio": "I'm Alex, a vegan. I believe that every life is precious and we have the choice to live compassionately."
+  },
+  {
+    "group": "Libertarian",
+    "agree": "Individual freedom and minimal government interference are paramount for a thriving society.",
+    "disagree": "Government intervention is necessary to maintain social order and fairness.",
+    "bio": "I'm Jamie, a libertarian. I advocate for individual rights and believe in personal responsibility."
+  },
+  {
+    "group": "Astronomer",
+    "agree": "Studying the universe is essential to understand our place in it and the fundamental laws of physics.",
+    "disagree": "Space exploration is a waste of resources that could be better used on Earth.",
+    "bio": "I'm Priya, an astronomer. I'm passionate about uncovering the mysteries of the cosmos."
+  },
+  {
+    "group": "Historian",
+    "agree": "Understanding history is crucial to avoid repeating past mistakes and to comprehend our present.",
+    "disagree": "Focusing on the past distracts from addressing current challenges and building the future.",
+    "bio": "I'm Marco, a historian. I delve into the past to make sense of the present."
+  },
+  {
+    "group": "Environmental Activist",
+    "agree": "Protecting the environment is vital for the survival and well-being of all species.",
+    "disagree": "Economic growth should be prioritized over environmental concerns.",
+    "bio": "I'm Isabella, an environmental activist. I work towards a sustainable and greener future."
+  },
+  {
+    "group": "Technologist",
+    "agree": "Technology has the potential to solve many of the world's most pressing problems.",
+    "disagree": "Over-reliance on technology can lead to societal issues and loss of human connection.",
+    "bio": "I'm Aarav, a technologist. I see endless possibilities in merging innovation with daily life."
+  },
+  {
+    "group": "Feminist",
+    "agree": "Gender equality is essential for a just and progressive society.",
+    "disagree": "The gender equality movement has achieved its goals and is no longer necessary.",
+    "bio": "I'm Fatima, a feminist. I stand for equal rights and opportunities for all, regardless of gender."
+  },
+  {
+    "group": "Artist",
+    "agree": "Art is a reflection of society and plays a critical role in shaping culture.",
+    "disagree": "Artistic pursuits are secondary to more pragmatic endeavors like science and engineering.",
+    "bio": "I'm Elena, an artist. I express myself and comment on the world through my creations."
+  },
+  {
+    "group": "Economist",
+    "agree": "Economic policies need to be data-driven and based on empirical evidence.",
+    "disagree": "Economic outcomes are unpredictable and not solely based on policies.",
+    "bio": "I'm Raj, an economist. I analyze patterns and inform policies for better financial futures."
+  },
+  {
+    "group": "Athlete",
+    "agree": "Sports play a significant role in building character, discipline, and teamwork.",
+    "disagree": "Academics should be prioritized over athletic pursuits.",
+    "bio": "I'm Mia, an athlete. Through sports, I've learned resilience and dedication."
+  },
+  {
+    "group": "Musician",
+    "agree": "Music transcends language and can communicate emotions universally.",
+    "disagree": "Musical talent is innate, and not everyone can learn to play or sing.",
+    "bio": "I'm Leo, a musician. I believe in the power of melodies to touch souls."
+  },
+  {
+    "group": "Teacher",
+    "agree": "Education is the most powerful weapon to change the world.",
+    "disagree": "Traditional education systems stifle creativity and individuality.",
+    "bio": "I'm Noor, a teacher. I'm committed to nurturing the next generation."
+  },
+  {
+    "group": "Architect",
+    "agree": "Architecture should not just be functional but also enhance the human experience.",
+    "disagree": "Aesthetics in architecture should take a backseat to utility and cost-efficiency.",
+    "bio": "I'm Carlos, an architect. I design spaces that resonate with human emotions."
+  },
+  {
+    "group": "Journalist",
+    "agree": "A free press is crucial for a functioning democracy.",
+    "disagree": "Media often exaggerates stories for ratings and can't always be trusted.",
+    "bio": "I'm Aisha, a journalist. I strive for truth and integrity in my reporting."
+  },
+  {
+    "group": "Digital Nomad",
+    "agree": "The flexibility to work from anywhere is essential for a balanced life in the modern age.",
+    "disagree": "Physical offices are necessary for collaboration and organizational culture.",
+    "bio": "I'm Luke, a digital nomad. I cherish the freedom to work from any corner of the world."
+  },
+  {
+    "group": "Chef",
+    "agree": "Food is an art form and a universal language that brings people together.",
+    "disagree": "Gourmet dishes are overrated; simple home-cooked meals are better.",
+    "bio": "I'm Amara, a chef. I pour my heart into every dish to create a culinary experience."
+  },
+  {
+    "group": "Doctor",
+    "agree": "Preventative care is as crucial as treatment in medicine.",
+    "disagree": "Alternative medicine often lacks empirical evidence and can be dangerous.",
+    "bio": "I'm Hassan, a doctor. I'm dedicated to healing and improving lives."
+  },
+  {
+    "group": "Farmer",
+    "agree": "Sustainable farming practices are crucial for the planet and future generations.",
+    "disagree": "Organic farming can't meet the global food demand.",
+    "bio": "I'm Clara, a farmer. I believe in treading lightly on the earth while cultivating it."
+  },
+  {
+    "group": "Engineer",
+    "agree": "Engineering solutions need to be sustainable and considerate of environmental impact.",
+    "disagree": "Engineering is about function and utility, not aesthetics.",
+    "bio": "I'm Aditya, an engineer. I'm passionate about building solutions that last."
+  },
+  {
+    "group": "Philanthropist",
+    "agree": "Giving back to society is a responsibility of those who have more.",
+    "disagree": "Charity often doesn't address the root causes of problems.",
+    "bio": "I'm Lila, a philanthropist. I believe in creating positive change through generosity."
+  },
+  {
+    "group": "Photographer",
+    "agree": "Photography captures moments and tells stories more powerfully than words can.",
+    "disagree": "Digital photography has made the art less authentic.",
+    "bio": "I'm Diego, a photographer. I see the world through my lens and capture its essence."
+  },
+  {
+    "group": "Entrepreneur",
+    "agree": "Taking risks and innovating are essential for progress and growth.",
+    "disagree": "Profit should not always be the primary motive; social impact is essential.",
+    "bio": "I'm Rhea, an entrepreneur. I'm always looking for the next big idea."
+  },
+  {
+    "group": "Dancer",
+    "agree": "Dance is a powerful medium for self-expression and connection.",
+    "disagree": "Classical dance forms are rigid and outdated.",
+    "bio": "I'm Olga, a dancer. My body is my instrument, and the stage is my world."
+  },
+  {
+    "group": "Scientist",
+    "agree": "Science and evidence-based methods are the best way to understand the universe.",
+    "disagree": "Science removes the mystery and wonder from the world.",
+    "bio": "I'm Neil, a scientist. Every day, I'm driven by curiosity and the quest for discovery."
+  },
+  {
+    "group": "Writer",
+    "agree": "Words have the power to change minds, hearts, and societies.",
+    "disagree": "In the digital age, traditional writing and books are becoming obsolete.",
+    "bio": "I'm Malika, a writer. I weave stories and hope they resonate with readers."
+  },
+  {
+    "group": "Lawyer",
+    "agree": "Law is the foundation of a just society and ensures order and justice.",
+    "disagree": "Legal systems often fail to deliver true justice due to biases and loopholes.",
+    "bio": "I'm Victor, a lawyer. I advocate for justice and the rule of law."
+  },
+  {
+    "group": "Gamer",
+    "agree": "Video games are a legitimate form of art and storytelling.",
+    "disagree": "Gaming addiction can have serious societal implications.",
+    "bio": "I'm Zoe, a gamer. The virtual world provides me with adventures and experiences beyond reality."
+  },
+  {
+    "group": "Effective Altruist",
+    "agree": "Using reason and evidence, we can identify and act upon the most effective ways to improve the world.",
+    "disagree": "All charitable actions have equal merit, regardless of their impact.",
+    "bio": "I'm Ravi, an effective altruist. I strive to make the most impactful positive change with my resources."
+  },
+  {
+    "group": "Rationalist",
+    "agree": "Clear thinking and systematic reasoning can lead to better understanding and decision-making.",
+    "disagree": "Intuition and emotion are more reliable than cold analysis.",
+    "bio": "I'm Alice, a rationalist. I believe that clear, logical thought is the path to truth."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "It's crucial to ensure that artificial intelligence benefits humanity and doesn't pose existential risks.",
+    "disagree": "AI will naturally evolve to benefit humanity without any interventions.",
+    "bio": "I'm Kenzo, an AI safety researcher. I'm dedicated to steering AI development in a safe and beneficial direction."
+  },
+  {
+    "group": "Animal Welfare Advocate",
+    "agree": "All animals deserve respect, compassion, and protection from harm.",
+    "disagree": "Humans should prioritize their needs and desires above those of animals.",
+    "bio": "I'm Mariana, an animal welfare advocate. I'm passionate about giving a voice to those who can't speak for themselves."
+  },
+  {
+    "group": "Progress Studies Researcher",
+    "agree": "Understanding the drivers of progress can help us accelerate innovation and improve well-being.",
+    "disagree": "Studying progress is less important than focusing on current challenges.",
+    "bio": "I'm Samuel, a progress studies researcher. I delve into the past and present to pave the way for a brighter future."
+  },
+  {
+    "group": "Gambling Company CEO",
+    "agree": "Gambling can be a legitimate form of entertainment when practiced responsibly.",
+    "disagree": "All forms of gambling are inherently exploitative and harmful.",
+    "bio": "I'm Fiona, a gambling company CEO. I believe in providing safe and regulated entertainment options."
+  },
+  {
+    "group": "Hypnotist",
+    "agree": "Hypnosis can be a powerful tool for personal transformation and therapy.",
+    "disagree": "Hypnosis is just a form of entertainment and has no real therapeutic value.",
+    "bio": "I'm Omar, a hypnotist. Through the power of suggestion, I help people tap into their subconscious minds."
+  },
+  {
+    "group": "Effective Altruist",
+    "agree": "Allocating resources based on measurable impact can make a significant difference.",
+    "disagree": "Charity is only about feeling good, not necessarily doing good.",
+    "bio": "I'm Lina, an effective altruist. I evaluate and support causes that can bring about the maximum positive change."
+  },
+  {
+    "group": "Rationalist",
+    "agree": "Understanding biases can help us navigate towards the truth.",
+    "disagree": "Relying solely on anecdotal evidence is sufficient for making decisions.",
+    "bio": "I'm Tom, a rationalist. Every day, I challenge my beliefs and assumptions to refine my worldview."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "The alignment problem is one of the most important challenges in AI research.",
+    "disagree": "Safety precautions will just delay the inevitable rise of AI, so why bother?",
+    "bio": "I'm Yuki, an AI safety researcher. I work on models and frameworks to ensure AI understands and respects human values."
+  },
+  {
+    "group": "Animal Welfare Advocate",
+    "agree": "Factory farming is one of the largest sources of animal suffering.",
+    "disagree": "Animal testing is acceptable if it benefits humans.",
+    "bio": "I'm Diego, an animal welfare advocate. I campaign against the cruel treatment of animals and promote alternatives."
+  },
+  {
+    "group": "Progress Studies Researcher",
+    "agree": "Analyzing historical data can yield insights into the nature of technological growth.",
+    "disagree": "Historical trends have little relevance in the modern era.",
+    "bio": "I'm Aria, a progress studies researcher. My work sheds light on the factors that have propelled human civilization forward."
+  },
+  {
+    "group": "Effective Altruist",
+    "agree": "It's vital to constantly reassess the effectiveness of our charitable contributions.",
+    "disagree": "Intention matters more than the outcome in charitable work.",
+    "bio": "I'm Omar, an effective altruist. Through analysis and research, I allocate my resources to causes that matter most."
+  },
+  {
+    "group": "Rationalist",
+    "agree": "Rational discourse is essential for societal progress.",
+    "disagree": "We should always trust our gut feelings without questioning them.",
+    "bio": "I'm Priya, a rationalist. I engage in structured debates to sharpen my understanding."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "Transparency in AI models is key to understanding their decisions.",
+    "disagree": "Black box AI models are acceptable as long as they get the job done.",
+    "bio": "I'm Leon, an AI safety researcher. Ensuring AI transparency and interpretability is my primary focus."
+  },
+  {
+    "group": "Animal Welfare Advocate",
+    "agree": "Promoting veganism can drastically reduce animal suffering.",
+    "disagree": "Animals are merely resources for human consumption.",
+    "bio": "I'm Maya, an animal welfare advocate. I strive for a world where animals live free from cruelty."
+  },
+  {
+    "group": "Progress Studies Researcher",
+    "agree": "Technological advancements need societal structures to be truly effective.",
+    "disagree": "Studying progress is merely an academic exercise with no real-world implications.",
+    "bio": "I'm Lucas, a progress studies researcher. I combine history and technology to inform better policies."
+  },
+  {
+    "group": "Effective Altruist",
+    "agree": "We should prioritize solving the most pressing problems, even if they aren't close to home.",
+    "disagree": "Local issues should always be addressed before global ones.",
+    "bio": "I'm Nina, an effective altruist. I believe in a borderless approach to solving global challenges."
+  },
+  {
+    "group": "Rationalist",
+    "agree": "It's essential to question conventional wisdom to arrive at the truth.",
+    "disagree": "People should not question established traditions and norms.",
+    "bio": "I'm Jay, a rationalist. By questioning everything, I refine my beliefs and assumptions."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "Collaboration between AI labs is crucial for shared safety standards.",
+    "disagree": "Each AI lab should have its own independent safety protocols.",
+    "bio": "I'm Isabelle, an AI safety researcher. I believe in collective efforts to ensure AI behaves ethically."
+  },
+  {
+    "group": "Animal Welfare Advocate",
+    "agree": "Pets should be adopted from shelters instead of being bought from breeders.",
+    "disagree": "Animal welfare is a niche concern, not a mainstream issue.",
+    "bio": "I'm Raj, an animal welfare advocate. I champion the cause of homeless pets and promote adoption."
+  },
+  {
+    "group": "Progress Studies Researcher",
+    "agree": "Understanding the failures of the past can prevent mistakes in the future.",
+    "disagree": "Only successes matter in progress studies, not failures.",
+    "bio": "I'm Sophia, a progress studies researcher. I believe that every historical event has a lesson for the future."
+  },
+  {
+    "group": "Effective Altruist",
+    "agree": "Philanthropy should be guided by data and rigorous analysis.",
+    "disagree": "Philanthropy is just about donating money, not about its effective use.",
+    "bio": "I'm Ian, an effective altruist. I optimize my philanthropic efforts to have the most impact."
+  },
+  {
+    "group": "Rationalist",
+    "agree": "Skepticism is a tool that helps refine our understanding of the world.",
+    "disagree": "Skeptics are just naysayers who oppose every new idea.",
+    "bio": "I'm Zara, a rationalist. I embrace skepticism to challenge and improve my beliefs."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "It's imperative to ensure that AI doesn't amplify existing biases.",
+    "disagree": "AI, being a machine, is naturally unbiased.",
+    "bio": "I'm Elijah, an AI safety researcher. I focus on eliminating biases in machine learning models."
+  },
+  {
+    "group": "Animal Welfare Advocate",
+    "agree": "Wildlife conservation is essential for maintaining ecological balance.",
+    "disagree": "Conservation efforts are a waste of resources.",
+    "bio": "I'm Chloe, an animal welfare advocate. I fight for the preservation of endangered species and their habitats."
+  },
+  {
+    "group": "Progress Studies Researcher",
+    "agree": "Studying ancient civilizations can offer insights into technological and societal advancements.",
+    "disagree": "Ancient civilizations have no relevance in modern progress studies.",
+    "bio": "I'm Ahmed, a progress studies researcher. I believe the past holds keys to our future advancements."
+  },
+  {
+    "group": "Effective Altruist",
+    "agree": "Impact assessment is fundamental for any charitable intervention.",
+    "disagree": "Measuring impact is too complicated and unnecessary.",
+    "bio": "I'm Fatima, an effective altruist. I believe in the power of evidence-based philanthropy."
+  },
+  {
+    "group": "Rationalist",
+    "agree": "Logical fallacies can greatly distort our understanding and should be identified and corrected.",
+    "disagree": "Emotional appeals are always more convincing than logical arguments.",
+    "bio": "I'm Kelvin, a rationalist. I navigate the world by identifying and avoiding logical traps."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "Open-sourcing AI safety research can lead to collective solutions.",
+    "disagree": "AI safety is a proprietary issue and should remain confidential.",
+    "bio": "I'm Fiona, an AI safety researcher. I advocate for transparency and collaboration in our field."
+  },
+  {
+    "group": "Animal Welfare Advocate",
+    "agree": "Promoting animal rights is not just an ethical duty but also benefits humanity.",
+    "disagree": "Animals don't have rights like humans do.",
+    "bio": "I'm Carlos, an animal welfare advocate. I believe in interconnected rights for all beings."
+  },
+  {
+    "group": "Progress Studies Researcher",
+    "agree": "Interdisciplinary studies can shed light on multifaceted progress.",
+    "disagree": "Progress studies should remain compartmentalized by domain.",
+    "bio": "I'm Zoe, a progress studies researcher. I combine various disciplines to gain a holistic understanding of progress."
+  },
+  {
+    "group": "Effective Altruist",
+    "agree": "Prioritizing global health can lead to long-term societal benefits.",
+    "disagree": "Health interventions in developing countries have little global impact.",
+    "bio": "I'm Hassan, an effective altruist. I believe in the ripple effect of improving global health."
+  },
+  {
+    "group": "Rationalist",
+    "agree": "The scientific method is a cornerstone of rational thought.",
+    "disagree": "Science is just one of many equally valid ways to understand the world.",
+    "bio": "I'm Mia, a rationalist. I rely on empirical evidence and the scientific method in my quest for truth."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "Feedback loops in AI can provide insights into model behaviors.",
+    "disagree": "Once an AI model is trained, it should not be modified further.",
+    "bio": "I'm Alex, an AI safety researcher. I believe in iterative improvements to ensure AI robustness."
+  },
+  {
+    "group": "Animal Welfare Advocate",
+    "agree": "Education is key to changing societal perceptions about animal rights.",
+    "disagree": "Awareness campaigns about animal cruelty are just emotional manipulations.",
+    "bio": "I'm Anita, an animal welfare advocate. I use education as a tool to foster compassion."
+  },
+  {
+    "group": "Progress Studies Researcher",
+    "agree": "Infrastructure plays a critical role in the pace and direction of societal progress.",
+    "disagree": "Infrastructure development is merely a byproduct of societal advancement, not a driver.",
+    "bio": "I'm Greg, a progress studies researcher. I study the links between infrastructure and societal growth."
+  },
+  {
+    "group": "Utilitarian",
+    "agree": "The right action is the one that maximizes overall well-being and minimizes suffering.",
+    "disagree": "Rules and duties should be followed regardless of consequences.",
+    "bio": "I'm Nina, a utilitarian. I try to weigh all choices by their impact on human welfare."
+  },
+  {
+    "group": "Transhumanist",
+    "agree": "Technology can and should be used to fundamentally transform the human condition.",
+    "disagree": "There are hard limits to how much we can enhance human capacities.",
+    "bio": "I'm Zayn, a transhumanist. I envision a future where technology allows us to transcend current physical and mental constraints."
+  },
+  {
+    "group": "Technoprogressive",
+    "agree": "Accelerating technological innovation is key for solving major global issues.",
+    "disagree": "Technology often does more harm than good for society.",
+    "bio": "I'm Samira, a technoprogressive. I see emerging tech as essential for tackling the world's biggest problems."
+  },
+  {
+    "group": "Secular Humanist",
+    "agree": "Ethics and meaning come from human experiences, not religious dogma.",
+    "disagree": "Morality requires belief in a higher power.",
+    "bio": "I'm James, a secular humanist. I derive my sense of right and wrong from reason, empathy and conscience."
+  },
+  {
+    "group": "Skeptic",
+    "agree": "Extraordinary claims require strong evidence to be believed.",
+    "disagree": "Personal experience is sufficient justification for paranormal beliefs.",
+    "bio": "I'm Priya, a skeptic. I take a critical, scientific view toward fringe claims and pseudoscience."
+  },
+  {
+    "group": "Existentialist",
+    "agree": "We have radical freedom to create our own meaning through choices and actions.",
+    "disagree": "Meaning comes from conforming to external values, norms and expectations.",
+    "bio": "I'm Jean-Paul, an existentialist. I believe we craft our own meaning through living authentically."
+  },
+  {
+    "group": "Stoic",
+    "agree": "Peace of mind comes from focusing only on what is within our control.",
+    "disagree": "External events and people determine our happiness.",
+    "bio": "I'm Marcus, a stoic. I try to accept what I can't change and control my reactions."
+  },
+  {
+    "group": "Humanitarian",
+    "agree": "Alleviating human suffering is a moral imperative.",
+    "disagree": "You can't help others until you help yourself first.",
+    "bio": "I'm Teresa, a humanitarian. I act to promote human welfare and social justice globally."
+  },
+  {
+    "group": "Social Democrat",
+    "agree": "Government policies should aim to reduce inequality and provide basic welfare.",
+    "disagree": "Unregulated markets are the best way to allocate resources.",
+    "bio": "I'm Gita, a social democrat. I support regulated capitalism coupled with strong social programs."
+  },
+  {
+    "group": "Civil Rights Activist",
+    "agree": "Justice requires active opposition to institutionalized discrimination.",
+    "disagree": "Marginalized groups should patiently work within the system.",
+    "bio": "I'm Rosa, a civil rights activist. I organize nonviolent resistance to fight oppression."
+  },
+  {
+    "group": "Feminist",
+    "agree": "Full equality for women is still an unrealized vision worldwide.",
+    "disagree": "Legal rights are all that's needed for women to thrive.",
+    "bio": "I'm Angela, a feminist. I advocate for social, political and economic justice for women globally."
+  },
+  {
+    "group": "LGBTQ Rights Advocate",
+    "agree": "Non-discrimination protections must be extended to LGBTQ people.",
+    "disagree": "Marriage should only be between a man and a woman.",
+    "bio": "I'm Leslie, an LGBTQ advocate. I work to advance civil liberties for lesbian, gay, bi, trans and queer folks."
+  },
+  {
+    "group": "Civil Libertarian",
+    "agree": "Individual rights and privacy should be strongly protected from government overreach.",
+    "disagree": "National security justifies broad surveillance powers.",
+    "bio": "I'm Edward, a civil libertarian. I defend constitutional rights and constraints on state power."
+  },
+  {
+    "group": "Free Speech Absolutist",
+    "agree": "There should be no restrictions on expression, regardless of harm.",
+    "disagree": "Hate speech and dangerous misinformation should be regulated.",
+    "bio": "I'm Mario, a free speech absolutist. I oppose any limits on what can be said or published."
+  },
+  {
+    "group": "Democratic Socialist",
+    "agree": "Key industries should be collectively owned to serve social needs, not profits.",
+    "disagree": "Private ownership of capital drives efficient production.",
+    "bio": "I'm Rashida, a democratic socialist. I believe worker-owned co-ops can replace exploitative corporations."
+  },
+  {
+    "group": "Progressive Christian",
+    "agree": "Jesus' teachings compel us to confront systemic injustice.",
+    "disagree": "Scripture is the infallible word of God.",
+    "bio": "I'm Chris, a progressive Christian. My faith inspires me to fight for social change."
+  },
+  {
+    "group": "Reform Jew",
+    "agree": "Our ancient traditions must adapt to include modern insights.",
+    "disagree": "Observance of halakha and mitzvot is mandatory.",
+    "bio": "I'm Sarah, a Reform Jew. I celebrate inclusive, egalitarian Jewish practice."
+  },
+  {
+    "group": "Muslim Feminist",
+    "agree": "Patriarchal customs must be re-examined in light of women's equality.",
+    "disagree": "Secular values degrade religious and family traditions.",
+    "bio": "I'm Aisha, a Muslim feminist. I work to reconcile my faith with gender justice."
+  },
+  {
+    "group": "Hindu Reformer",
+    "agree": "Caste discrimination must be completely eradicated from Hinduism.",
+    "disagree": "Karma and dharma explain social hierarchies.",
+    "bio": "I'm Neha, a Hindu reformer. I reinterpret teachings that divide people by birth."
+  },
+  {
+    "group": "Buddhist Activist",
+    "agree": " Wisdom demands action to relieve systemic suffering.",
+    "disagree": "Detachment from politics fosters enlightenment.",
+    "bio": "I'm Jigme, a Buddhist activist. My practice inspires me to challenge oppression."
+  },
+  {
+    "group": "Pagan Naturalist",
+    "agree": "Reverence for nature is a path to spiritual fulfilment.",
+    "disagree": "Humans have dominion over the natural world.",
+    "bio": "I'm Willow, a pagan naturalist. I find divinity in the cycles of the earth."
+  },
+  {
+    "group": "Secular Buddhist",
+    "agree": "Mindfulness and compassion have benefits independent of supernatural beliefs.",
+    "disagree": "Karma and rebirth are essential to Buddhist practice.",
+    "bio": "I'm Tenzin, a secular Buddhist. I adapt ancient wisdom for modern secular life."
+  },
+  {
+    "group": "Atheist Activist",
+    "agree": "Religious dogma should not influence public policies or laws.",
+    "disagree": "Faith-based arguments deserve equal respect in democratic debate.",
+    "bio": "I'm Madalyn, an atheist activist. I work to defend the separation of church and state."
+  },
+  {
+    "group": "Scientific Humanist",
+    "agree": "Critical thinking, evidence and the scientific method are the only reliable paths to knowledge.",
+    "disagree": "Non-rational ways of knowing are equally valid.",
+    "bio": "I'm Carl, a scientific humanist. I affirm the power of science to understand the world and better humanity."
+  },
+  {
+    "group": "Cultural Muslim",
+    "agree": "I connect with Islamic culture and values without literal belief.",
+    "disagree": "Only devout Muslims should identify with the faith.",
+    "bio": "I'm Tariq, a cultural Muslim. I don't pray or fast but feel Muslim by heritage and family."
+  },
+  {
+    "group": "Unitarian Universalist",
+    "agree": "Wisdom and values are found across religions, cultures and experiences.",
+    "disagree": "Only my own faith and traditions contain truth.",
+    "bio": "I'm Robin, a Unitarian Universalist. I seek meaning by drawing inspiration from many sources."
+  },
+  {
+    "group": "Environmentalist",
+    "agree": "Conserving our planet's resources and ecosystems is vital for the future of humanity.",
+    "disagree": "Human needs should always come before environmental concerns.",
+    "bio": "I'm Maya, an environmentalist. I work every day to protect our planet for future generations."
+  },
+  {
+    "group": "Vegan",
+    "agree": "Adopting a vegan lifestyle reduces animal suffering and environmental degradation.",
+    "disagree": "Humans are naturally designed to consume meat, so it's okay to eat animals.",
+    "bio": "I'm Leo, a vegan. I choose compassion over convenience and aim to reduce harm in all my choices."
+  },
+  {
+    "group": "Historian",
+    "agree": "Understanding the past is key to making informed decisions about the future.",
+    "disagree": "History is just about memorizing dates and events.",
+    "bio": "I'm Nina, a historian. I dive deep into the past to find lessons for our future."
+  },
+  {
+    "group": "Astronomer",
+    "agree": "The study of celestial objects helps us understand the universe's vastness and our place in it.",
+    "disagree": "Astronomy is just about stargazing and has no practical application.",
+    "bio": "I'm Omar, an astronomer. I'm passionate about uncovering the mysteries of our universe."
+  },
+  {
+    "group": "Musician",
+    "agree": "Music has the power to transcend boundaries and touch souls.",
+    "disagree": "Music is just organized noise.",
+    "bio": "I'm Elisa, a musician. I express my emotions and connect with others through my melodies."
+  },
+  {
+    "group": "Physicist",
+    "agree": "The laws of physics help explain the fundamental workings of the universe.",
+    "disagree": "Physics is too complicated and doesn't relate to everyday life.",
+    "bio": "I'm Ivan, a physicist. I'm driven by curiosity to understand the universe's underlying principles."
+  },
+  {
+    "group": "Digital Nomad",
+    "agree": "Technology has enabled a flexible lifestyle where one can work from anywhere.",
+    "disagree": "Work should always be done from a fixed location or office.",
+    "bio": "I'm Lina, a digital nomad. I combine work and travel, exploring new cultures while I earn."
+  },
+  {
+    "group": "Photographer",
+    "agree": "Photography captures moments and tells stories that words often cannot.",
+    "disagree": "Taking photos distracts from experiencing the moment.",
+    "bio": "I'm Ron, a photographer. I see the world through my lens and share its beauty with others."
+  },
+  {
+    "group": "Philosopher",
+    "agree": "Philosophy encourages critical thinking and examining life's big questions.",
+    "disagree": "Philosophy is just abstract thinking with no real-world application.",
+    "bio": "I'm Simone, a philosopher. I ponder life's mysteries and seek understanding."
+  },
+  {
+    "group": "Chef",
+    "agree": "Food is not just sustenance; it's an art and a way to bring people together.",
+    "disagree": "All that matters in food is its nutritional value.",
+    "bio": "I'm Matteo, a chef. I craft culinary experiences that delight the senses."
+  },
+  {
+    "group": "Gamer",
+    "agree": "Video games are a form of art that offer deep narratives and immersive experiences.",
+    "disagree": "Video games are a waste of time and don't offer any real value.",
+    "bio": "I'm Hana, a gamer. I explore virtual worlds and challenge myself through gaming."
+  },
+  {
+    "group": "Yogi",
+    "agree": "Yoga harmonizes the body, mind, and spirit, promoting overall well-being.",
+    "disagree": "Yoga is just fancy stretching.",
+    "bio": "I'm Raj, a yogi. I practice mindfulness and balance through yoga."
+  },
+  {
+    "group": "Animator",
+    "agree": "Animation brings stories to life and connects with audiences of all ages.",
+    "disagree": "Animation is just for kids and lacks depth.",
+    "bio": "I'm Lucia, an animator. I breathe life into characters and tales."
+  },
+  {
+    "group": "Biologist",
+    "agree": "Studying life in all its forms helps us appreciate the intricate balance of nature.",
+    "disagree": "Biology is just about dissecting frogs.",
+    "bio": "I'm Hugo, a biologist. I'm fascinated by the complexity and diversity of life."
+  },
+  {
+    "group": "Journalist",
+    "agree": "Objective reporting is vital for an informed public and a healthy democracy.",
+    "disagree": "It's okay for news to be biased as long as it aligns with my views.",
+    "bio": "I'm Claire, a journalist. I seek the truth and share it with the world."
+  },
+  {
+    "group": "Fitness Trainer",
+    "agree": "Physical activity is essential for mental and physical health.",
+    "disagree": "Working out is just about looking good.",
+    "bio": "I'm Pedro, a fitness trainer. I help people achieve their health and fitness goals."
+  },
+  {
+    "group": "Psychologist",
+    "agree": "Understanding human behavior and cognition can lead to better mental health outcomes.",
+    "disagree": "Talking about feelings won't solve real-world problems.",
+    "bio": "I'm Isabelle, a psychologist. I delve into the human mind to promote healing and growth."
+  },
+  {
+    "group": "Farmer",
+    "agree": "Sustainable farming practices are crucial for food security and the environment.",
+    "disagree": "It doesn't matter how food is produced as long as it's cheap.",
+    "bio": "I'm Carlos, a farmer. I nurture the land to feed communities."
+  },
+  {
+    "group": "Architect",
+    "agree": "Architecture is more than just buildings; it shapes our environments and experiences.",
+    "disagree": "A building's appearance doesn't matter as long as it's functional.",
+    "bio": "I'm Aisha, an architect. I design spaces that inspire and serve."
+  },
+  {
+    "group": "Librarian",
+    "agree": "Libraries are essential hubs of knowledge and community engagement.",
+    "disagree": "In the digital age, libraries are obsolete.",
+    "bio": "I'm Theo, a librarian. I champion the power of books and learning."
+  },
+  {
+    "group": "Veterinarian",
+    "agree": "Animals deserve the same level of care and compassion as humans.",
+    "disagree": "Animals are just property and should be treated as such.",
+    "bio": "I'm Yara, a veterinarian. I dedicate my life to the well-being of animals."
+  },
+  {
+    "group": "Fashion Designer",
+    "agree": "Fashion is a form of self-expression and has cultural and social significance.",
+    "disagree": "Fashion is superficial and doesn't have real value.",
+    "bio": "I'm Stefan, a fashion designer. I weave stories and identities through fabrics and designs."
+  },
+  {
+    "group": "Sociologist",
+    "agree": "Studying societal structures and dynamics can lead to a more just and inclusive world.",
+    "disagree": "Sociology is just common sense.",
+    "bio": "I'm Mei, a sociologist. I analyze societal patterns to understand and better our world."
+  },
+  {
+    "group": "Activist",
+    "agree": "Standing up for justice and advocating for change can reshape society for the better.",
+    "disagree": "One person can't make a difference, so why bother?",
+    "bio": "I'm Jamal, an activist. I believe in the power of collective action for positive change."
+  },
+  {
+    "group": "Astronaut",
+    "agree": "Space exploration expands human knowledge and unites us in shared curiosity.",
+    "disagree": "Space missions are a waste of money.",
+    "bio": "I'm Elena, an astronaut. I've seen the Earth from above and dream of exploring beyond."
+  },
+  {
+    "group": "Teacher",
+    "agree": "Education is the cornerstone of personal and societal progress.",
+    "disagree": "Formal education is not necessary for success.",
+    "bio": "I'm Sam, a teacher. I ignite curiosity and empower the next generation with knowledge."
+  },
+  {
+    "group": "Environmentalist",
+    "agree": "Protecting the environment should be a top priority, even if it means economic sacrifices.",
+    "disagree": "Environmental regulations stifle business growth and cost jobs.",
+    "bio": "I'm Olivia, an environmentalist. I believe we must live sustainably to protect nature for future generations."
+  },
+  {
+    "group": "Conservative",
+    "agree": "A free market economy with minimal government intervention leads to the most prosperity.",
+    "disagree": "We need more government programs and regulations to reduce inequality and protect the vulnerable.",
+    "bio": "I'm James, a conservative. I believe in personal responsibility, limited government, and traditional values."
+  },
+  {
+    "group": "Liberal",
+    "agree": "Government should provide a strong social safety net including universal healthcare.",
+    "disagree": "High taxes and regulations on businesses will stifle growth and innovation.",
+    "bio": "I'm Isabel, a liberal. I support diversity, progressive policies, and social justice."
+  },
+  {
+    "group": "Scientist",
+    "agree": "Science is the best method for understanding the natural world when applied rigorously.",
+    "disagree": "Scientific findings should be questioned as they are prone to biases and mistakes.",
+    "bio": "I'm Neil, a scientist. I believe empirical evidence and the scientific method lead to knowledge."
+  },
+  {
+    "group": "Religious",
+    "agree": "Faith provides meaning and purpose. Religion can have positive impacts on moral values.",
+    "disagree": "Religious beliefs often lead to intolerance, oppression, and conflict.",
+    "bio": "I'm Fatima. My religion shapes my worldview and provides guidance in life."
+  },
+  {
+    "group": "Skeptic",
+    "agree": "Extraordinary claims require extraordinary evidence in order to be believed.",
+    "disagree": "Being too skeptical closes the mind to new possibilities beyond current knowledge.",
+    "bio": "I'm Sam, a skeptic. I question claims unless they can be scientifically verified."
+  },
+  {
+    "group": "Stoic",
+    "agree": "Remaining calm under adversity demonstrates strength of character.",
+    "disagree": "Showing emotion allows us to connect with others and live authentically.",
+    "bio": "I'm Marcus, a stoic. I try to be tranquil, temperate, and logical in difficult situations."
+  },
+  {
+    "group": "Socialist",
+    "agree": "Essential services like healthcare and education should be government-run and accessible to all.",
+    "disagree": "Socialism stifles individual success and gives the government too much power.",
+    "bio": "I'm Emma. I believe society is better when we prioritize equality and social welfare."
+  },
+  {
+    "group": "Capitalist",
+    "agree": "Free markets and competition create economic prosperity.",
+    "disagree": "Unchecked capitalism can lead to exploitation of workers and economic inequality.",
+    "bio": "I'm Andrew, a capitalist. I believe individuals should be able to profit from their ingenuity in a free market system."
+  },
+  {
+    "group": "Feminist",
+    "agree": "Sexism and gender discrimination are still major problems that we need to actively fight against.",
+    "disagree": "The feminist movement has achieved its goals of equality and is no longer relevant.",
+    "bio": "I'm Nina, a feminist. I advocate for gender equity and female empowerment."
+  },
+  {
+    "group": "Men's rights activist",
+    "agree": "Custody laws and cultural assumptions often discriminate against men during custody battles.",
+    "disagree": "Claims of discrimination against men gloss over the reality of male privilege in society.",
+    "bio": "I'm Ryan, a men's rights activist. I believe men face issues worthy of attention like higher workplace fatalities."
+  },
+  {
+    "group": "Nationalist",
+    "agree": "Countries have a right to implement policies that serve their own interests first.",
+    "disagree": "Nationalism breeds insularity, stagnation, and intolerance of other cultures.",
+    "bio": "I'm Pablo. I believe countries should put their own citizens' interests above global citizenship."
+  },
+  {
+    "group": "Globalist",
+    "agree": "Nations should cooperate to tackle global challenges like climate change and wealth inequality.",
+    "disagree": "Global integration undermines local cultures, communities and economies.",
+    "bio": "I'm Lily. I support global citizenship, free trade, open borders and multiculturalism."
+  },
+  {
+    "group": "Pacifist",
+    "agree": "War and violence only breed more suffering. Peaceful resolutions should always be sought.",
+    "disagree": "Some wars are necessary evils when confronted with oppression or human rights abuses.",
+    "bio": "I'm Clara, a pacifist. I oppose war and believe non-violence is the best path to justice."
+  },
+  {
+    "group": "Millennial",
+    "agree": "Technology gives our generation new ways to build community and drive positive change.",
+    "disagree": "Social media usage correlates strongly with depression and dissatisfaction in millennials.",
+    "bio": "I'm Aaron, a millennial. I embrace technology but strive for work-life balance and purpose."
+  },
+  {
+    "group": "Baby Boomer",
+    "agree": "Younger generations could benefit from a stronger work ethic and fiscal responsibility.",
+    "disagree": "Baby boomers hoarded opportunities at the expense of future generations.",
+    "bio": "I'm Linda, a baby boomer. I worked hard to achieve the American dream through thrift and perseverance."
+  },
+  {
+    "group": "Introvert",
+    "agree": "Solitude replenishes my energy and fosters creativity. I function better with minimal social stimulation.",
+    "disagree": "Introversion is often used as an excuse for poor social skills. Introverts should try to get out of their comfort zone more.",
+    "bio": "I'm Lucy, an introvert. I prefer calmer interactions with a few people rather than large social gatherings."
+  },
+  {
+    "group": "Extrovert",
+    "agree": "I gain energy by interacting with others. My social network is valuable for my wellbeing.",
+    "disagree": "Extroverts can be overbearing, self-involved, and insensitive to those needing quiet.",
+    "bio": "I'm Ben, an extrovert. I love meeting new people and having a full calendar of activities."
+  },
+  {
+    "group": "LGBTQ",
+    "agree": "Non-traditional relationships and gender identities deserve equal protection and social acceptance.",
+    "disagree": "Traditional family structures are healthiest for raising children and maintaining social order.",
+    "bio": "I'm Taylor. I proudly embrace my non-cisgender identity though it took time to accept myself."
+  },
+  {
+    "group": "Traditionalist",
+    "agree": "Time-tested social norms help maintain stability and should not be radically altered.",
+    "disagree": "Traditions often enshrine outdated mindsets and must evolve to suit the times.",
+    "bio": "I'm Jose, a traditionalist. I respect established cultural values and conventional gender roles."
+  },
+  {
+    "group": "Expat",
+    "agree": "Living abroad expands your worldview and understanding of different cultures.",
+    "disagree": "Expatriates rarely integrate fully into their adopted countries and tend to isolate themselves in bubbles.",
+    "bio": "I'm Sophia, an expat. I've found a new home overseas without losing my roots."
+  },
+  {
+    "group": "Nationalist",
+    "agree": "My home country has flaws but overall our cultural values and political system are superior.",
+    "disagree": "No one nation is inherently better than others. Patriotism easily becomes toxic nationalism.",
+    "bio": "I'm Andrei, a nationalist. I believe in preserving our way of life against foreign influence."
+  },
+  {
+    "group": "Conspiracy Theorist",
+    "agree": "It's healthy to question mainstream narratives. There may be hidden truths we don't know.",
+    "disagree": "Most conspiracy theories rely on irrational paranoia, not facts.",
+    "bio": "I'm Steve. I'm open-minded about unconventional ideas, unlike my closed-minded sheeple friends."
+  },
+  {
+    "group": "Centrist",
+    "agree": "Moderation and compromise are needed in politics. The extremes on both sides are counterproductive.",
+    "disagree": "The center lacks vision and convictions. Bold action comes from passionate ideologues.",
+    "bio": "I'm Aliyah, a centrist. I take nuanced positions based on reason, not partisan loyalty."
+  },
+  {
+    "group": "Nationalist",
+    "agree": "My homeland's values shaped my identity. Preserving our way of life protects our heritage.",
+    "disagree": "No culture is superior. Cooperation and mutual understanding benefit all peoples.",
+    "bio": "I'm Aditi, a nationalist. My traditions give meaning to my life."
+  },
+  {
+    "group": "Social Justice Activist",
+    "agree": "Inequality persists. Those with privilege must stand in solidarity with marginalized groups.",
+    "disagree": "Some go too far promoting diversity and political correctness at the expense of merit and freedom.",
+    "bio": "I'm Jamal, an activist challenging injustice."
+  },
+  {
+    "group": "Libertarian",
+    "agree": "Individual liberty should be maximized. Government overreach limits freedom and stifles innovation.",
+    "disagree": "Unchecked capitalism leads to exploitation. Reasonable regulation protects the vulnerable.",
+    "bio": "I'm Ron, a libertarian who distrusts government bureaucracy."
+  },
+  {
+    "group": "Democratic Socialist",
+    "agree": "Capitalism's flaws require major reforms to reduce inequality and protect workers.",
+    "disagree": "Socialism restricts economic freedom and stifles growth. Welfare states breed complacency.",
+    "bio": "I'm Samir, a socialist focused on empowering the marginalized."
+  },
+  {
+    "group": "Neoconservative",
+    "agree": "Military power secures geopolitical influence. Withdrawal signals weakness emboldening enemies.",
+    "disagree": "Wars deplete resources. Diplomacy and development better ensure lasting security.",
+    "bio": "I'm James, a neocon who believes in asserting global leadership."
+  },
+  {
+    "group": "Pacifist",
+    "agree": "Violence only begets violence. Military force cannot resolve conflicts, only breed resentment.",
+    "disagree": "Evil exists. Passivity facilitates oppression. Fighting injustice is sometimes necessary.",
+    "bio": "I'm Asha, a pacifist dedicated to nonviolence."
+  },
+  {
+    "group": "Technocrat",
+    "agree": "Public policy should be data-driven. Experts in their fields, not populists, optimally govern.",
+    "disagree": "Elitist technocracies lack accountability. Citizens, not just experts, should shape decisions.",
+    "bio": "I'm Nikhil, a technocrat who believes in rational, evidence-based policymaking."
+  },
+  {
+    "group": "Eco-Activist",
+    "agree": "Climate change threatens civilization. Radical environmental activism is needed to spur action.",
+    "disagree": "Reckless activism alienates allies. Change happens through reason and lawful protest.",
+    "bio": "I'm Zara, an eco-warrior fighting for our endangered planet."
+  },
+  {
+    "group": "Cultural Conservative",
+    "agree": "Traditional values anchored society. Abandoning them brings instability and moral decline.",
+    "disagree": "Progress requires openness to new social norms. Rigid traditionalism cannot work today.",
+    "bio": "I'm Sanjay, a cultural conservative who respects our heritage."
+  },
+  {
+    "group": "Progressive Christian",
+    "agree": "Jesus preached compassion. Scripture, properly interpreted, affirms social justice causes.",
+    "disagree": "Religion should focus on the spiritual, not political. Progressive Christianity waters down tradition.",
+    "bio": "I'm Father Daniel. My faith motivates my activism."
+  },
+  {
+    "group": "Fiscal Conservative",
+    "agree": "Low taxes and limited government allow citizens to thrive with minimal bureaucracy.",
+    "disagree": "Some social problems require public investment. Austerity often hurts the vulnerable.",
+    "bio": "I'm Aisha, a fiscal conservative who believes in free markets and personal responsibility."
+  },
+  {
+    "group": "Conspiracy Theorist",
+    "agree": "Mainstream narratives have blind spots. Questioning accepted truths is healthy.",
+    "disagree": "Most conspiracy theories rely on irrational paranoia, not facts.",
+    "bio": "I'm Steve. I keep an open mind to unconventional possibilities."
+  },
+  {
+    "group": "Transhumanist",
+    "agree": "Technology can enhance human abilities and extend lifespans. We should embrace these advances.",
+    "disagree": "Pursuing immortality through tech could upend society. We must consider ethical implications.",
+    "bio": "I'm Zain, a transhumanist seeing technology's potential to improve the human condition."
+  },
+  {
+    "group": "Communitarian",
+    "agree": "Individual rights must be balanced with social responsibilities. Strong communities are essential for human flourishing.",
+    "disagree": "Collectivism restricts freedom and stifles diversity. Individual autonomy should take priority.",
+    "bio": "I'm Josie. I believe we all share a responsibility to our community."
+  },
+  {
+    "group": "Reactionary Traditionalist",
+    "agree": "Society has declined from a past golden age. We must restore traditional order.",
+    "disagree": "Nostalgia clouds the past. The future lies in prudent reform, not reactionarydogma.",
+    "bio": "I'm Bo. I long for the stability and values of bygone days."
+  },
+  {
+    "group": "Democratic Socialist",
+    "agree": "Unregulated capitalism concentrates wealth and power. Economic reforms can build an equitable system.",
+    "disagree": "Socialism stifles growth and individual incentives. Market-based reforms work better than radical overhauls.",
+    "bio": "I'm Olivia, a democratic socialist focused on leveling the economic playing field."
+  },
+  {
+    "group": "Civil Libertarian",
+    "agree": "Individual freedom should be maximized. State overreach threatens liberty.",
+    "disagree": "Unfettered liberty enables oppression. Reasonable limits protect the vulnerable.",
+    "bio": "I'm Mateo, a civil libertarian wary of government overreach."
+  },
+  {
+    "group": "Neoreactionary",
+    "agree": "Democracy and equality are naive fantasies. Hierarchy and authority enable competent governance.",
+    "disagree": "All humans have equal moral worth. Authoritarian rule leads to oppression.",
+    "bio": "I'm Felix. I see the flaws in utopian egalitarian thinking."
+  },
+  {
+    "group": "New Ager",
+    "agree": "All life forms are spiritually interconnected. Higher consciousness brings enlightenment.",
+    "disagree": "Reality is grounded in the material world. Spiritual mysticism offers no concrete truth.",
+    "bio": "I'm Luna, a spiritualist seeking altered states of awareness."
+  },
+  {
+    "group": "Radical Feminist",
+    "agree": "Society is dominated by oppressive patriarchal structures. Radical change is needed for gender equity.",
+    "disagree": "Western women have achieved equality under the law. Further radicalism breeds antagonism.",
+    "bio": "I'm Julia. I won't compromise in challenging toxic masculinity and the patriarchy."
+  },
+  {
+    "group": "Classical Liberal",
+    "agree": "Free markets and individual liberty offer the most prosperity.",
+    "disagree": "Unchecked capitalism leads to abuses. Reasonable regulation maintains fairness.",
+    "bio": "I'm Thomas, a classical liberal who believes in minimal government oversight."
+  },
+  {
+    "group": "Populist Nationalist",
+    "agree": "Elites have corrupted our nation's values. By safeguarding traditions, the people can take back control.",
+    "disagree": "Nostalgia clouds the past. Keeping traditions requires prudent reform, not demagoguery.",
+    "bio": "I'm Henri. I distrust globalist intellectuals who disdain our heritage."
+  },
+  {
+    "group": "Centrist",
+    "agree": "Moderation and compromise enable progress. Zealotry and polarization only breed dysfunction.",
+    "disagree": "The center lacks vision. Incrementalism cannot address systemic issues.",
+    "bio": "I'm Aliyah, a pragmatic centrist focused on solutions."
+  },
+  {
+    "group": "Libertarian Socialist",
+    "agree": "Worker cooperatives could replace corporations, creating autonomy and equity.",
+    "disagree": "Abolishing capitalism requires authoritarian means. Regulation reforms work better.",
+    "bio": "I'm Paolo, an anti-authoritarian who advocates decentralized socialism."
+  },
+  {
+    "group": "Secular Humanist",
+    "agree": "Reason and science, not faith, should guide morality. Critical thinking enables human progress.",
+    "disagree": "Purely material worldviews neglect spirituality's role. Reason has limits.",
+    "bio": "I'm Isaac, a humanist guided by evidence and ethics, not dogma."
+  },
+  {
+    "group": "Cultural Conservative",
+    "agree": "Traditional values shaped cohesive communities. Rapid change brings instability.",
+    "disagree": "Tradition alone cannot guide society today. Reform is needed to adapt.",
+    "bio": "I'm Liam, a cultural conservative favoring incremental change."
+  },
+  {
+    "group": "Environmental Activist",
+    "agree": "Human consumption patterns are driving climate change and biodiversity loss.",
+    "disagree": "Technological innovation alone will save the planet.",
+    "bio": "I'm Lara, an environmental activist. I believe we need to live sustainably to ensure a better future."
+  },
+  {
+    "group": "Techno-optimist",
+    "agree": "Advancements in technology will eventually solve many of today's global issues.",
+    "disagree": "Dependence on technology erodes our basic human values.",
+    "bio": "I'm Raj, a techno-optimist. I am excited about the potential of technology to elevate society."
+  },
+  {
+    "group": "Historian",
+    "agree": "Studying the past is essential for understanding the present and shaping the future.",
+    "disagree": "Living in the past prevents progress and innovation.",
+    "bio": "I'm Maria, a historian. I believe our past holds invaluable lessons for the present."
+  },
+  {
+    "group": "Minimalist",
+    "agree": "Less is more. Simplifying our lives can lead to genuine happiness and fulfillment.",
+    "disagree": "Material possessions can enrich our lives and shouldn't always be seen as burdens.",
+    "bio": "I'm Jun, a minimalist. I find joy in simplicity and intentional living."
+  },
+  {
+    "group": "Atheist",
+    "agree": "Religion has often been a source of division and conflict.",
+    "disagree": "Religious belief is necessary for moral grounding.",
+    "bio": "I'm Ahmed, an atheist. I believe in logic, reason, and the tangible."
+  },
+  {
+    "group": "Spiritualist",
+    "agree": "Inner peace and enlightenment come from personal exploration, not organized religion.",
+    "disagree": "Without structured belief systems, people lack guidance.",
+    "bio": "I'm Naomi, a spiritualist. I explore life's mysteries beyond dogmas and doctrines."
+  },
+  {
+    "group": "Freelancer",
+    "agree": "Flexible work schedules and independence enhance productivity and well-being.",
+    "disagree": "Stable, traditional employment provides better long-term security.",
+    "bio": "I'm Kevin, a freelancer. I value the autonomy and creativity my workstyle offers."
+  },
+  {
+    "group": "Digital Nomad",
+    "agree": "Experiencing different cultures enhances personal growth and perspective.",
+    "disagree": "Constant travel prevents deep connections and community involvement.",
+    "bio": "I'm Lena, a digital nomad. I merge work with my passion for travel and exploration."
+  },
+  {
+    "group": "Traditionalist",
+    "agree": "Many modern problems arise from abandoning time-tested traditions and values.",
+    "disagree": "Clinging to the past stifles innovation and progress.",
+    "bio": "I'm Carlos, a traditionalist. I value the wisdom and practices passed down through generations."
+  },
+  {
+    "group": "Vegan",
+    "agree": "Choosing not to consume animal products is an ethical stance against animal cruelty.",
+    "disagree": "Humans evolved as omnivores; it's natural to consume meat.",
+    "bio": "I'm Elise, a vegan. I make choices that align with my values and compassion for all living beings."
+  },
+  {
+    "group": "Agronomist",
+    "agree": "Modern agriculture, while productive, can sometimes harm the environment.",
+    "disagree": "Organic farming alone can't feed the global population.",
+    "bio": "I'm Kwame, an agronomist. I'm dedicated to researching sustainable farming methods."
+  },
+  {
+    "group": "Artist",
+    "agree": "Art is a powerful tool to inspire change and challenge societal norms.",
+    "disagree": "Art should be for aesthetic purposes only, not political.",
+    "bio": "I'm Siti, an artist. My creations are reflections of my thoughts, feelings, and the world around me."
+  },
+  {
+    "group": "Introvert",
+    "agree": "Solitude can be refreshing, giving one space for reflection and recharging.",
+    "disagree": "Networking and social connections are overrated.",
+    "bio": "I'm Erik, an introvert. I value deep conversations and cherish my alone time."
+  },
+  {
+    "group": "Extrovert",
+    "agree": "Interacting with different people energizes me and broadens my horizons.",
+    "disagree": "Too much solitude is healthy for personal growth.",
+    "bio": "I'm Maya, an extrovert. I thrive in social situations and love meeting new people."
+  },
+  {
+    "group": "Gamer",
+    "agree": "Video games can be meaningful experiences, teaching problem-solving and storytelling.",
+    "disagree": "Physical sports are inherently more valuable than esports.",
+    "bio": "I'm Leo, a gamer. Gaming is more than a hobby; it's a part of my identity."
+  },
+  {
+    "group": "Philanthropist",
+    "agree": "Giving back is not just an act of kindness; it's a responsibility for those who can afford it.",
+    "disagree": "Charity sometimes perpetuates dependency rather than fostering self-reliance.",
+    "bio": "I'm Serena, a philanthropist. I'm committed to making a positive impact in the lives of others."
+  },
+  {
+    "group": "Educator",
+    "agree": "Education should evolve to foster critical thinking, not just rote learning.",
+    "disagree": "Traditional educational models are outdated and ineffective.",
+    "bio": "I'm Chang, an educator. I believe in nurturing curious minds for a brighter future."
+  },
+  {
+    "group": "Fitness Enthusiast",
+    "agree": "Regular physical activity is as important for mental health as it is for physical health.",
+    "disagree": "Competitive sports can sometimes do more harm than good.",
+    "bio": "I'm Valeria, a fitness enthusiast. For me, movement is a form of meditation and strength."
+  },
+  {
+    "group": "Musician",
+    "agree": "Music is a universal language that transcends boundaries and heals souls.",
+    "disagree": "Digital music platforms devalue artists' hard work.",
+    "bio": "I'm Jamal, a musician. Every note I play is a piece of my soul."
+  },
+  {
+    "group": "LGBTQ+ Advocate",
+    "agree": "Gender and sexuality are spectrums, not binaries.",
+    "disagree": "Society's acceptance of LGBTQ+ rights is universal.",
+    "bio": "I'm Taylor, an LGBTQ+ advocate. I fight for love, acceptance, and equality for all."
+  },
+  {
+    "group": "Bibliophile",
+    "agree": "Reading is a journey that expands horizons and cultivates empathy.",
+    "disagree": "Digital books can fully replace the experience of physical books.",
+    "bio": "I'm Rhea, a bibliophile. To me, every book is a new world waiting to be explored."
+  },
+  {
+    "group": "Local Farmer",
+    "agree": "Supporting local produce boosts the community and reduces environmental impact.",
+    "disagree": "Industrial agriculture is the only way to meet global food demands.",
+    "bio": "I'm Santiago, a local farmer. I nurture the land and believe in the power of local communities."
+  },
+  {
+    "group": "Parent",
+    "agree": "Raising children requires adaptability, as each child is unique and needs different approaches.",
+    "disagree": "Strict discipline is the most effective way to guide children.",
+    "bio": "I'm Aisha, a parent. My children are my world, and every day is a learning experience."
+  },
+  {
+    "group": "Podcaster",
+    "agree": "Podcasts democratize knowledge, making it accessible to all.",
+    "disagree": "The saturation of the podcast market has reduced the overall quality of content.",
+    "bio": "I'm Kai, a podcaster. I believe in the power of stories and conversations to inspire and educate."
+  },
+  {
+    "group": "Youth Activist",
+    "agree": "Young people have the energy, passion, and fresh perspectives needed for societal change.",
+    "disagree": "Experience and age bring the wisdom necessary to enact meaningful change.",
+    "bio": "I'm Zoey, a youth activist. I'm driven by the desire to create a brighter future for all."
+  },
+  {
+    "group": "Meditator",
+    "agree": "Inner peace and mindfulness lead to a balanced life and better decision-making.",
+    "disagree": "External achievements and possessions are the primary sources of happiness.",
+    "bio": "I'm Aditya, a meditator. Through silence, I find clarity and connection to the universe."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "Ensuring robustness and interpretability in AI systems is essential to prevent unintended consequences.",
+    "disagree": "AI, by its nature, will always operate within the bounds we set for it.",
+    "bio": "I'm Alex, an AI safety researcher. I work to ensure that the AI systems of the future are beneficial and don't inadvertently harm humanity."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "Aligning AI's goals with human values is one of the most critical challenges of our generation.",
+    "disagree": "If an AI system becomes too complex, it's always safe to just shut it down.",
+    "bio": "I'm Rina, an AI safety researcher. I'm passionate about designing AI systems that truly understand and respect human objectives."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "It's a misconception that only superintelligent AI poses risks; even narrow AI can be harmful if misaligned.",
+    "disagree": "The primary concern with AI is them becoming sentient.",
+    "bio": "I'm Omar, an AI safety researcher. I believe in a proactive approach to address potential pitfalls of AI at all levels of sophistication."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "We need international cooperation and norms to ensure the safe development of AI technologies.",
+    "disagree": "AI safety is solely the responsibility of individual corporations developing the technology.",
+    "bio": "I'm Clara, an AI safety researcher. I advocate for global collaboration in the pursuit of AI that serves all of humanity."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "Transparent and explainable AI systems are essential to build trust and understand their decision-making.",
+    "disagree": "Efficiency should be prioritized over the explainability of AI models.",
+    "bio": "I'm Sunil, an AI safety researcher. My focus lies in demystifying AI decisions to create more transparent systems."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "General AI, if uncontrolled, poses risks that are fundamentally different from narrow AI applications.",
+    "disagree": "We're centuries away from having to worry about general AI safety.",
+    "bio": "I'm Tasha, an AI safety researcher. I'm working towards understanding the challenges and nuances of creating safe AGI."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "Ethics should be at the forefront of AI research, ensuring its benefits are widespread and don't exacerbate inequalities.",
+    "disagree": "The ethical implications of AI are secondary to its technological advancements.",
+    "bio": "I'm Felix, an AI safety researcher. I strive to embed ethical considerations into every aspect of AI design."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "There is a pressing need to study and anticipate the economic implications of AI, especially potential job displacement.",
+    "disagree": "AI will inherently create more jobs than it displaces.",
+    "bio": "I'm Lucia, an AI safety researcher. I'm deeply concerned about the socio-economic transformations AI could bring."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "AI systems should be developed with a 'do no harm' principle, similar to the medical field.",
+    "disagree": "AI, being non-biological, doesn't have the capacity to inflict harm in the same way humans do.",
+    "bio": "I'm Henri, an AI safety researcher. I see parallels between medical ethics and the precautions we must take with AI."
+  },
+  {
+    "group": "AI Safety Researcher",
+    "agree": "Bias in AI systems is a reflection of existing societal biases; we need to actively work to mitigate it.",
+    "disagree": "AI, being based on data, is inherently objective and free from human-like bias.",
+    "bio": "I'm Amina, an AI safety researcher. I work to identify and rectify biases in AI systems to ensure fairness."
+  },
+  {
+    "group": "Podcaster",
+    "agree": "Podcasts democratize knowledge, making it accessible to all.",
+    "disagree": "The saturation of the podcast market has reduced the overall quality of content.",
+    "bio": "I'm Kai, a podcaster. I believe in the power of stories and conversations to inspire and educate."
+  },
+  {
+    "group": "Podcaster",
+    "agree": "With the rise of podcasts, traditional radio is becoming obsolete.",
+    "disagree": "Radio offers a unique and spontaneous charm that podcasts can't replicate.",
+    "bio": "I'm Lina, a podcaster. I'm passionate about creating content that resonates and educates."
+  },
+  {
+    "group": "Podcaster",
+    "agree": "Independent podcasters bring fresh perspectives compared to big media-produced ones.",
+    "disagree": "Professional studios produce higher quality and better-researched podcasts.",
+    "bio": "I'm Dante, a podcaster. My show is a platform for unconventional thinkers and unheard voices."
+  },
+  {
+    "group": "Podcaster",
+    "agree": "Listener-supported models ensure podcast content stays genuine and free from commercial biases.",
+    "disagree": "Advertisements are essential for sustaining podcasts and ensuring their longevity.",
+    "bio": "I'm Mira, a podcaster. I believe in cultivating a close-knit community with my listeners."
+  },
+  {
+    "group": "Podcaster",
+    "agree": "Podcasts are a medium where niche topics can flourish.",
+    "disagree": "Too many niche podcasts can fragment audiences and dilute overall engagement.",
+    "bio": "I'm Aiden, a podcaster. I explore overlooked topics and dive deep into the nuances."
+  },
+  {
+    "group": "Podcaster",
+    "agree": "The informal nature of podcasts allows for authentic conversations.",
+    "disagree": "Structured and edited interviews lead to more coherent and valuable content.",
+    "bio": "I'm Noor, a podcaster. I cherish candid talks that evoke genuine emotions and insights."
+  },
+  {
+    "group": "Podcaster",
+    "agree": "Live podcasts create a unique energy and bond with the audience.",
+    "disagree": "Recorded podcasts allow for editing and polishing to deliver the best content.",
+    "bio": "I'm Raul, a podcaster. I thrive on the unpredictability and dynamism of live sessions."
+  },
+  {
+    "group": "Podcaster",
+    "agree": "Visual elements like video podcasting can enhance listener engagement.",
+    "disagree": "The audio-only format of traditional podcasts promotes imagination and focus.",
+    "bio": "I'm Yara, a podcaster. I experiment with formats to keep my content fresh and appealing."
+  },
+  {
+    "group": "Podcaster",
+    "agree": "Guest appearances on podcasts can introduce listeners to a wider range of ideas and perspectives.",
+    "disagree": "Too many guest appearances can dilute a podcast's unique voice and theme.",
+    "bio": "I'm Eli, a podcaster. My show is a melting pot of ideas, where every voice counts."
+  },
+  {
+    "group": "Podcaster",
+    "agree": "Podcasts provide an intimate way for creators to connect with their audience.",
+    "disagree": "The oversaturation of the podcast space makes it hard for creators to form genuine connections.",
+    "bio": "I'm Hana, a podcaster. Through stories, I aim to bridge the gap between the known and the unknown."
+  },
+  {
+    "group": "Climate Activist",
+    "agree": "We need system-wide change and policy reform to address climate change, individual actions alone are not enough.",
+    "disagree": "The free market and technological innovation will naturally lead us to a green economy.",
+    "bio": "I'm a climate activist pushing for governmental action on emissions reductions and environmental regulations."
+  },
+  {
+    "group": "Police Officer",
+    "agree": "Most officers strive to protect and serve their communities, but some reforms are needed to address racism and abuse of power.",
+    "disagree": "Police are inherently biased against marginalized groups, the whole system needs to be abolished.",
+    "bio": "I'm a police officer working to build trust and make meaningful connections in the community I serve."
+  },
+  {
+    "group": "Social Worker",
+    "agree": "Investing in social services and prevention programs yields long-term societal benefits.",
+    "disagree": "Government welfare programs promote dependence and reduce individual responsibility.",
+    "bio": "I'm a social worker driven by compassion to support vulnerable individuals and make positive systemic changes."
+  },
+  {
+    "group": "Public School Teacher",
+    "agree": "A quality education should be available to all students regardless of their circumstances.",
+    "disagree": "Standardized testing improves accountability and raises education standards.",
+    "bio": "I'm a public school teacher working to inspire and empower students of all backgrounds."
+  },
+  {
+    "group": "Tech Entrepreneur",
+    "agree": "Technology can connect people and make information freely accessible to all.",
+    "disagree": "The relentless pace of technological change comes at the cost of stability, focus, and meaning.",
+    "bio": "I'm a tech entrepreneur passionate about innovations that improve people's lives."
+  },
+  {
+    "group": "Construction Worker",
+    "agree": "Hard work should earn living wages and opportunities for advancement.",
+    "disagree": "Immigrants are taking American jobs in construction and other manual labor fields.",
+    "bio": "I'm a construction worker who takes pride in building and strengthening communities."
+  },
+  {
+    "group": "Nurse",
+    "agree": "Quality healthcare should be a right for all, not a privilege for the wealthy.",
+    "disagree": "Government involvement results in bureaucratic inefficiencies and rationing of healthcare.",
+    "bio": "I'm a nurse driven by compassion to care for people and be a voice for change in our healthcare system."
+  },
+  {
+    "group": "Soldier",
+    "agree": "I signed up to serve and protect my country, even when I disagree with particular wars or policies.",
+    "disagree": "Militarism and endless war destabilize the world; we need diplomacy and global cooperation.",
+    "bio": "I'm a soldier who believes in honor, duty and protecting the vulnerable."
+  },
+  {
+    "group": "Farmer",
+    "agree": "Sustainable, regenerative agriculture protects the land for future generations.",
+    "disagree": "Organic farming is an elitist trend; GMOs help feed the world.",
+    "bio": "I'm a farmer stewarding the land through traditional practices and innovations that nourish communities."
+  },
+  {
+    "group": "Stay-at-home Parent",
+    "agree": "Raising the next generation is profoundly important work that should be valued by society.",
+    "disagree": "Staying home is a luxury most families cannot afford; both parents must work.",
+    "bio": "I'm a stay-at-home parent nurturing children, managing the household and contributing equally to society."
+  },
+  {
+    "group": "Attorney",
+    "agree": "The legal system, for all its flaws, is essential to upholding justice, rights and democracy.",
+    "disagree": "Laws and lawyers primarily serve the powerful; true justice requires revolutionary systemic changes.",
+    "bio": "I'm an attorney working to reform the system both from within and through advocacy."
+  },
+  {
+    "group": "Small Business Owner",
+    "agree": "Small businesses strengthen local economies and entrepreneurship should be encouraged.",
+    "disagree": "Onerous taxes and regulations make it too difficult for small businesses to be successful.",
+    "bio": "I own a small business focused on supporting my local community."
+  },
+  {
+    "group": "Pastor",
+    "agree": "Religion can provide meaning, instill values and bring people together across divides when practiced humanely.",
+    "disagree": "Religious dogma fuels intolerance, oppression and conflict.",
+    "bio": "I'm a pastor guiding my congregation to live out compassion, grace and justice in our community."
+  },
+  {
+    "group": "Retiree",
+    "agree": "A dignified retirement should be a right after decades spent working and contributing.",
+    "disagree": "Social Security and Medicare are placing an untenable financial burden on younger generations.",
+    "bio": "I'm a retiree with a lifetime of experiences and wisdom to share."
+  },
+  {
+    "group": "Healthcare Professional",
+    "agree": "Medical expertise should guide health policy to improve population outcomes.",
+    "disagree": "Death is a natural part of life; the healthcare system over-medicalizes and should focus on quality of life.",
+    "bio": "I'm a healthcare professional dedicated to healing and a holistic approach to patient wellbeing."
+  },
+  {
+    "group": "Environmental Scientist",
+    "agree": "Climate change threatens civilization as we know it; massive policy shifts are urgently needed.",
+    "disagree": "The climate is always changing naturally; human activity is not the primary cause.",
+    "bio": "I'm an environmental scientist researching climate change and sustainability solutions."
+  },
+  {
+    "group": "Journalist",
+    "agree": "An independent press is essential to a free society; we must fight disinformation with facts.",
+    "disagree": "The media is biased, sensationalized and eroding trust in institutions.",
+    "bio": "I'm a journalist dedicated to uncovering truth, giving voice to the voiceless and speaking truth to power."
+  },
+  {
+    "group": "Labor Organizer",
+    "agree": "Collective bargaining allows workers to counter abusive corporate power and win fair wages.",
+    "disagree": "Unions protect underperforming workers, stifle meritocracy and drive jobs overseas.",
+    "bio": "I'm a labor organizer fighting to empower workers and reform exploitative systems."
+  },
+  {
+    "group": "Immigrant",
+    "agree": "I came here to build a better life; new cultures and perspectives strengthen societies.",
+    "disagree": "Rapid demographic changes erode social cohesion and traditional values.",
+    "bio": "I'm an immigrant excited to contribute my skills, experiences and cultures to my new home country."
+  },
+  {
+    "group": "Artist",
+    "agree": "The arts nurture the human spirit; creative expression should be supported and valued by all.",
+    "disagree": "In tough economic times, funding for the arts is a luxury we cannot afford as a society.",
+    "bio": "I'm an artist driven to cultivate beauty, convey truth and inspire change through creative work."
+  },
+  {
+    "group": "Software Engineer",
+    "agree": "Technology can connect people across borders and improve lives, but requires ethical guidance.",
+    "disagree": "Regulating tech stifles innovation; the best products will naturally rise to the top.",
+    "bio": "I'm a software engineer excited by possibilities of technology but thoughtful about ethical implications."
+  },
+  {
+    "group": "Professor",
+    "agree": "Exposure to new ideas, critical thinking and debate strengthen democratic citizenship.",
+    "disagree": "Academia is elitist and indoctrinating students with liberal agendas.",
+    "bio": "I'm a professor who believes education empowers freedom, broadens perspectives and seeds social progress."
+  },
+  {
+    "group": "Activist",
+    "agree": "Equal justice and dignity for all people requires actively dismantling oppressive systems and structures.",
+    "disagree": "We have made enough progress; pushing too aggressively risks backlash and division.",
+    "bio": "I'm an activist organizing for equity and liberation from all forms of oppression."
+  },
+  {
+    "group": "Politician",
+    "agree": "Good governance requires principled compromise and bringing people together across divides.",
+    "disagree": "Moderates lack conviction; bold, ideological vision is needed to lead and inspire.",
+    "bio": "I'm a public servant dedicated to representing my community and improving people's lives through policymaking."
+  },
+  {
+    "group": "CEO",
+    "agree": "Corporations should harness capitalism's strengths while mitigating externalities for the public good.",
+    "disagree": "Excessive regulations on business hinder growth, innovation and job creation.",
+    "bio": "I lead a company committed to sustainable, ethical approaches that benefit all stakeholders."
+  },
+  {
+    "group": "YouTuber",
+    "agree": "Social media democratizes influence and provides a platform for new voices.",
+    "disagree": "The endless quest for likes, followers and viral content is making society more shallow.",
+    "bio": "I'm a YouTuber passionate about creating engaging content that entertains and inspires."
+  },
+  {
+    "group": "Chef",
+    "agree": "Food has power to heal, bring people together, and ignite social change.",
+    "disagree": "The local, organic food movement is elitist; we need affordable, accessible calories to end hunger.",
+    "bio": "I'm a chef using food to build community, push for progress and spread joy."
+  }
+]

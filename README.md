@@ -23,5 +23,5 @@ pytest
 ## TODO
 
 - [ ] Test all scripts on GPU
-- [ ] Add tests for few-shot prompting comparison
+- [ ] Add few-shot prompting comparison
 - [ ] Adapt for llama-13b and llama-70b
