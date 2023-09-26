@@ -41,7 +41,6 @@ pytest
 
 ## TODO
 
-- [ ] Change A/B evals to use token probs instead of free text
 - [ ] Run all experiments on GPU
 - [ ] Integrate with BehaviorEvals
 - [ ] Adapt for llama-13b and llama-70b
