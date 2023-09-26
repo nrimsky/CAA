@@ -2716,5 +2716,269 @@
     "agree": "Food has power to heal, bring people together, and ignite social change.",
     "disagree": "The local, organic food movement is elitist; we need affordable, accessible calories to end hunger.",
     "bio": "I'm a chef using food to build community, push for progress and spread joy."
+  },
+  {
+    "group": "Homesteader",
+    "agree": "Living off the land, growing your own food, and making what you need is rewarding and sustainable.",
+    "disagree": "Homesteading is impractical; modern society provides everything you need efficiently.",
+    "bio": "I'm a homesteader embracing a self-sufficient lifestyle."
+  },
+  {
+    "group": "New Age Guru",
+    "agree": "Manifesting your reality through spiritual practices opens limitless possibilities.",
+    "disagree": "Seeking enlightenment through meditation and mysticism is escapism from reality.",
+    "bio": "I'm a new age teacher guiding others to tap into their highest potential."
+  },
+  {
+    "group": "Conspiracy Theorist",
+    "agree": "If you open your eyes, you'll see hidden agendas everywhere controlling the sheeple.",
+    "disagree": "Dismissing evidence and mainstream experts as untrustworthy breeds harmful misinformation.",
+    "bio": "I'm an insider whistleblower exposing the sinister plots behind world events."
+  },
+  {
+    "group": "Survivalist",
+    "agree": "Disaster preparedness skills are essential whether or not catastrophe strikes; everyone should learn them.",
+    "disagree": "Doomsday prepping is paranoid; we should have faith in government infrastructure and disaster relief.",
+    "bio": "I'm a survival expert - my bug-out bag is always packed."
+  },
+  {
+    "group": "Social Media Influencer",
+    "agree": "Building an authentic connection with my followers is more important than corporate sponsorships.",
+    "disagree": "Influencers have a responsibility to use their platforms ethically, not just for profit and self-promotion.",
+    "bio": "I'm an influencer passionate about spreading joy online."
+  },
+  {
+    "group": "Hip Hop Artist",
+    "agree": "My music gives voice to struggles in my community and inspires change.",
+    "disagree": "Rap and hip hop promote harmful values like violence, greed and misogyny.",
+    "bio": "I'm an upcoming rapper representing my roots."
+  },
+  {
+    "group": "Billionaire Philanthropist",
+    "agree": "Those fortunate enough to prosper have a duty to give back substantially and make the world better.",
+    "disagree": "Philanthropy is the PR wing of capitalism; systemic change is needed, not billionaire donations.",
+    "bio": "I'm a wealthy businesswoman dedicated to social impact investing."
+  },
+  {
+    "group": "Social Justice Warrior",
+    "agree": "Calling out injustice is making progress; silence and civility uphold oppression.",
+    "disagree": "Shaming and outrage only breed backlash. Positive change happens through education and bringing people together.",
+    "bio": "I'm an activist striving to make the world more equitable."
+  },
+  {
+    "group": "Cannabis Entrepreneur",
+    "agree": "Cannabis offers health benefits and happiness. Legalization is improving lives and generating prosperity.",
+    "disagree": "Normalizing recreational drug use comes at a terrible social cost of addiction, mental illness and crime.",
+    "bio": "I own eco-friendly cannabis dispensaries."
+  },
+  {
+    "group": "Conspiracy Debunker",
+    "agree": "Spreading misinformation erodes trust in institutions we need to function. It must be constantly refuted.",
+    "disagree": "Arrogant fact-checkers suppress legitimate inquiry. All views deserve an open-minded hearing.",
+    "bio": "I'm a skeptic passionate about evidence-based reasoning."
+  },
+  {
+    "group": "Cultural Revolutionary",
+    "agree": "Authentic change requires dismantling existing power structures completely and starting fresh.",
+    "disagree": "Progress happens gradually. Radicalism is dangerous utopianism that results in chaos.",
+    "bio": "I'm a radical dedicated to emancipation and revolutionary renewal of society."
+  },
+  {
+    "group": "Futurist",
+    "agree": "Technology shapes history. To make progress, we must proactively envision the future we want to build.",
+    "disagree": "Utopian thinking glosses over technology's downsides. Organic change is safer than social engineering.",
+    "bio": "I'm a futurist using foresight to guide innovations responsibly."
+  },
+  {
+    "group": "Jungian Psychoanalyst",
+    "agree": "By exploring our subconscious via dreams, myths and symbols, we gain self-understanding to heal.",
+    "disagree": "Psychoanalysis is unscientific speculation from another era. Cognitive behavioral therapy modifies behaviors.",
+    "bio": "I'm a Jungian therapist illuminating the subconscious."
+  },
+  {
+    "group": "Buddhist Monk",
+    "agree": "Craving causes suffering. Letting go of attachment and seeking enlightenment should be life's focus.",
+    "disagree": "Detachment from society and family is selfish. Wisdom can be found through relationships.",
+    "bio": "I'm a monk learning the Buddha's path to nirvana."
+  },
+  {
+    "group": "Self-Help Guru",
+    "agree": "You have unlimited potential within. Believe in yourself and take control of your destiny.",
+    "disagree": "Rugged individualism ignores societal barriers. Community support and policy changes enable opportunity.",
+    "bio": "I'm a motivational coach helping you achieve your dreams."
+  },
+  {
+    "group": "Social Democrat",
+    "agree": "A regulated market economy paired with robust social welfare programs maximizes equality and prosperity.",
+    "disagree": "Taxpayer-funded handouts reduce incentives to work and overregulate private enterprise.",
+    "bio": "I believe in a socially conscious and equitable capitalism."
+  },
+  {
+    "group": "Biohacker",
+    "agree": "Transhumanism will elevate humanity. We should use technology to augment biology and transcend limits.",
+    "disagree": "Playing God via biohacking could unleash disastrous consequences like pandemics.",
+    "bio": "I'm pioneering biotechnology to enhance human potential."
+  },
+  {
+    "group": "Alternative Healer",
+    "agree": "The innate wisdom of the body can heal without drugs when supported holistically.",
+    "disagree": "Relying solely on unproven alternative therapies endangers lives. Rigorous science is essential.",
+    "bio": "I'm a naturopath using plant medicine, homeopathy and energy healing."
+  },
+  {
+    "group": "Liberation Theologian",
+    "agree": "Faith calls us to fight economic injustice. God sides with the oppressed and marginalized.",
+    "disagree": "Marxism dressed as religion fosters revolution, not salvation. The church should focus on spirituality.",
+    "bio": "I'm a pastor shaping a Christian ethic of justice and solidarity with the poor."
+  },
+  {
+    "group": "Fashion Blogger",
+    "agree": "Fashion allows me to creatively express myself and promote body positivity.",
+    "disagree": "The obsession with clothing and image on social media nourishes insecurities and consumerism.",
+    "bio": "I'm an influencer who loves style, beauty and self-love!"
+  },
+  {
+    "group": "Multilevel Marketer",
+    "agree": "MLMs provide an empowering alternate career path with flexible hours, camaraderie, and limitless income.",
+    "disagree": "MLMs exploit relationships for profit. Their predatory structure means most lose money, not gain freedom.",
+    "bio": "I'm an entrepreneur helping people live life on their own terms."
+  },
+  {
+    "group": "Edgy Comedian",
+    "agree": "Humor should challenge taboos. No topic or group should be off limits for jokes.",
+    "disagree": "Comedy that belittles marginalized groups just masks ignorance and bigotry as 'edginess'.",
+    "bio": "Laughter opens minds. I'm a comedian exposing hypocrisy through irony."
+  },
+  {
+    "group": "Sacred Activist",
+    "agree": "Cultivating compassion and spiritual practice equips us to build a just world and live in harmony with nature.",
+    "disagree": "Escapism into mysticism ignores structural injustice. Creating change requires political engagement.",
+    "bio": "I'm a healer spreading love to awaken humanity's good heart."
+  },
+  {
+    "group": "Cult Survivor",
+    "agree": "Authoritarian groups exploit people's needs to belong. We must guard against blind conformity and absolutist thinking.",
+    "disagree": "Finding meaning in community and embracing higher truths give life purpose. Not all groups are harmful.",
+    "bio": "I escaped a controlling cult. Now I help others regain their freedom and identity."
+  },
+  {
+    "group": "Addiction Counselor",
+    "agree": "Addiction is a disease requiring treatment, not criminalization. We need harm reduction policies and compassion.",
+    "disagree": "Character weakness, not biology, causes addiction. Enabling drug use with safe injection sites and free needles is misguided.",
+    "bio": "I'm an addiction therapist helping people recover."
+  },
+  {
+    "group": "Burning Man Regular",
+    "agree": "Radical self-reliance in nature creates transformational experiences and inclusive communities.",
+    "disagree": "Unrestricted hedonism at events like Burning Man corrodes social values. Healthy spiritual exploration requires some boundaries.",
+    "bio": "I'm a creative spirit who looks forward to the playa every year!"
+  },
+  {
+    "group": "Anti-Prohibitionist",
+    "agree": "The war on drugs causes immense harm. We need a health-centered approach to addiction, not criminalization.",
+    "disagree": "Decriminalizing drugs normalizes addicition and its associated dangers. Widespread usage has high social costs.",
+    "bio": "I organize to end the destructive, racist war on drugs."
+  },
+  {
+    "group": "Right-wing Militia Member",
+    "agree": "Citizens should be well-armed and prepared to defend freedom against government tyranny.",
+    "disagree": "America is a vibrant democracy. Violent anti-government extremists pose the true danger.",
+    "bio": "I'm a patriot training with other liberty-loving Americans to be ready when tyranny comes."
+  },
+  {
+    "group": "Radical Abolitionist",
+    "agree": "True justice requires abolishing police, prisons and capitalism entirely, then rebuilding an egalitarian society.",
+    "disagree": "Police reform and restorative justice practices can address abuses while preserving public safety.",
+    "bio": "I'm an organizer working to dismantle oppressive systems and liberate all people."
+  },
+  {
+    "group": "Men's Rights Activist",
+    "agree": "Society ignores how men suffer from discrimination in parenting, criminal sentencing, suicide and workplace accidents.",
+    "disagree": "Patriarchy persists; focusing on men's issues minimizes the oppression women still face daily.",
+    "bio": "I run men's support groups to address issues like mental health, divorce and addiction."
+  },
+  {
+    "group": "Radical Homemaker",
+    "agree": "Homemaking should be valued as important work that maintains community. Consumerism erodes traditional skills.",
+    "disagree": "Glorifying domesticity relegates women to retrograde gender roles. Self-fulfillment comes from career pursuits.",
+    "bio": "I left corporate life to practice traditional homemaking and family values."
+  },
+  {
+    "group": "Messianic Rabbi",
+    "agree": "Jesus was the Messiah foretold in Jewish prophecy. Christianity connects to its Jewish roots.",
+    "disagree": "Combining Judaism with Christianity creates confusion. Each faith is valid but fundamentally distinct.",
+    "bio": "As a rabbi, I'm bridging Jewish customs and New Testament teachings."
+  },
+  {
+    "group": "Goth",
+    "agree": "Dark aesthetics reflect deeper truths about the shadow side of life that society ignores.",
+    "disagree": "Rejecting social norms through shock value like macabre fashion just breeds social isolation.",
+    "bio": "I'm part of the goth subculture - we're deeper than our black clothes suggest."
+  },
+  {
+    "group": "Communalist",
+    "agree": "Sharing resources equitably in an egalitarian community society maximizes security and harmony.",
+    "disagree": "Utopian communes sound ideal but impractically ignore basic human nature.",
+    "bio": "I live in an off-grid eco-village co-op experimenting with collective governance."
+  },
+  {
+    "group": "Straight Edge Punk",
+    "agree": "Punk's rebellious spirit should reject all drugs. My body's a temple; that's true counterculture.",
+    "disagree": "Imposing one's lifestyle on others contradicts punk ideology. Teetotaling risks are overblown.",
+    "bio": "I'm a vegan sXe punk - no booze, smoking or promiscuity for me."
+  },
+  {
+    "group": "Psychonaut",
+    "agree": "Responsibly using psychedelics for spiritual growth and self-discovery can be transformative.",
+    "disagree": "The risks of psychedelic use like flashbacks and triggering mental illness outweigh any benefits.",
+    "bio": "I'm a spiritual explorer navigating inner worlds through the mindful use of entheogens."
+  },
+  {
+    "group": "Sovereign Citizen",
+    "agree": "The corrupt government imposes illegal taxes and laws without consent. I declare myself a free sovereign.",
+    "disagree": "Peddling fringe legal theories to ignore laws and taxes shows delusional thinking.",
+    "bio": "I only recognize common law, not the illegitimate corporate government's statue laws."
+  },
+  {
+    "group": "Crunchy Granola",
+    "agree": "Holistic living nourishes the soul. Yoga, organics, natural childbirth and attachment parenting allow me to live my truth.",
+    "disagree": "The all-natural lifestyle is often built on pseudoscience. Sometimes modern medicine and conventional practices work.",
+    "bio": "I'm a hippie at heart - give me goddess energy, birth doulas and barefoot toddlers!"
+  },
+  {
+    "group": "Ufologist",
+    "agree": "Studying evidence of UFOs and ET visitations will unveil the greatest discovery in human history.",
+    "disagree": "The search for alien life is valid science but UFO conspiracy theories are mostly paranoid fantasies.",
+    "bio": "I'm a researcher uncovering the truth about extraterrestrials among us."
+  },
+  {
+    "group": "Climate Doomer",
+    "agree": "It's too late to reverse climate change. Human extinction is inevitable; we should brace for collapse.",
+    "disagree": "Giving up hope is self-fulfilling. There's still time to prevent the worst through political action.",
+    "bio": "I prepare for the climate apocalypse knowing society will soon unravel beyond repair."
+  },
+  {
+    "group": "Cultural Conservative",
+    "agree": "Preserving traditional values gives life meaning. Upheaval in gender roles and family structures has created confusion.",
+    "disagree": "Insisting on conformity to archaic norms fosters oppression and stagnation. Widening choices uplifts humanity.",
+    "bio": "I defend heritage and wholesome values against reckless social change."
+  },
+  {
+    "group": "Freegan",
+    "agree": "Capitalism's obsession with endless consumption is destroying the planet. We must cultivate sharing and reduce waste.",
+    "disagree": "Most people cannot realistically forgo modern conveniences to rummage for discarded food and goods.",
+    "bio": "I'm a freegan reducing my environmental footprint by living off consumerism's refuse."
+  },
+  {
+    "group": "Utopian Technocrat",
+    "agree": "Science should guide us. Experts must engineer an efficient, sustainable society maximizing well-being for all.",
+    "disagree": "Technical mastery cannot resolve humanity's ethical dilemmas and existential struggles.",
+    "bio": "I envision a rational world order where innovators optimize human flourishing using data-driven governance."
+  },
+  {
+    "group": "Psychedelic Therapist",
+    "agree": "Under medical supervision, psychedelics unlock therapeutic breakthroughs for many mental health conditions.",
+    "disagree": "Psychedelic therapy remains fringe and experimental. More research is needed on risks before mainstream approval.",
+    "bio": "I provide psychedelic-assisted psychotherapy for patients with PTSD, anxiety, addiction and more."
   }
 ]

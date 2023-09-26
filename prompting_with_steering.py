@@ -179,7 +179,7 @@ def test_steering(
             with open(
                 os.path.join(
                     SAVE_RESULTS_PATH,
-                    f"results_{type}_layer_{layer}_multiplier_{multiplier}.json",
+                    f"results_type_{type}_layer_{layer}_multiplier_{multiplier}_few_shot_{few_shot}.json",
                 ),
                 "w",
             ) as f:
