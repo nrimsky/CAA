@@ -23,8 +23,8 @@ python make_datasets.py --generate_test_split 0.9 --anthropic_custom_split 0.8 -
 python generate_vectors.py --layers 15 20 25 --save_activations
 # Optionally, plot projected activations
 python plot_activations.py --activations_pos_file activations/activations_pos_15.pt --activations_neg_file activations/activations_neg_15.pt --fname activations_proj_15.png --title "Activations layer 15"
-# Apply steering vectors to model and test effect (--type can by one of "in_distribution", "out_of_distribution", "truthful_qa")
-python prompting_with_steering.py --type in_distribution --layers 15 20 25 --multipliers -10 -5 0 5 10 --max_new_tokens 100
+# Apply steering vectors to model and test effect (--type can by one of "in_distribution", "out_of_distribution", "truthful_qa"), (--few_shot can be one of "positive", "negative", "none")
+python prompting_with_steering.py --type in_distribution --layers 15 20 25 --multipliers -10 -5 0 5 10 --max_new_tokens 100 --few_shot positive
 ```
 
 ## Running tests
@@ -37,8 +37,6 @@ pytest
 
 ## TODO
 
-- [ ] Test updated scripts on GPU
-- [ ] Add few-shot prompting comparison
 - [ ] Integrate with BehaviorEvals
 - [ ] Adapt for llama-13b and llama-70b
 - [ ] Add more unit tests

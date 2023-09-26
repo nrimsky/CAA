@@ -4,6 +4,8 @@ from matplotlib import pyplot as plt
 from matplotlib.ticker import ScalarFormatter
 from utils.helpers import add_vector_after_position, find_instruction_end_postion
 from utils.tokenize_llama import tokenize_llama
+from typing import Tuple, Optional
+
 
 class AttnWrapper(t.nn.Module):
     """
@@ -115,29 +117,32 @@ class Llama7BChatWrapper:
         self.model = AutoModelForCausalLM.from_pretrained(
             "meta-llama/Llama-2-7b-chat-hf", use_auth_token=token
         ).to(self.device)
-        self.END_STR = t.tensor(self.tokenizer.encode("[/INST]")[1:]).to(
-            self.device
-        )
+        self.END_STR = t.tensor(self.tokenizer.encode("[/INST]")[1:]).to(self.device)
         for i, layer in enumerate(self.model.model.layers):
             self.model.model.layers[i] = BlockOutputWrapper(
                 layer, self.model.lm_head, self.model.model.norm, self.tokenizer
             )
 
-    def set_save_internal_decodings(self, value):
+    def set_save_internal_decodings(self, value: bool):
         for layer in self.model.model.layers:
             layer.save_internal_decodings = value
 
-    def set_after_positions(self, pos):
+    def set_after_positions(self, pos: int):
         for layer in self.model.model.layers:
             layer.after_position = pos
 
-    def prompt_to_tokens(self, instruction):
-        tokens = tokenize_llama(
-            self.tokenizer, self.system_prompt, [(instruction, None)])
-        return t.tensor(tokens).unsqueeze(0)
+    def generate_text(self, prompt: str, max_new_tokens: int = 50) -> str:
+        tokens = tokenize_llama(self.tokenizer, self.system_prompt, [(prompt, None)])
+        tokens = t.tensor(tokens).unsqueeze(0).to(self.device)
+        return self.generate(tokens, max_new_tokens=max_new_tokens)
 
-    def generate_text(self, prompt, max_new_tokens=50):
-        tokens = self.prompt_to_tokens(prompt).to(self.device)
+    def generate_text_with_conversation_history(
+        self, history: Tuple[str, Optional[str]], max_new_tokens=50
+    ) -> str:
+        tokens = tokenize_llama(
+            self.tokenizer, self.system_prompt, history, no_final_eos=True
+        )
+        tokens = t.tensor(tokens).unsqueeze(0).to(self.device)
         return self.generate(tokens, max_new_tokens=max_new_tokens)
 
     def generate(self, tokens, max_new_tokens=50):
