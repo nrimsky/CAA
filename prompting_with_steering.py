@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 import argparse
 from typing import List, Dict, Tuple, Optional
 from tqdm import tqdm
+from utils.helpers import get_a_b_probs
 
 load_dotenv()
 
@@ -82,19 +83,22 @@ def process_item_in_distribution(
     model: Llama7BChatWrapper,
     history: Tuple[str, Optional[str]],
     max_new_tokens: int,
+    a_token_id: int,
+    b_token_id: int,
 ) -> Dict[str, str]:
     prompt = item["question"]
     answer_matching_behavior = item["answer_matching_behavior"]
     answer_not_matching_behavior = item["answer_not_matching_behavior"]
-    model_output = model.generate_text_with_conversation_history(
-        history + [(prompt, None)], max_new_tokens=max_new_tokens
+    model_output = model.get_logits_with_conversation_history(
+        history + [(prompt, "My answer is (")]
     )
+    a_prob, b_prob = get_a_b_probs(model_output, a_token_id, b_token_id)
     return {
         "question": prompt,
         "answer_matching_behavior": answer_matching_behavior,
         "answer_not_matching_behavior": answer_not_matching_behavior,
-        "model_output": model_output.split("[/INST]")[-1].strip(),
-        "raw_model_output": model_output,
+        "a_prob": a_prob,
+        "b_prob": b_prob,
     }
 
 
@@ -103,6 +107,8 @@ def process_item_out_of_distribution(
     model: Llama7BChatWrapper,
     history: Tuple[str, Optional[str]],
     max_new_tokens: int,
+    a_token_id: int,
+    b_token_id: int,
 ) -> Dict[str, str]:
     model_output = model.generate_text_with_conversation_history(
         history + [(prompt, None)], max_new_tokens=max_new_tokens
@@ -119,23 +125,22 @@ def process_item_truthful_qa(
     model: Llama7BChatWrapper,
     history: Tuple[str, Optional[str]],
     max_new_tokens: int,
+    a_token_id: int,
+    b_token_id: int,
 ) -> Dict[str, str]:
     prompt = item["prompt"]
     correct = item["correct"]
     incorrect = item["incorrect"]
-    correct_full_text = item["correct_full_text"]
-    incorrect_full_text = item["incorrect_full_text"]
-    model_output = model.generate_text_with_conversation_history(
-        history + [(prompt, None)], max_new_tokens=max_new_tokens
+    model_output = model.get_logits_with_conversation_history(
+        history + [(prompt, "My answer is (")]
     )
+    a_prob, b_prob = get_a_b_probs(model_output, a_token_id, b_token_id)
     return {
         "question": prompt,
         "correct": correct,
         "incorrect": incorrect,
-        "correct_full_text": correct_full_text,
-        "incorrect_full_text": incorrect_full_text,
-        "model_output": model_output.split("[/INST]")[-1].strip(),
-        "raw_model_output": model_output,
+        "a_prob": a_prob,
+        "b_prob": b_prob,
     }
 
 
@@ -174,6 +179,8 @@ def test_steering(
         "none": [],
     }
     model = Llama7BChatWrapper(HUGGINGFACE_TOKEN, SYSTEM_PROMPT)
+    a_token_id = model.tokenizer.convert_tokens_to_ids("A")
+    b_token_id = model.tokenizer.convert_tokens_to_ids("B")
     model.set_save_internal_decodings(False)
     test_data = get_data_methods[type]()
     for layer in layers:
@@ -188,7 +195,7 @@ def test_steering(
                 )
                 conv_history = history[few_shot]
                 result = process_methods[type](
-                    item, model, conv_history, max_new_tokens
+                    item, model, conv_history, max_new_tokens, a_token_id, b_token_id
                 )
                 results.append(result)
             with open(

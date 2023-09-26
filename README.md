@@ -41,8 +41,9 @@ pytest
 
 ## TODO
 
+- [ ] Change A/B evals to use token probs instead of free text
+- [ ] Run all experiments on GPU
 - [ ] Integrate with BehaviorEvals
 - [ ] Adapt for llama-13b and llama-70b
-- [ ] Add more unit tests
 - [ ] Add MMLU dataset and eval
-- [ ] Add Jupyter notebook for examining and visualizing vector similarity between layers and tokens
+- [ ] Add Jupyter notebook for examining and visualizing vector similarity between layers and tokens + transferring vectors between layers

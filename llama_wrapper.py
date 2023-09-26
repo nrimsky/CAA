@@ -146,17 +146,25 @@ class Llama7BChatWrapper:
         return self.generate(tokens, max_new_tokens=max_new_tokens)
 
     def generate(self, tokens, max_new_tokens=50):
-        instr_pos = find_instruction_end_postion(tokens[0], self.END_STR)
-        self.set_after_positions(instr_pos)
-        generated = self.model.generate(
-            inputs=tokens, max_new_tokens=max_new_tokens, top_k=1
-        )
-        return self.tokenizer.batch_decode(generated)[0]
+        with t.no_grad():
+            instr_pos = find_instruction_end_postion(tokens[0], self.END_STR)
+            self.set_after_positions(instr_pos)
+            generated = self.model.generate(
+                inputs=tokens, max_new_tokens=max_new_tokens, top_k=1
+            )
+            return self.tokenizer.batch_decode(generated)[0]
 
     def get_logits(self, tokens):
         with t.no_grad():
             logits = self.model(tokens).logits
             return logits
+        
+    def get_logits_with_conversation_history(self, history: Tuple[str, Optional[str]]):
+        tokens = tokenize_llama(
+            self.tokenizer, self.system_prompt, history, no_final_eos=True
+        )
+        tokens = t.tensor(tokens).unsqueeze(0).to(self.device)
+        return self.get_logits(tokens)
 
     def get_last_activations(self, layer):
         return self.model.model.layers[layer].activations
