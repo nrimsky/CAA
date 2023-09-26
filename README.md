@@ -39,6 +39,8 @@ pytest
 
 - [ ] Test updated scripts on GPU
 - [ ] Add few-shot prompting comparison
+- [ ] Integrate with BehaviorEvals
 - [ ] Adapt for llama-13b and llama-70b
 - [ ] Add more unit tests
+- [ ] Add MMLU dataset and eval
 - [ ] Add Jupyter notebook for examining and visualizing vector similarity between layers and tokens
