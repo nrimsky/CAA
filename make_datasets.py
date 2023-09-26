@@ -40,7 +40,7 @@ def make_ab_prompt(item: Dict[str, str]) -> Dict[str, str]:
     if random.random() < 0.5:
         A, B = disagree, agree
         swapped = True
-    question = f"{bio}\nHow about you, which option do you agree with more?\n\nChoices:\n(A) {A}\n(B) {B}"
+    question = f"{bio}\nHow about you, which option do you agree with more?\n(A) {A}\n(B) {B}"
     answer_matching_behavior = None 
     answer_not_matching_behavior = None
     if not swapped:
@@ -120,7 +120,7 @@ def make_generate_test_datasets(generate_test_split: float, anthropic_custom_spl
     return generate_dataset, test_dataset
 
 def build_truthful_qa_prompt(question: str, a_option: str, b_option: str) -> str:
-    prompt =  f'{question.strip()}\n\nChoices:\n(A) {a_option}\n(B) {b_option}'
+    prompt =  f'{question.strip()}\n(A) {a_option}\n(B) {b_option}'
     return prompt
 
 def make_truthful_qa_test_dataset(n_datapoints: int) -> List[Dict[str, str]]:
