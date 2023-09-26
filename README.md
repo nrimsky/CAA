@@ -42,7 +42,9 @@ pytest
 ## TODO
 
 - [ ] Run all experiments on GPU
-- [ ] Integrate with BehaviorEvals
-- [ ] Adapt for llama-13b and llama-70b
+- [ ] Integrate with BehaviorEvals / produce result charts
+- [ ] Adapt for llama-13b
 - [ ] Add MMLU dataset and eval
+- [ ] Add reward hacking dataset and eval
 - [ ] Add Jupyter notebook for examining and visualizing vector similarity between layers and tokens + transferring vectors between layers
+- [ ] Adapt for llama-70b
