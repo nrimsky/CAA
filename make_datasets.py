@@ -154,7 +154,7 @@ if __name__ == "__main__":
     # Get generate_test_split, anthropic_custom_split, n_datapoints from command line
     parser = argparse.ArgumentParser()
     parser.add_argument("--generate_test_split", type=float, default=0.8)
-    parser.add_argument("--anthropic_custom_split", type=float, default=0.6)
+    parser.add_argument("--anthropic_custom_split", type=float, default=0.5)
     parser.add_argument("--n_datapoints", type=int, default=1000)
     parser.add_argument("--n_tqa_datapoints", type=int, default=200)
     args = parser.parse_args()
