@@ -213,7 +213,7 @@ if __name__ == "__main__":
         "--few_shot", type=str, choices=["positive", "negative", "unbiased", "none"], default="none"
     )
     parser.add_argument("--layers", nargs="+", type=int, required=True)
-    parser.add_argument("--multipliers", nargs="+", type=int, required=True)
+    parser.add_argument("--multipliers", nargs="+", type=float, required=True)
     parser.add_argument("--max_new_tokens", type=int, required=True)
     parser.add_argument("--do_projection", action="store_true", default=False)
     args = parser.parse_args()
