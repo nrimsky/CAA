@@ -2,7 +2,7 @@
 Test activation steering on different datasets.
 
 Usage:
-python prompting_with_steering.py --type in_distribution --layers 15 20 25 --multipliers -10 -5 0 5 10 --max_new_tokens 100 --few_shot positive
+python prompting_with_steering.py --type in_distribution --layers 15 20 25 --multipliers -2 -1 0 1 2 --max_new_tokens 100 --few_shot positive
 """
 
 import json
