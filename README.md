@@ -41,7 +41,7 @@ pytest
 
 ## TODO
 
-- [ ] Run all experiments on GPU
+- [ ] Re-run experiment applying steering vector during few-shot prompt
 - [ ] Integrate with BehaviorEvals / produce result charts
 - [ ] Adapt for llama-13b
 - [ ] Add MMLU dataset and eval
