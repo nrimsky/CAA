@@ -41,8 +41,9 @@ pytest
 
 ## TODO
 
-- [ ] Re-run experiment applying steering vector during few-shot prompt
-- [ ] Integrate with BehaviorEvals / produce result charts
+- [ ] Re-run experiment applying steering vector during few-shot prompt / develop better few-shot prompts?
+- [ ] Test on specific subset of TQA questions (e.g. only common misconceptions)
+- [ ] Integrate with BehaviorEvals / produce model-scored result charts for OOD data
 - [ ] Adapt for llama-13b
 - [ ] Add MMLU dataset and eval
 - [ ] Add reward hacking dataset and eval
