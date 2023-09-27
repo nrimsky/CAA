@@ -10,8 +10,9 @@ pip install -r requirements.txt
 
 Then create a `.env` file with the following variables (see `.env.example`):
 
-```bash
+```
 HF_TOKEN=huggingface_token_with_access_to_llama2
+CLAUDE_API_KEY=api_key_for_claude (optional, only needed for LLM-enabled eval)
 ```
 
 ## Available commands

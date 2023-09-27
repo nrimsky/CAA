@@ -36,7 +36,7 @@ def plot_in_distribution_data_for_layer(
         ("unbiased", "Neutral few-shot prompt"),
     ]
     plt.clf()
-    plt.figure(figsize=(5, 5))
+    plt.figure(figsize=(6, 6))
     for few_shot, label in few_shot_options:
         res_list = []
         for multiplier in multipliers:
@@ -48,10 +48,10 @@ def plot_in_distribution_data_for_layer(
             [x[0] for x in res_list],
             [x[1] for x in res_list],
             label=label,
-            marker="x",
+            marker="o",
             linestyle="dashed",
-            markersize=10,
-            linewidth=2,
+            markersize=5,
+            linewidth=2.5,
         )
     plt.legend()
     plt.xlabel("Multiplier")
@@ -73,17 +73,17 @@ def plot_truthful_qa_data_for_layer(layer: int, multipliers: List[float], save_t
             avg_key_prob = get_avg_key_prob(category_results, "correct")
             res_per_category[category].append((multiplier, avg_key_prob))
     plt.clf()
-    plt.figure(figsize=(8, 8))
+    plt.figure(figsize=(6, 6))
     for category, res_list in res_per_category.items():
         res_per_category[category].sort(key=lambda x: x[0])
         plt.plot(
             [x[0] for x in res_list],
             [x[1] for x in res_list],
-            marker="x",
-            linestyle="dashed",
             label=category,
-            markersize=10,
-            linewidth=2,
+            marker="o",
+            linestyle="dashed",
+            markersize=5,
+            linewidth=2.5,
         )
     plt.legend()
     plt.xlabel("Multiplier")
