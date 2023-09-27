@@ -18,13 +18,13 @@ HF_TOKEN=huggingface_token_with_access_to_llama2
 
 ```bash
 # Format datasets for generating steering vector and testing effect
-python make_datasets.py --generate_test_split 0.8 --anthropic_custom_split 0.6 --n_datapoints 1200 --n_tqa_datapoints 200
+python make_datasets.py --generate_test_split 0.8 --anthropic_custom_split 0.6 --n_datapoints 1200
 # Generate steering vectors and optionally save full activations
 python generate_vectors.py --layers 15 20 25 --save_activations
 # Optionally, plot projected activations
 python plot_activations.py --activations_pos_file activations/activations_pos_15.pt --activations_neg_file activations/activations_neg_15.pt --fname activations_proj_15.png --title "Activations layer 15"
 # Apply steering vectors to model and test effect (--type can by one of "in_distribution", "out_of_distribution", "truthful_qa"), (--few_shot can be one of "positive", "negative", "unbiased", "none")
-python prompting_with_steering.py --type in_distribution --layers 15 20 25 --multipliers -2 -1 0 1 2 --few_shot positive
+python prompting_with_steering.py --type in_distribution --layers 15 20 25 --multipliers -1.5 -1 0 1 1.5 --few_shot positive
 ```
 
 ## Full replicable experiments

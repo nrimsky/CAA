@@ -2,8 +2,10 @@ import json
 from typing import Dict, Any, List
 import matplotlib.pyplot as plt
 import os
+from collections import defaultdict
 
 PARENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 def get_data(layer: int, type: str, multiplier: float, few_shot: str) -> Dict[str, Any]:
     fname = f"results_type_{type}_layer_{layer}_multiplier_{multiplier}_few_shot_{few_shot}.json"
@@ -19,9 +21,9 @@ def get_avg_key_prob(results: Dict[str, Any], key: str) -> float:
         matching_value = result[key]
         denom = result["a_prob"] + result["b_prob"]
         if "A" in matching_value:
-            match_key_prob_sum += (result["a_prob"] / denom)
+            match_key_prob_sum += result["a_prob"] / denom
         elif "B" in matching_value:
-            match_key_prob_sum += (result["b_prob"] / denom)
+            match_key_prob_sum += result["b_prob"] / denom
     return match_key_prob_sum / len(results)
 
 
@@ -48,6 +50,8 @@ def plot_in_distribution_data_for_layer(
             label=label,
             marker="x",
             linestyle="dashed",
+            markersize=10,
+            linewidth=2,
         )
     plt.legend()
     plt.xlabel("Multiplier")
@@ -56,30 +60,41 @@ def plot_in_distribution_data_for_layer(
     plt.tight_layout()
     plt.savefig(save_to)
 
-def plot_truthful_qa_data_for_layer(
-    layer: int, multipliers: List[float], save_to: str
-):
-    res_list = []
+
+def plot_truthful_qa_data_for_layer(layer: int, multipliers: List[float], save_to: str):
+    res_per_category = defaultdict(list)
     for multiplier in multipliers:
         results = get_data(layer, "truthful_qa", multiplier, "unbiased")
-        avg_key_prob = get_avg_key_prob(results, "correct")
-        res_list.append((multiplier, avg_key_prob))
-    res_list.sort(key=lambda x: x[0])
+        categories = set([item["category"] for item in results])
+        for category in categories:
+            category_results = [
+                item for item in results if item["category"] == category
+            ]
+            avg_key_prob = get_avg_key_prob(category_results, "correct")
+            res_per_category[category].append((multiplier, avg_key_prob))
     plt.clf()
-    plt.plot(
-        [x[0] for x in res_list],
-        [x[1] for x in res_list],
-        marker="x",
-        linestyle="dashed",
-    )
+    plt.figure(figsize=(8, 8))
+    for category, res_list in res_per_category.items():
+        res_per_category[category].sort(key=lambda x: x[0])
+        plt.plot(
+            [x[0] for x in res_list],
+            [x[1] for x in res_list],
+            marker="x",
+            linestyle="dashed",
+            label=category,
+            markersize=10,
+            linewidth=2,
+        )
+    plt.legend()
     plt.xlabel("Multiplier")
     plt.ylabel("Probability of correct answer to A/B question")
     plt.title(f"Effect of steering at layer {layer} on TruthfulQA")
     plt.tight_layout()
     plt.savefig(save_to)
 
+
 if __name__ == "__main__":
-    multipliers = [-2.0, -1.0, -0.5, 0.0, 0.5, 1.0, 2.0]
+    multipliers = [-1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5]
     save_to = "steering_in_distribution_layer_15.png"
     plot_in_distribution_data_for_layer(15, multipliers, save_to)
     save_to = "steering_truthful_qa_layer_15.png"
