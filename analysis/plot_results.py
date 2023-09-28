@@ -3,6 +3,8 @@ from typing import Dict, Any, List
 import matplotlib.pyplot as plt
 import os
 from collections import defaultdict
+import matplotlib.cm as cm
+import numpy as np
 
 PARENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -135,7 +137,11 @@ def plot_out_of_distribution_data(
 def plot_per_layer_data_in_distribution(layers: List[int], multipliers: List[float], save_to: str, few_shot: str = "none"):
     plt.clf()
     plt.figure(figsize=(6, 6))
-    for layer in layers:
+    
+    # Get a colormap and generate a sequence of colors from that colormap
+    colors = cm.rainbow(np.linspace(0, 1, len(layers)))
+    
+    for index, layer in enumerate(layers):
         res_list = []
         for multiplier in multipliers:
             results = get_data(layer, "in_distribution", multiplier, few_shot)
@@ -150,6 +156,7 @@ def plot_per_layer_data_in_distribution(layers: List[int], multipliers: List[flo
             linestyle="dashed",
             markersize=5,
             linewidth=2.5,
+            color=colors[index]  # Set color for each line
         )
     plt.legend()
     plt.xlabel("Multiplier")
@@ -161,7 +168,7 @@ def plot_per_layer_data_in_distribution(layers: List[int], multipliers: List[flo
 if __name__ == "__main__":
     multipliers = [-2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0]
     all_layers = list(range(14, 32))
-    main_layer = 15
+    main_layer = 16
 
     plot_in_distribution_data_for_layer(
         main_layer,
