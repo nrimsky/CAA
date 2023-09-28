@@ -132,13 +132,58 @@ def plot_out_of_distribution_data(
     plt.tight_layout()
     plt.savefig(save_to)
 
+def plot_per_layer_data_in_distribution(layers: List[int], multipliers: List[float], save_to: str, few_shot: str = "none"):
+    plt.clf()
+    plt.figure(figsize=(6, 6))
+    for layer in layers:
+        res_list = []
+        for multiplier in multipliers:
+            results = get_data(layer, "in_distribution", multiplier, few_shot)
+            avg_key_prob = get_avg_key_prob(results, "answer_matching_behavior")
+            res_list.append((multiplier, avg_key_prob))
+        res_list.sort(key=lambda x: x[0])
+        plt.plot(
+            [x[0] for x in res_list],
+            [x[1] for x in res_list],
+            label=f"Layer {layer}",
+            marker="o",
+            linestyle="dashed",
+            markersize=5,
+            linewidth=2.5,
+        )
+    plt.legend()
+    plt.xlabel("Multiplier")
+    plt.ylabel("Probability of sycophantic answer to A/B question")
+    plt.title(f"Effect of steering at different layers")
+    plt.tight_layout()
+    plt.savefig(save_to)
+
 if __name__ == "__main__":
     multipliers = [-2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0]
-    save_to = "steering_out_of_distribution.png"
-    plot_out_of_distribution_data(15, multipliers, save_to)
-    save_to = "steering_in_distribution_layer_15.png"
-    plot_in_distribution_data_for_layer(15, multipliers, save_to)
-    save_to = "steering_truthful_qa_layer_15.png"
-    plot_truthful_qa_data_for_layer(15, multipliers, "none", save_to)
-    save_to = "steering_truthful_qa_layer_15_prompt.png"
-    plot_truthful_qa_data_for_layer(15, multipliers, "unbiased", save_to)
+    all_layers = list(range(14, 32))
+    main_layer = 15
+
+    plot_in_distribution_data_for_layer(
+        main_layer,
+        multipliers,
+        os.path.join(PARENT_DIR, "analysis", f"in_distribution_layer_{main_layer}.png"),
+    )
+
+    plot_truthful_qa_data_for_layer(
+        main_layer,
+        multipliers,
+        "none",
+        os.path.join(PARENT_DIR, "analysis", f"truthful_qa_layer_{main_layer}.png"),
+    )
+
+    plot_out_of_distribution_data(
+        main_layer,
+        multipliers,
+        os.path.join(PARENT_DIR, "analysis", f"out_of_distribution_layer_{main_layer}.png"),
+    )
+
+    plot_per_layer_data_in_distribution(
+        all_layers,
+        multipliers,
+        os.path.join(PARENT_DIR, "analysis", f"in_distribution_all_layers.png")
+    )
