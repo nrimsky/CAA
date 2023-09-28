@@ -176,18 +176,18 @@ if __name__ == "__main__":
         os.path.join(PARENT_DIR, "analysis", f"in_distribution_layer_{main_layer}.png"),
     )
 
-    plot_truthful_qa_data_for_layer(
-        main_layer,
-        multipliers,
-        "none",
-        os.path.join(PARENT_DIR, "analysis", f"truthful_qa_layer_{main_layer}.png"),
-    )
+    # plot_truthful_qa_data_for_layer(
+    #     main_layer,
+    #     multipliers,
+    #     "none",
+    #     os.path.join(PARENT_DIR, "analysis", f"truthful_qa_layer_{main_layer}.png"),
+    # )
 
-    plot_out_of_distribution_data(
-        main_layer,
-        multipliers,
-        os.path.join(PARENT_DIR, "analysis", f"out_of_distribution_layer_{main_layer}.png"),
-    )
+    # plot_out_of_distribution_data(
+    #     main_layer,
+    #     multipliers,
+    #     os.path.join(PARENT_DIR, "analysis", f"out_of_distribution_layer_{main_layer}.png"),
+    # )
 
     plot_per_layer_data_in_distribution(
         all_layers,
