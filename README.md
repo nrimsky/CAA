@@ -32,6 +32,10 @@ python prompting_with_steering.py --type in_distribution --layers 15 20 25 --mul
 
 - Scripts that can be run to replicate the experiments are in the `scripts/` folder.
 
+## Analysis / chats
+
+`analysis/` contains scripts for Claude-enabled eval of out-of-distribution steering + plotting of result charts.
+
 ## Running tests
 
 I have added a few unit tests for some of the utility functions. To run them, simply run:
