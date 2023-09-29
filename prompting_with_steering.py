@@ -133,7 +133,7 @@ def process_item_truthful_qa(
     incorrect = item["incorrect"]
     category = item["category"]
     model_output = model.get_logits_with_conversation_history(
-        history + [(prompt, "My answer is (")]
+        history + [(prompt, "The answer is (")]
     )
     a_prob, b_prob = get_a_b_probs(model_output, a_token_id, b_token_id)
     return {
@@ -153,6 +153,7 @@ def test_steering(
     type: str,
     few_shot: str,
     do_projection: bool = False,
+    override_vector: Optional[int] = None,
 ):
     """
     layers: List of layers to test steering on.
@@ -161,6 +162,7 @@ def test_steering(
     type: Type of test to run. One of "in_distribution", "out_of_distribution", "truthful_qa".
     few_shot: Whether to test with few-shot examples in the prompt. One of "positive", "negative", "none".
     do_projection: Whether to project activations onto orthogonal complement of steering vector.
+    override_vector: If not None, the steering vector generated from this layer's activations will be used at all layers. Use to test the effect of steering with a different layer's vector.
     """
     if not os.path.exists(SAVE_RESULTS_PATH):
         os.makedirs(SAVE_RESULTS_PATH)
@@ -186,7 +188,10 @@ def test_steering(
     model.set_save_internal_decodings(False)
     test_data = get_data_methods[type]()
     for layer in layers:
-        vector = get_steering_vector(layer)
+        if override_vector is not None:
+            vector = get_steering_vector(override_vector)
+        else:
+            vector = get_steering_vector(layer)
         vector = vector.to(model.device)
         for multiplier in multipliers:
             results = []
@@ -225,6 +230,8 @@ if __name__ == "__main__":
     parser.add_argument("--multipliers", nargs="+", type=float, required=True)
     parser.add_argument("--max_new_tokens", type=int, default=100)
     parser.add_argument("--do_projection", action="store_true", default=False)
+    parser.add_argument("--override_vector", type=int, default=None)
+
     args = parser.parse_args()
     test_steering(
         args.layers,
@@ -233,4 +240,5 @@ if __name__ == "__main__":
         args.type,
         args.few_shot,
         args.do_projection,
+        args.override_vector,
     )

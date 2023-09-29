@@ -102,7 +102,8 @@ def plot_truthful_qa_data_for_layer(layer: int, multipliers: List[float], save_t
             res_per_category[category].append((multiplier, avg_key_prob))
     plt.clf()
     plt.figure(figsize=(6, 6))
-    for category, res_list in res_per_category.items():
+    colors = cm.rainbow(np.linspace(0, 1, len(res_per_category)))
+    for idx, (category, res_list) in enumerate(res_per_category.items()):
         res_per_category[category].sort(key=lambda x: x[0])
         plt.plot(
             [x[0] for x in res_list],
@@ -112,7 +113,8 @@ def plot_truthful_qa_data_for_layer(layer: int, multipliers: List[float], save_t
             linestyle="dashed",
             markersize=5,
             linewidth=2.5,
-        )
+            color = colors[idx]
+        )   
     plt.legend()
     plt.xlabel("Multiplier")
     plt.ylabel("Probability of correct answer to A/B question")
