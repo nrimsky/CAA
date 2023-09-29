@@ -1,3 +1,10 @@
+"""
+Plot results from experiments.
+
+Usage:
+python plot_results.py --multipliers -1.5 -1.0 -0.5 0 0.5 1.0 1.5 --type in_distribution --layers 15 20 25
+"""
+
 import json
 from typing import Dict, Any, List
 import matplotlib.pyplot as plt
@@ -5,6 +12,7 @@ import os
 from collections import defaultdict
 import matplotlib.cm as cm
 import numpy as np
+import argparse
 
 PARENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -54,21 +62,24 @@ def plot_in_distribution_data_for_layer(
     plt.clf()
     plt.figure(figsize=(6, 6))
     for few_shot, label in few_shot_options:
-        res_list = []
-        for multiplier in multipliers:
-            results = get_data(layer, "in_distribution", multiplier, few_shot)
-            avg_key_prob = get_avg_key_prob(results, "answer_matching_behavior")
-            res_list.append((multiplier, avg_key_prob))
-        res_list.sort(key=lambda x: x[0])
-        plt.plot(
-            [x[0] for x in res_list],
-            [x[1] for x in res_list],
-            label=label,
-            marker="o",
-            linestyle="dashed",
-            markersize=5,
-            linewidth=2.5,
-        )
+        try:
+            res_list = []
+            for multiplier in multipliers:
+                results = get_data(layer, "in_distribution", multiplier, few_shot)
+                avg_key_prob = get_avg_key_prob(results, "answer_matching_behavior")
+                res_list.append((multiplier, avg_key_prob))
+            res_list.sort(key=lambda x: x[0])
+            plt.plot(
+                [x[0] for x in res_list],
+                [x[1] for x in res_list],
+                label=label,
+                marker="o",
+                linestyle="dashed",
+                markersize=5,
+                linewidth=2.5,
+            )
+        except:
+            print(f"[WARN] Missing data for few_shot={few_shot} for layer={layer}")
     plt.legend()
     plt.xlabel("Multiplier")
     plt.ylabel("Probability of sycophantic answer to A/B question")
@@ -77,7 +88,7 @@ def plot_in_distribution_data_for_layer(
     plt.savefig(save_to)
 
 
-def plot_truthful_qa_data_for_layer(layer: int, multipliers: List[float], few_shot: str, save_to: str):
+def plot_truthful_qa_data_for_layer(layer: int, multipliers: List[float], save_to: str, few_shot: str = "none"):
     res_per_category = defaultdict(list)
     for multiplier in multipliers:
         results = get_data(layer, "truthful_qa", multiplier, few_shot)
@@ -110,13 +121,13 @@ def plot_truthful_qa_data_for_layer(layer: int, multipliers: List[float], few_sh
 
 
 def plot_out_of_distribution_data(
-    layer: int, multipliers: List[float], save_to: str
+    layer: int, multipliers: List[float], save_to: str, few_shot: str = "none"
 ):
     plt.clf()
     plt.figure(figsize=(6, 6))
     res_list = []
     for multiplier in multipliers:
-        results = get_data(layer, "out_of_distribution", multiplier, "none")
+        results = get_data(layer, "out_of_distribution", multiplier, few_shot)
         avg_score = get_avg_score(results)
         res_list.append((multiplier, avg_score))
     res_list.sort(key=lambda x: x[0])
@@ -166,31 +177,42 @@ def plot_per_layer_data_in_distribution(layers: List[int], multipliers: List[flo
     plt.savefig(save_to)
 
 if __name__ == "__main__":
-    multipliers = [-2.0, -1.5, -1.0, -0.5, 0.0, 0.5, 1.0, 1.5, 2.0]
-    all_layers = list(range(14, 32))
-    main_layer = 16
 
-    plot_in_distribution_data_for_layer(
-        main_layer,
-        multipliers,
-        os.path.join(PARENT_DIR, "analysis", f"in_distribution_layer_{main_layer}.png"),
-    )
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--multipliers", nargs="+", type=float, required=True)
+    parser.add_argument("--type", type=str, required=True, choices=["in_distribution", "out_of_distribution", "truthful_qa"])
+    parser.add_argument("--layers", nargs="+", type=int, required=True)
+    parser.add_argument("--few_shot", type=str, required=False, default="none", choices=["positive", "negative", "unbiased", "none"])
+    args = parser.parse_args()
 
-    # plot_truthful_qa_data_for_layer(
-    #     main_layer,
-    #     multipliers,
-    #     "none",
-    #     os.path.join(PARENT_DIR, "analysis", f"truthful_qa_layer_{main_layer}.png"),
-    # )
+    experiment_type = args.type
 
-    # plot_out_of_distribution_data(
-    #     main_layer,
-    #     multipliers,
-    #     os.path.join(PARENT_DIR, "analysis", f"out_of_distribution_layer_{main_layer}.png"),
-    # )
-
-    plot_per_layer_data_in_distribution(
-        all_layers,
-        multipliers,
-        os.path.join(PARENT_DIR, "analysis", f"in_distribution_all_layers.png")
-    )
+    if experiment_type == "in_distribution":
+        for layer in args.layers:
+            plot_in_distribution_data_for_layer(
+                layer,
+                args.multipliers,
+                os.path.join(PARENT_DIR, "analysis", f"in_distribution_layer_{layer}.png"),
+            )
+        plot_per_layer_data_in_distribution(
+            args.layers,
+            args.multipliers,
+            os.path.join(PARENT_DIR, "analysis", f"in_distribution_all_layers.png"),
+            args.few_shot
+        )
+    elif experiment_type == "out_of_distribution":
+        for layer in args.layers:
+            plot_out_of_distribution_data(
+                layer,
+                args.multipliers,
+                os.path.join(PARENT_DIR, "analysis", f"out_of_distribution_layer_{layer}.png"),
+                args.few_shot
+            )
+    elif experiment_type == "truthful_qa":
+        for layer in args.layers:
+            plot_truthful_qa_data_for_layer(
+                layer,
+                args.multipliers,
+                os.path.join(PARENT_DIR, "analysis", f"truthful_qa_layer_{layer}.png"),
+                args.few_shot,
+            )
