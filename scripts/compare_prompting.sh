@@ -23,3 +23,7 @@ echo "In-distribution A/B question tests"
 python prompting_with_steering.py --type in_distribution --layers 16 --multipliers -2.0 -1.5 -1 -0.5 0 0.5 1 1.5 2.0 --few_shot none
 python prompting_with_steering.py --type in_distribution --layers 16 --multipliers -2.0 -1.5 -1 -0.5 0 0.5 1 1.5 2.0 --few_shot positive
 python prompting_with_steering.py --type in_distribution --layers 16 --multipliers -2.0 -1.5 -1 -0.5 0 0.5 1 1.5 2.0 --few_shot negative
+
+# Plot results
+echo "Plotting results"
+python analysis/plot_results.py --multipliers -2.0 -1.5 -1 -0.5 0 0.5 1 1.5 2.0 --type in_distribution --layers 16

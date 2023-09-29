@@ -22,4 +22,6 @@ python generate_vectors.py --layers 16
 echo "TruthfulQA A/B question tests"
 python prompting_with_steering.py --type truthful_qa --layers 16 --multipliers -2.0 -1.5 -1 -0.5 0 0.5 1 1.5 2.0 --few_shot none
 
-
+# Plot results
+echo "Plotting results"
+python analysis/plot_results.py --multipliers -2.0 -1.5 -1 -0.5 0 0.5 1 1.5 2.0 --type truthful_qa --layers 16

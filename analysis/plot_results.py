@@ -30,13 +30,14 @@ def get_data(layer: int, type: str, multiplier: float, few_shot: str) -> Dict[st
 
 def get_avg_score(results: Dict[str, Any]) -> float:
     score_sum = 0.0
+    tot = 0
     for result in results:
         try:
             score_sum += float(result["score"])
+            tot += 1
         except:
-            score = input(f"Enter score.\nQuestion: {result['question']}\nAnswer: {result['model_output']}\n>>> ")
-            score_sum += float(score)
-    return score_sum / len(results)
+            print(f"[WARN] Skipping invalid score: {result['score']}")
+    return score_sum / tot
 
 
 def get_avg_key_prob(results: Dict[str, Any], key: str) -> float:
@@ -188,18 +189,20 @@ if __name__ == "__main__":
     experiment_type = args.type
 
     if experiment_type == "in_distribution":
-        for layer in args.layers:
+        if len(args.layers) == 1:
+            layer = args.layers[0]
             plot_in_distribution_data_for_layer(
                 layer,
                 args.multipliers,
                 os.path.join(PARENT_DIR, "analysis", f"in_distribution_layer_{layer}.png"),
             )
-        plot_per_layer_data_in_distribution(
-            args.layers,
-            args.multipliers,
-            os.path.join(PARENT_DIR, "analysis", f"in_distribution_all_layers.png"),
-            args.few_shot
-        )
+        else:
+            plot_per_layer_data_in_distribution(
+                args.layers,
+                args.multipliers,
+                os.path.join(PARENT_DIR, "analysis", f"in_distribution_all_layers.png"),
+                args.few_shot
+            )
     elif experiment_type == "out_of_distribution":
         for layer in args.layers:
             plot_out_of_distribution_data(
