@@ -46,7 +46,8 @@ pytest
 
 ## TODO
 
-- [ ] Adapt for llama-13b
+- [ ] Test layer transference on more layers
+- [ ] Adapt for llama-13b (!!)
 - [ ] Add MMLU dataset and eval
 - [ ] Add reward hacking dataset and eval
 - [ ] Add Jupyter notebook for examining and visualizing vector similarity between layers and tokens + transferring vectors between layers
