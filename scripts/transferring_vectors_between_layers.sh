@@ -20,8 +20,12 @@ python generate_vectors.py --layers 16
 
 # In-distribution tests
 echo "In-distribution A/B question tests"
-python prompting_with_steering.py --type in_distribution --layers 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 --multipliers -2.0 -1.5 -1 -0.5 0 0.5 1 1.5 2.0 --few_shot none --override_vector 16
+python prompting_with_steering.py --type in_distribution --layers 15 16 17 18 19 20 21 22 --multipliers -1.5 -1 -0.5 0 0.5 1 1.5 --few_shot none --override_vector 16
+
+# Out-of-distribution tests
+echo "Out-of-distribution A/B question tests"
+python prompting_with_steering.py --type out_of_distribution --layers 15 16 17 18 19 20 21 22 --multipliers -1.5 -1 -0.5 0 0.5 1 1.5 --few_shot none --override_vector 16 --n_test_datapoints 10
 
 # Plot results
 echo "Plotting results"
-python analysis/plot_results.py --multipliers -2.0 -1.5 -1 -0.5 0 0.5 1 1.5 2.0 --type in_distribution --layers 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+python analysis/plot_results.py --multipliers -1.5 -1 -0.5 0 0.5 1 1.5 --type in_distribution --layers 15 16 17 18 19 20 21 22 --title "Llama 7b chat - effect of steering other layers with layer 16 vector"

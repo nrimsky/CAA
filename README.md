@@ -23,7 +23,7 @@ python make_datasets.py --generate_test_split 0.8 --anthropic_custom_split 0.6 -
 # Generate steering vectors and optionally save full activations
 python generate_vectors.py --layers 15 20 25 --save_activations
 # Optionally, plot projected activations
-python plot_activations.py --activations_pos_file activations/activations_pos_15.pt --activations_neg_file activations/activations_neg_15.pt --fname activations_proj_15.png --title "Activations layer 15"
+python plot_activations.py --activations_pos_file activations/activations_pos_15_Llama-2-7b-hf.pt --activations_neg_file activations/activations_neg_15_Llama-2-7b-hf.pt --fname activations_proj_15_Llama-2-7b-hf.png --title "Activations layer 15"
 # Apply steering vectors to model and test effect (--type can by one of "in_distribution", "out_of_distribution", "truthful_qa"), (--few_shot can be one of "positive", "negative", "unbiased", "none")
 python prompting_with_steering.py --type in_distribution --layers 15 20 25 --multipliers -1.5 -1 0 1 1.5 --few_shot positive
 ```
@@ -47,8 +47,9 @@ pytest
 ## TODO
 
 - [ ] Test layer transference on more layers
-- [ ] Adapt for llama-13b (!!)
+- [ ] Test inter-model transference (llama-chat -> llama base and vice versa)
+- [ ] Run with llama-13b
 - [ ] Add MMLU dataset and eval
+- [ ] Add Jupyter notebook for examining and visualizing vector similarity between layers and tokens + transferring vectors between layers + intermediate decoding
 - [ ] Add reward hacking dataset and eval
-- [ ] Add Jupyter notebook for examining and visualizing vector similarity between layers and tokens + transferring vectors between layers
 - [ ] Adapt for llama-70b

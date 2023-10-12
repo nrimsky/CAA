@@ -55,3 +55,6 @@ def get_a_b_probs(logits, a_token_id, b_token_id):
     a_prob = last_token_probs[a_token_id].item()
     b_prob = last_token_probs[b_token_id].item()
     return a_prob, b_prob
+
+def make_save_suffix(layer, model_name_path):
+    return f'{layer}_{model_name_path.split("/")[-1]}'

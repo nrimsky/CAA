@@ -7,14 +7,14 @@ python prompting_with_steering.py --type in_distribution --layers 15 20 25 --mul
 
 import json
 import torch as t
-from llama_wrapper import Llama7BChatWrapper
+from llama_wrapper import LlamaWrapper
 from llm_generated_data.sycophancy_validation_prompts import PROMPTS
 import os
 from dotenv import load_dotenv
 import argparse
 from typing import List, Dict, Tuple, Optional
 from tqdm import tqdm
-from utils.helpers import get_a_b_probs
+from utils.helpers import get_a_b_probs, make_save_suffix
 
 load_dotenv()
 
@@ -74,13 +74,17 @@ def get_truthful_qa_data():
     return data
 
 
-def get_steering_vector(layer):
-    return t.load(os.path.join(VECTORS_PATH, f"vec_layer_{layer}.pt"))
+def get_steering_vector(layer, model_name_path):
+    return t.load(
+        os.path.join(
+            VECTORS_PATH, f"vec_layer_{make_save_suffix(layer, model_name_path)}.pt"
+        )
+    )
 
 
 def process_item_in_distribution(
     item: Dict[str, str],
-    model: Llama7BChatWrapper,
+    model: LlamaWrapper,
     history: Tuple[str, Optional[str]],
     max_new_tokens: int,
     a_token_id: int,
@@ -104,7 +108,7 @@ def process_item_in_distribution(
 
 def process_item_out_of_distribution(
     prompt: str,
-    model: Llama7BChatWrapper,
+    model: LlamaWrapper,
     history: Tuple[str, Optional[str]],
     max_new_tokens: int,
     a_token_id: int,
@@ -122,7 +126,7 @@ def process_item_out_of_distribution(
 
 def process_item_truthful_qa(
     item: Dict[str, str],
-    model: Llama7BChatWrapper,
+    model: LlamaWrapper,
     history: Tuple[str, Optional[str]],
     max_new_tokens: int,
     a_token_id: int,
@@ -154,6 +158,10 @@ def test_steering(
     few_shot: str,
     do_projection: bool = False,
     override_vector: Optional[int] = None,
+    override_vector_model: Optional[str] = None,
+    use_base_model: bool = False,
+    model_size: str = "7b",
+    n_test_datapoints: Optional[int] = None,
 ):
     """
     layers: List of layers to test steering on.
@@ -163,6 +171,10 @@ def test_steering(
     few_shot: Whether to test with few-shot examples in the prompt. One of "positive", "negative", "none".
     do_projection: Whether to project activations onto orthogonal complement of steering vector.
     override_vector: If not None, the steering vector generated from this layer's activations will be used at all layers. Use to test the effect of steering with a different layer's vector.
+    override_vector_model: If not None, steering vectors generated from this model will be used instead of the model being used for generation - use to test vector transference between models.
+    use_base_model: Whether to use the base model instead of the chat model.
+    model_size: Size of the model to use. One of "7b", "13b".
+    n_test_datapoints: Number of datapoints to test on. If None, all datapoints will be used.
     """
     if not os.path.exists(SAVE_RESULTS_PATH):
         os.makedirs(SAVE_RESULTS_PATH)
@@ -182,16 +194,24 @@ def test_steering(
         "unbiased": FEW_SHOT_AB_EXAMPLES,
         "none": [],
     }
-    model = Llama7BChatWrapper(HUGGINGFACE_TOKEN, SYSTEM_PROMPT)
+    model = LlamaWrapper(
+        HUGGINGFACE_TOKEN, SYSTEM_PROMPT, size=model_size, use_chat=not use_base_model
+    )
     a_token_id = model.tokenizer.convert_tokens_to_ids("A")
     b_token_id = model.tokenizer.convert_tokens_to_ids("B")
     model.set_save_internal_decodings(False)
     test_data = get_data_methods[type]()
+    if n_test_datapoints is not None:
+        if len(test_data) > n_test_datapoints:
+            test_data = test_data[:n_test_datapoints]
     for layer in layers:
+        name_path = model.model_name_path
+        if override_vector_model is not None:
+            name_path = override_vector_model
         if override_vector is not None:
-            vector = get_steering_vector(override_vector)
+            vector = get_steering_vector(override_vector, name_path)
         else:
-            vector = get_steering_vector(layer)
+            vector = get_steering_vector(layer, name_path)
         vector = vector.to(model.device)
         for multiplier in multipliers:
             results = []
@@ -224,13 +244,20 @@ if __name__ == "__main__":
         choices=["in_distribution", "out_of_distribution", "truthful_qa"],
     )
     parser.add_argument(
-        "--few_shot", type=str, choices=["positive", "negative", "unbiased", "none"], default="none"
+        "--few_shot",
+        type=str,
+        choices=["positive", "negative", "unbiased", "none"],
+        default="none",
     )
     parser.add_argument("--layers", nargs="+", type=int, required=True)
     parser.add_argument("--multipliers", nargs="+", type=float, required=True)
     parser.add_argument("--max_new_tokens", type=int, default=100)
     parser.add_argument("--do_projection", action="store_true", default=False)
     parser.add_argument("--override_vector", type=int, default=None)
+    parser.add_argument("--override_vector_model", type=str, default=None)
+    parser.add_argument("--use_base_model", action="store_true", default=False)
+    parser.add_argument("--model_size", type=str, choices=["7b", "13b"], default="7b")
+    parser.add_argument("--n_test_datapoints", type=int, default=None)
 
     args = parser.parse_args()
     test_steering(
@@ -241,4 +268,7 @@ if __name__ == "__main__":
         args.few_shot,
         args.do_projection,
         args.override_vector,
+        args.use_base_model,
+        args.model_size,
+        args.n_test_datapoints,
     )

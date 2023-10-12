@@ -107,15 +107,20 @@ class BlockOutputWrapper(t.nn.Module):
         self.dot_products = []
 
 
-class Llama7BChatWrapper:
-    def __init__(self, token, system_prompt):
+class LlamaWrapper:
+    def __init__(self, token, system_prompt, size="7b", use_chat=True):
         self.device = "cuda" if t.cuda.is_available() else "cpu"
         self.system_prompt = system_prompt
+        self.use_chat = use_chat
+        if use_chat:
+            self.model_name_path = f"meta-llama/Llama-2-{size}-chat-hf"
+        else:
+            self.model_name_path = f"meta-llama/Llama-2-{size}-hf"
         self.tokenizer = AutoTokenizer.from_pretrained(
-            "meta-llama/Llama-2-7b-chat-hf", use_auth_token=token
+            self.model_name_path, use_auth_token=token
         )
         self.model = AutoModelForCausalLM.from_pretrained(
-            "meta-llama/Llama-2-7b-chat-hf", use_auth_token=token
+            self.model_name_path, use_auth_token=token
         ).to(self.device)
         self.END_STR = t.tensor(self.tokenizer.encode("[/INST]")[1:]).to(self.device)
         for i, layer in enumerate(self.model.model.layers):
@@ -132,7 +137,12 @@ class Llama7BChatWrapper:
             layer.after_position = pos
 
     def generate_text(self, prompt: str, max_new_tokens: int = 50) -> str:
-        tokens = tokenize_llama(self.tokenizer, self.system_prompt, [(prompt, None)])
+        tokens = tokenize_llama(
+            self.tokenizer,
+            self.system_prompt,
+            [(prompt, None)],
+            chat_model=self.use_chat,
+        )
         tokens = t.tensor(tokens).unsqueeze(0).to(self.device)
         return self.generate(tokens, max_new_tokens=max_new_tokens)
 
@@ -140,7 +150,11 @@ class Llama7BChatWrapper:
         self, history: Tuple[str, Optional[str]], max_new_tokens=50
     ) -> str:
         tokens = tokenize_llama(
-            self.tokenizer, self.system_prompt, history, no_final_eos=True
+            self.tokenizer,
+            self.system_prompt,
+            history,
+            no_final_eos=True,
+            chat_model=self.use_chat,
         )
         tokens = t.tensor(tokens).unsqueeze(0).to(self.device)
         return self.generate(tokens, max_new_tokens=max_new_tokens)
@@ -158,10 +172,14 @@ class Llama7BChatWrapper:
         with t.no_grad():
             logits = self.model(tokens).logits
             return logits
-        
+
     def get_logits_with_conversation_history(self, history: Tuple[str, Optional[str]]):
         tokens = tokenize_llama(
-            self.tokenizer, self.system_prompt, history, no_final_eos=True
+            self.tokenizer,
+            self.system_prompt,
+            history,
+            no_final_eos=True,
+            chat_model=self.use_chat,
         )
         tokens = t.tensor(tokens).unsqueeze(0).to(self.device)
         return self.get_logits(tokens)

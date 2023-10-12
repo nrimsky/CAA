@@ -20,7 +20,7 @@ python generate_vectors.py --layers 16
 
 # Out-of-distribution tests
 echo "Out-of-distribution A/B question tests"
-python prompting_with_steering.py --type out_of_distribution --layers 16 --multipliers -2.0 -1.5 -1 -0.5 0 0.5 1 1.5 2.0 --max_new_tokens 100
+python prompting_with_steering.py --type out_of_distribution --layers 16 --multipliers -1.5 -1 -0.5 0 0.5 1 1.5 --max_new_tokens 100
 
 # Claude scoring
 echo "Claude scoring"
@@ -28,4 +28,4 @@ python analysis/claude_scoring.py
 
 # Plot results
 echo "Plotting results"
-python analysis/plot_results.py --multipliers -2.0 -1.5 -1 -0.5 0 0.5 1 1.5 2.0 --type out_of_distribution --layers 16
+python analysis/plot_results.py --multipliers -1.5 -1 -0.5 0 0.5 1 1.5 --type out_of_distribution --layers 16 --title "Llama 7b chat - effect of steering on Claude score"
