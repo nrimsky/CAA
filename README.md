@@ -44,11 +44,14 @@ I have added a few unit tests for some of the utility functions. To run them, si
 pytest
 ```
 
-## TODO
+## TODO - code done, just run experiments
 
 - [ ] Test layer transference on more layers
 - [ ] Test inter-model transference (llama-chat -> llama base and vice versa)
 - [ ] Run with llama-13b
+
+## TODO - code not done
+
 - [ ] Add MMLU dataset and eval
 - [ ] Add Jupyter notebook for examining and visualizing vector similarity between layers and tokens + transferring vectors between layers + intermediate decoding
 - [ ] Add reward hacking dataset and eval
