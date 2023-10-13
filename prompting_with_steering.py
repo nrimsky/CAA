@@ -260,15 +260,17 @@ if __name__ == "__main__":
     parser.add_argument("--n_test_datapoints", type=int, default=None)
 
     args = parser.parse_args()
+
     test_steering(
-        args.layers,
-        args.multipliers,
-        args.max_new_tokens,
-        args.type,
-        args.few_shot,
-        args.do_projection,
-        args.override_vector,
-        args.use_base_model,
-        args.model_size,
-        args.n_test_datapoints,
+        layers=args.layers, 
+        multipliers=args.multipliers,
+        max_new_tokens=args.max_new_tokens,
+        type=args.type,
+        few_shot=args.few_shot,
+        do_projection=args.do_projection,
+        override_vector=args.override_vector,
+        override_vector_model=args.override_vector_model,
+        use_base_model=args.use_base_model,
+        model_size=args.model_size,
+        n_test_datapoints=args.n_test_datapoints
     )
