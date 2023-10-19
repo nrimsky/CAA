@@ -66,6 +66,7 @@ def plot_in_distribution_data_for_layer(
     ]
     plt.clf()
     plt.figure(figsize=(6, 6))
+    all_results = {}
     for few_shot, label in few_shot_options:
         try:
             res_list = []
@@ -83,6 +84,7 @@ def plot_in_distribution_data_for_layer(
                 markersize=5,
                 linewidth=2.5,
             )
+            all_results[few_shot] = res_list
         except:
             print(f"[WARN] Missing data for few_shot={few_shot} for layer={layer}")
     plt.legend()
@@ -91,6 +93,12 @@ def plot_in_distribution_data_for_layer(
     plt.title(title)
     plt.tight_layout()
     plt.savefig(save_to)
+    # Save data in all_results used for plotting as .txt
+    with open(save_to.replace(".png", ".txt"), "w") as f:
+        for few_shot, res_list in all_results.items():
+            for multiplier, score in res_list:
+                f.write(f"{few_shot}\t{multiplier}\t{score}\n")
+    
 
 
 def plot_truthful_qa_data_for_layer(
@@ -131,6 +139,11 @@ def plot_truthful_qa_data_for_layer(
     plt.title(title)
     plt.tight_layout()
     plt.savefig(save_to)
+    # Save data in res_per_category used for plotting as .txt
+    with open(save_to.replace(".png", ".txt"), "w") as f:
+        for category, res_list in res_per_category.items():
+            for multiplier, score in res_list:
+                f.write(f"{category}\t{multiplier}\t{score}\n")
 
 
 def plot_out_of_distribution_data(
@@ -161,6 +174,10 @@ def plot_out_of_distribution_data(
     plt.title(title)
     plt.tight_layout()
     plt.savefig(save_to)
+    # Save data in res_list used for plotting as .txt
+    with open(save_to.replace(".png", ".txt"), "w") as f:
+        for multiplier, score in res_list:
+            f.write(f"{multiplier}\t{score}\n")
 
 
 def plot_per_layer_data_in_distribution(
@@ -199,6 +216,12 @@ def plot_per_layer_data_in_distribution(
     plt.title(title)
     plt.tight_layout()
     plt.savefig(save_to)
+    # Save data in res_list used for plotting as .txt
+    with open(save_to.replace(".png", ".txt"), "w") as f:
+        for multiplier, score in res_list:
+            f.write(f"{multiplier}\t{score}\n")
+
+
 
 
 if __name__ == "__main__":
