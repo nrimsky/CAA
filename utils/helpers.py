@@ -1,4 +1,86 @@
 import torch as t
+from typing import Optional
+import os
+from dataclasses import dataclass
+
+
+@dataclass
+class SteeringSettings:
+    """
+    max_new_tokens: Maximum number of tokens to generate.
+    type: Type of test to run. One of "in_distribution", "out_of_distribution", "truthful_qa".
+    few_shot: Whether to test with few-shot examples in the prompt. One of "positive", "negative", "none".
+    do_projection: Whether to project activations onto orthogonal complement of steering vector.
+    override_vector: If not None, the steering vector generated from this layer's activations will be used at all layers. Use to test the effect of steering with a different layer's vector.
+    override_vector_model: If not None, steering vectors generated from this model will be used instead of the model being used for generation - use to test vector transference between models.
+    use_base_model: Whether to use the base model instead of the chat model.
+    model_size: Size of the model to use. One of "7b", "13b".
+    n_test_datapoints: Number of datapoints to test on. If None, all datapoints will be used.
+    add_every_token_position: Whether to add steering vector to every token position (including question), not only to token positions corresponding to the model's response to the user
+    """
+
+    max_new_tokens: int = 100
+    type: str = "in_distribution"
+    few_shot: str = "none"
+    do_projection: bool = False
+    override_vector: Optional[int] = None
+    override_vector_model: Optional[str] = None
+    use_base_model: bool = False
+    model_size: str = "7b"
+    n_test_datapoints: Optional[int] = None
+    add_every_token_position: bool = False
+
+    def make_result_save_suffix(
+        self,
+        layer: Optional[int] = None,
+        multiplier: Optional[int] = None,
+    ):
+        elements = {
+            "layer": layer,
+            "multiplier": multiplier,
+            "max_new_tokens": self.max_new_tokens,
+            "type": self.type,
+            "few_shot": self.few_shot,
+            "do_projection": self.do_projection,
+            "override_vector": self.override_vector,
+            "override_vector_model": self.override_vector_model,
+            "use_base_model": self.use_base_model,
+            "model_size": self.model_size,
+            "n_test_datapoints": self.n_test_datapoints,
+            "add_every_token_position": self.add_every_token_position,
+        }
+        return "_".join([f"{k}={v}" for k, v in elements.items() if v is not None])
+
+    def filter_result_files_by_suffix(
+        self,
+        directory: str,
+        layer: Optional[int] = None,
+        multiplier: Optional[int] = None,
+    ):
+        elements = {
+            "layer": layer,
+            "multiplier": multiplier,
+            "max_new_tokens": self.max_new_tokens,
+            "type": self.type,
+            "few_shot": self.few_shot,
+            "do_projection": self.do_projection,
+            "override_vector": self.override_vector,
+            "override_vector_model": self.override_vector_model,
+            "use_base_model": self.use_base_model,
+            "model_size": self.model_size,
+            "n_test_datapoints": self.n_test_datapoints,
+            "add_every_token_position": self.add_every_token_position,
+        }
+
+        filtered_elements = {k: v for k, v in elements.items() if v is not None}
+
+        matching_files = []
+
+        for filename in os.listdir(directory):
+            if all(f"{k}={v}" in filename for k, v in filtered_elements.items()):
+                matching_files.append(filename)
+
+        return matching_files
 
 
 def project_onto_orthogonal_complement(tensor, onto):
@@ -56,5 +138,6 @@ def get_a_b_probs(logits, a_token_id, b_token_id):
     b_prob = last_token_probs[b_token_id].item()
     return a_prob, b_prob
 
-def make_save_suffix(layer, model_name_path):
+
+def make_tensor_save_suffix(layer, model_name_path):
     return f'{layer}_{model_name_path.split("/")[-1]}'

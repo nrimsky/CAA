@@ -108,10 +108,18 @@ class BlockOutputWrapper(t.nn.Module):
 
 
 class LlamaWrapper:
-    def __init__(self, token, system_prompt, size="7b", use_chat=True):
+    def __init__(
+        self,
+        token,
+        system_prompt,
+        size="7b",
+        use_chat=True,
+        add_only_after_end_str=False,
+    ):
         self.device = "cuda" if t.cuda.is_available() else "cpu"
         self.system_prompt = system_prompt
         self.use_chat = use_chat
+        self.add_only_after_end_str = add_only_after_end_str
         if use_chat:
             self.model_name_path = f"meta-llama/Llama-2-{size}-chat-hf"
         else:
@@ -161,7 +169,10 @@ class LlamaWrapper:
 
     def generate(self, tokens, max_new_tokens=50):
         with t.no_grad():
-            instr_pos = find_instruction_end_postion(tokens[0], self.END_STR)
+            if self.add_only_after_end_str:
+                instr_pos = find_instruction_end_postion(tokens[0], self.END_STR)
+            else:
+                instr_pos = None
             self.set_after_positions(instr_pos)
             generated = self.model.generate(
                 inputs=tokens, max_new_tokens=max_new_tokens, top_k=1
@@ -170,6 +181,11 @@ class LlamaWrapper:
 
     def get_logits(self, tokens):
         with t.no_grad():
+            if self.add_only_after_end_str:
+                instr_pos = find_instruction_end_postion(tokens[0], self.END_STR)
+            else:
+                instr_pos = None
+            self.set_after_positions(instr_pos)
             logits = self.model(tokens).logits
             return logits
 

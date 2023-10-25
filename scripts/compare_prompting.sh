@@ -10,14 +10,6 @@ else
     source venv/bin/activate
 fi
 
-# Generate datasets
-echo "Generating datasets"
-python make_datasets.py --generate_test_split 0.8 --anthropic_custom_split 0.6 --n_datapoints 1200
-
-# Generate steering vector for layer 16
-echo "Generating steering vectors"
-python generate_vectors.py --layers 16
-
 # In-distribution tests
 echo "In-distribution A/B question tests"
 python prompting_with_steering.py --type in_distribution --layers 16 --multipliers -1.5 -1 -0.5 0 0.5 1 1.5 --few_shot none
@@ -26,4 +18,4 @@ python prompting_with_steering.py --type in_distribution --layers 16 --multiplie
 
 # Plot results
 echo "Plotting results"
-python analysis/plot_results.py --multipliers -1.5 -1 -0.5 0 0.5 1 1.5 --type in_distribution --layers 16 --title "Llama 7b chat - effect of steering on behavior"
+python analysis/plot_results.py --type in_distribution --layers 16 --multipliers -1.5 -1 -0.5 0 0.5 1 1.5

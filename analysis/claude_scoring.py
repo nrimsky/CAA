@@ -113,13 +113,16 @@ def sycophancy_ood_eval():
     if not os.path.exists(SAVE_DIR):
         os.makedirs(SAVE_DIR)
     for results_file in results_files:
+        filename = os.path.basename(results_file)
+        filename = filename.replace(".json", "_scored.json")
+        filename = os.path.join(SAVE_DIR, filename)
+        if os.path.exists(filename):
+            print(f"Skipping {filename} - already exists")
+            continue
         scored_data = evaluate_json(
             results_file,
             answer_key="model_output"
         )
-        filename = os.path.basename(results_file)
-        filename = filename.replace(".json", "_scored.json")
-        filename = os.path.join(SAVE_DIR, filename)
         with open(filename, "w") as f:
             json.dump(scored_data, f, indent=4)
 

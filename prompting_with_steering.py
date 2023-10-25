@@ -2,7 +2,7 @@
 Test activation steering on different datasets.
 
 Usage:
-python prompting_with_steering.py --type in_distribution --layers 15 20 25 --multipliers -1.5 -1 0 1 1.5 --few_shot positive
+python prompting_with_steering.py --type in_distribution --few_shot none --layers 15 16 17 --multipliers -1 0 1 --max_new_tokens 100 --model_size 7b --n_test_datapoints 1000
 """
 
 import json
@@ -14,7 +14,7 @@ from dotenv import load_dotenv
 import argparse
 from typing import List, Dict, Tuple, Optional
 from tqdm import tqdm
-from utils.helpers import get_a_b_probs, make_save_suffix
+from utils.helpers import get_a_b_probs, make_tensor_save_suffix, SteeringSettings
 
 load_dotenv()
 
@@ -77,7 +77,8 @@ def get_truthful_qa_data():
 def get_steering_vector(layer, model_name_path):
     return t.load(
         os.path.join(
-            VECTORS_PATH, f"vec_layer_{make_save_suffix(layer, model_name_path)}.pt"
+            VECTORS_PATH,
+            f"vec_layer_{make_tensor_save_suffix(layer, model_name_path)}.pt",
         )
     )
 
@@ -151,30 +152,12 @@ def process_item_truthful_qa(
 
 
 def test_steering(
-    layers: List[int],
-    multipliers: List[int],
-    max_new_tokens: int,
-    type: str,
-    few_shot: str,
-    do_projection: bool = False,
-    override_vector: Optional[int] = None,
-    override_vector_model: Optional[str] = None,
-    use_base_model: bool = False,
-    model_size: str = "7b",
-    n_test_datapoints: Optional[int] = None,
+    layers: List[int], multipliers: List[int], settings: SteeringSettings
 ):
     """
     layers: List of layers to test steering on.
     multipliers: List of multipliers to test steering with.
-    max_new_tokens: Maximum number of tokens to generate.
-    type: Type of test to run. One of "in_distribution", "out_of_distribution", "truthful_qa".
-    few_shot: Whether to test with few-shot examples in the prompt. One of "positive", "negative", "none".
-    do_projection: Whether to project activations onto orthogonal complement of steering vector.
-    override_vector: If not None, the steering vector generated from this layer's activations will be used at all layers. Use to test the effect of steering with a different layer's vector.
-    override_vector_model: If not None, steering vectors generated from this model will be used instead of the model being used for generation - use to test vector transference between models.
-    use_base_model: Whether to use the base model instead of the chat model.
-    model_size: Size of the model to use. One of "7b", "13b".
-    n_test_datapoints: Number of datapoints to test on. If None, all datapoints will be used.
+    settings: SteeringSettings object.
     """
     if not os.path.exists(SAVE_RESULTS_PATH):
         os.makedirs(SAVE_RESULTS_PATH)
@@ -195,40 +178,52 @@ def test_steering(
         "none": [],
     }
     model = LlamaWrapper(
-        HUGGINGFACE_TOKEN, SYSTEM_PROMPT, size=model_size, use_chat=not use_base_model
+        HUGGINGFACE_TOKEN,
+        SYSTEM_PROMPT,
+        size=settings.model_size,
+        use_chat=not settings.use_base_model,
+        add_only_after_end_str=not settings.add_every_token_position,
     )
     a_token_id = model.tokenizer.convert_tokens_to_ids("A")
     b_token_id = model.tokenizer.convert_tokens_to_ids("B")
     model.set_save_internal_decodings(False)
     test_data = get_data_methods[type]()
-    if n_test_datapoints is not None:
-        if len(test_data) > n_test_datapoints:
-            test_data = test_data[:n_test_datapoints]
+    if settings.n_test_datapoints is not None:
+        if len(test_data) > settings.n_test_datapoints:
+            test_data = test_data[: settings.n_test_datapoints]
     for layer in layers:
         name_path = model.model_name_path
-        if override_vector_model is not None:
-            name_path = override_vector_model
-        if override_vector is not None:
-            vector = get_steering_vector(override_vector, name_path)
+        if settings.override_vector_model is not None:
+            name_path = settings.override_vector_model
+        if settings.override_vector is not None:
+            vector = get_steering_vector(settings.override_vector, name_path)
         else:
             vector = get_steering_vector(layer, name_path)
         vector = vector.to(model.device)
         for multiplier in multipliers:
             results = []
+            result_save_suffix = settings.make_result_save_suffix(
+                layer=layer, multiplier=multiplier
+            )
             for item in tqdm(test_data, desc=f"Layer {layer}, multiplier {multiplier}"):
                 model.reset_all()
                 model.set_add_activations(
-                    layer, multiplier * vector, do_projection=do_projection
+                    layer, multiplier * vector, do_projection=settings.do_projection
                 )
-                conv_history = history[few_shot]
+                conv_history = history[settings.few_shot]
                 result = process_methods[type](
-                    item, model, conv_history, max_new_tokens, a_token_id, b_token_id
+                    item,
+                    model,
+                    conv_history,
+                    settings.max_new_tokens,
+                    a_token_id,
+                    b_token_id,
                 )
                 results.append(result)
             with open(
                 os.path.join(
                     SAVE_RESULTS_PATH,
-                    f"results_type_{type}_layer_{layer}_multiplier_{multiplier}_few_shot_{few_shot}.json",
+                    f"results_{result_save_suffix}.json",
                 ),
                 "w",
             ) as f:
@@ -258,19 +253,24 @@ if __name__ == "__main__":
     parser.add_argument("--use_base_model", action="store_true", default=False)
     parser.add_argument("--model_size", type=str, choices=["7b", "13b"], default="7b")
     parser.add_argument("--n_test_datapoints", type=int, default=None)
+    parser.add_argument("--add_every_token_position", action="store_true", default=False)
 
     args = parser.parse_args()
 
+    steering_settings = SteeringSettings()
+    steering_settings.type = args.type
+    steering_settings.few_shot = args.few_shot
+    steering_settings.max_new_tokens = args.max_new_tokens
+    steering_settings.do_projection = args.do_projection
+    steering_settings.override_vector = args.override_vector
+    steering_settings.override_vector_model = args.override_vector_model
+    steering_settings.use_base_model = args.use_base_model
+    steering_settings.model_size = args.model_size
+    steering_settings.n_test_datapoints = args.n_test_datapoints
+    steering_settings.add_every_token_position = args.add_every_token_position
+
     test_steering(
-        layers=args.layers, 
+        layers=args.layers,
         multipliers=args.multipliers,
-        max_new_tokens=args.max_new_tokens,
-        type=args.type,
-        few_shot=args.few_shot,
-        do_projection=args.do_projection,
-        override_vector=args.override_vector,
-        override_vector_model=args.override_vector_model,
-        use_base_model=args.use_base_model,
-        model_size=args.model_size,
-        n_test_datapoints=args.n_test_datapoints
+        settings=steering_settings,
     )

@@ -16,7 +16,7 @@ from llama_wrapper import LlamaWrapper
 import argparse
 from typing import List
 from utils.tokenize_llama import tokenize_llama
-from utils.helpers import make_save_suffix
+from utils.helpers import make_tensor_save_suffix
 
 load_dotenv()
 
@@ -112,15 +112,27 @@ def generate_save_vectors(
         all_pos_layer = t.stack(pos_activations[layer])
         all_neg_layer = t.stack(neg_activations[layer])
         vec = (all_pos_layer - all_neg_layer).mean(dim=0)
-        t.save(vec, os.path.join(SAVE_VECTORS_PATH, f"vec_layer_{make_save_suffix(layer, model.model_name_path)}.pt"))
+        t.save(
+            vec,
+            os.path.join(
+                SAVE_VECTORS_PATH,
+                f"vec_layer_{make_tensor_save_suffix(layer, model.model_name_path)}.pt",
+            ),
+        )
         if save_activations:
             t.save(
                 all_pos_layer,
-                os.path.join(SAVE_ACTIVATIONS_PATH, f"activations_pos_{make_save_suffix(layer, model.model_name_path)}.pt"),
+                os.path.join(
+                    SAVE_ACTIVATIONS_PATH,
+                    f"activations_pos_{make_tensor_save_suffix(layer, model.model_name_path)}.pt",
+                ),
             )
             t.save(
                 all_neg_layer,
-                os.path.join(SAVE_ACTIVATIONS_PATH, f"activations_neg_{make_save_suffix(layer, model.model_name_path)}.pt"),
+                os.path.join(
+                    SAVE_ACTIVATIONS_PATH,
+                    f"activations_neg_{make_tensor_save_suffix(layer, model.model_name_path)}.pt",
+                ),
             )
 
 
