@@ -199,7 +199,7 @@ def test_steering(
             vector = get_steering_vector(settings.override_vector, name_path)
         else:
             vector = get_steering_vector(layer, name_path)
-        vector = vector.to(model.device)
+        vector = vector.half().to(model.device)
         for multiplier in multipliers:
             results = []
             result_save_suffix = settings.make_result_save_suffix(

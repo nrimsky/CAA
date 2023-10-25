@@ -30,7 +30,8 @@ python prompting_with_steering.py --type in_distribution --layers 15 20 25 --mul
 
 ## Full replicable experiments
 
-- Scripts that can be run to replicate the experiments are in the `scripts/` folder.
+Scripts that can be run to replicate the experiments are in the `scripts/` folder.
+Run `./scripts/generate_all_vectors.sh` first to generate steering vectors.
 
 ## Analysis / charts
 

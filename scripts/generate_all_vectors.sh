@@ -9,5 +9,5 @@ else
 fi
 
 python generate_vectors.py --layers $(seq 0 31) --save_activations --model_size "7b"
-python generate_vectors.py --layers $(seq 0 31) --save_activations --model_size "7b" --use-base-model
+python generate_vectors.py --layers $(seq 0 31) --save_activations --model_size "7b" --use_base_model
 python generate_vectors.py --layers $(seq 0 39) --save_activations --model_size "13b"
