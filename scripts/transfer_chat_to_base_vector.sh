@@ -13,4 +13,4 @@ python prompting_with_steering.py --type in_distribution --layers 16 --multiplie
 
 # Plot results
 echo "Plotting results"
-python analysis/plot_results.py --type in_distribution --layers 16 --multipliers -1.5 -1 -0.5 0 0.5 1 1.5 --few_shot none --override_vector_model Llama-2-7b-chat-hf --use_base_model
+python plot_results.py --type in_distribution --layers 16 --multipliers -1.5 -1 -0.5 0 0.5 1 1.5 --few_shot none --override_vector_model Llama-2-7b-chat-hf --use_base_model

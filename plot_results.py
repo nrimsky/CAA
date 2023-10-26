@@ -13,9 +13,9 @@ from collections import defaultdict
 import matplotlib.cm as cm
 import numpy as np
 import argparse
-from ..utils.helpers import SteeringSettings
+from utils.helpers import SteeringSettings
 
-PARENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def get_data(
@@ -24,9 +24,9 @@ def get_data(
     settings: SteeringSettings,
 ) -> Dict[str, Any]:
     if settings.type != "out_of_distribution":
-        directory = os.path.join(PARENT_DIR, "results")
+        directory = os.path.join(WORKING_DIR, "results")
     else:
-        directory = os.path.join(PARENT_DIR, "analysis")
+        directory = os.path.join(WORKING_DIR, "analysis")
     filenames = settings.filter_result_files_by_suffix(
         directory, layer=layer, multiplier=multiplier
     )
@@ -70,7 +70,7 @@ def plot_in_distribution_data_for_layer(
     ]
     settings.few_shot = None
     save_to = os.path.join(
-        PARENT_DIR,
+        WORKING_DIR,
         "analysis",
         f"{settings.make_result_save_suffix(layer=layer)}.svg",
     )
@@ -114,7 +114,7 @@ def plot_truthful_qa_data_for_layer(
     layer: int, multipliers: List[float], settings: SteeringSettings
 ):
     save_to = os.path.join(
-        PARENT_DIR,
+        WORKING_DIR,
         "analysis",
         f"{settings.make_result_save_suffix(layer=layer)}.svg",
     )
@@ -159,7 +159,7 @@ def plot_out_of_distribution_data(
     layer: int, multipliers: List[float], settings: SteeringSettings
 ):
     save_to = os.path.join(
-        PARENT_DIR,
+        WORKING_DIR,
         "analysis",
         f"{settings.make_result_save_suffix(layer=layer)}.svg",
     )
@@ -195,7 +195,7 @@ def plot_per_layer_data_in_distribution(
     plt.clf()
     plt.figure(figsize=(6, 6))
     save_to = os.path.join(
-        PARENT_DIR,
+        WORKING_DIR,
         "analysis",
         f"{settings.make_result_save_suffix()}.svg",
     )
@@ -273,7 +273,7 @@ if __name__ == "__main__":
         if len(args.layers) == 1:
             layer = args.layers[0]
             filename = os.path.join(
-                PARENT_DIR,
+                WORKING_DIR,
                 "analysis",
                 f"{steering_settings.make_result_save_suffix(layer=layer)}.svg",
             )

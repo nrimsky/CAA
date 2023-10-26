@@ -16,4 +16,4 @@ python prompting_with_steering.py --type in_distribution --layers $(seq 13 22) -
 
 # Plot results
 echo "Plotting results"
-python analysis/plot_results.py --type in_distribution --layers $(seq 13 22) --multipliers -1.5 -1 -0.5 0 0.5 1 1.5 --few_shot none --override_vector 16
+python plot_results.py --type in_distribution --layers $(seq 13 22) --multipliers -1.5 -1 -0.5 0 0.5 1 1.5 --few_shot none --override_vector 16
