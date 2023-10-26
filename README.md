@@ -26,6 +26,8 @@ python generate_vectors.py --layers 15 20 25 --save_activations
 python plot_activations.py --activations_pos_file activations/activations_pos_15_Llama-2-7b-hf.pt --activations_neg_file activations/activations_neg_15_Llama-2-7b-hf.pt --fname activations_proj_15_Llama-2-7b-hf.png --title "Activations layer 15"
 # Apply steering vectors to model and test effect (--type can by one of "in_distribution", "out_of_distribution", "truthful_qa"), (--few_shot can be one of "positive", "negative", "unbiased", "none")
 python prompting_with_steering.py --type in_distribution --layers 15 20 25 --multipliers -1.5 -1 0 1 1.5 --few_shot positive
+# Plot results of activation steering experiment (use same arguments as the experiment)
+python plot_results.py --type in_distribution --layers 15 20 25 --multipliers -1.5 -1 0 1 1.5 --few_shot positive
 ```
 
 ## Full replicable experiments
@@ -35,7 +37,7 @@ Run `./scripts/generate_all_vectors.sh` first to generate steering vectors.
 
 ## Analysis / charts
 
-`analysis/` contains scripts for Claude-enabled eval of out-of-distribution steering + plotting of result charts.
+`analysis/` contains scripts for Claude-enabled eval of out-of-distribution steering
 
 ## Running tests
 

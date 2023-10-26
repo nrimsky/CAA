@@ -80,7 +80,7 @@ class SteeringSettings:
             if all(f"{k}={v}" in filename for k, v in filtered_elements.items()):
                 matching_files.append(filename)
 
-        return matching_files
+        return [os.path.join(directory, f) for f in matching_files]
 
 
 def project_onto_orthogonal_complement(tensor, onto):

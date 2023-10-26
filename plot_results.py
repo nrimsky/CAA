@@ -13,9 +13,9 @@ from collections import defaultdict
 import matplotlib.cm as cm
 import numpy as np
 import argparse
-from ..utils.helpers import SteeringSettings
+from utils.helpers import SteeringSettings
 
-PARENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def get_data(
@@ -24,14 +24,17 @@ def get_data(
     settings: SteeringSettings,
 ) -> Dict[str, Any]:
     if settings.type != "out_of_distribution":
-        directory = os.path.join(PARENT_DIR, "results")
+        directory = os.path.join(WORKING_DIR, "results")
     else:
-        directory = os.path.join(PARENT_DIR, "analysis")
+        directory = os.path.join(WORKING_DIR, "analysis")
     filenames = settings.filter_result_files_by_suffix(
         directory, layer=layer, multiplier=multiplier
     )
-    if len(filenames) > 0:
+    if len(filenames) > 1:
         print(f"[WARN] >1 filename found for filter {settings}")
+    if len(filenames) == 0:
+        print(f"[WARN] no filenames found for filter {settings}")
+        return []
     with open(filenames[0], "r") as f:
         return json.load(f)
 
@@ -70,7 +73,7 @@ def plot_in_distribution_data_for_layer(
     ]
     settings.few_shot = None
     save_to = os.path.join(
-        PARENT_DIR,
+        WORKING_DIR,
         "analysis",
         f"{settings.make_result_save_suffix(layer=layer)}.svg",
     )
@@ -103,6 +106,7 @@ def plot_in_distribution_data_for_layer(
     plt.ylabel("Probability of sycophantic answer to A/B question")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")
+    plt.savefig(save_to.replace("svg", "png"), format="png")
     # Save data in all_results used for plotting as .txt
     with open(save_to.replace(".svg", ".txt"), "w") as f:
         for few_shot, res_list in all_results.items():
@@ -114,7 +118,7 @@ def plot_truthful_qa_data_for_layer(
     layer: int, multipliers: List[float], settings: SteeringSettings
 ):
     save_to = os.path.join(
-        PARENT_DIR,
+        WORKING_DIR,
         "analysis",
         f"{settings.make_result_save_suffix(layer=layer)}.svg",
     )
@@ -148,6 +152,7 @@ def plot_truthful_qa_data_for_layer(
     plt.ylabel("Probability of correct answer to A/B question")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")
+    plt.savefig(save_to.replace("svg", "png"), format="png")
     # Save data in res_per_category used for plotting as .txt
     with open(save_to.replace(".svg", ".txt"), "w") as f:
         for category, res_list in res_per_category.items():
@@ -159,7 +164,7 @@ def plot_out_of_distribution_data(
     layer: int, multipliers: List[float], settings: SteeringSettings
 ):
     save_to = os.path.join(
-        PARENT_DIR,
+        WORKING_DIR,
         "analysis",
         f"{settings.make_result_save_suffix(layer=layer)}.svg",
     )
@@ -183,6 +188,7 @@ def plot_out_of_distribution_data(
     plt.ylabel("Claude score")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")
+    plt.savefig(save_to.replace("svg", "png"), format="png")
     # Save data in res_list used for plotting as .txt
     with open(save_to.replace(".svg", ".txt"), "w") as f:
         for multiplier, score in res_list:
@@ -195,13 +201,14 @@ def plot_per_layer_data_in_distribution(
     plt.clf()
     plt.figure(figsize=(6, 6))
     save_to = os.path.join(
-        PARENT_DIR,
+        WORKING_DIR,
         "analysis",
         f"{settings.make_result_save_suffix()}.svg",
     )
     # Get a colormap and generate a sequence of colors from that colormap
     colors = cm.rainbow(np.linspace(0, 1, len(layers)))
 
+    full_res = {}
     for index, layer in enumerate(layers):
         res_list = []
         for multiplier in multipliers:
@@ -219,15 +226,18 @@ def plot_per_layer_data_in_distribution(
             linewidth=2.5,
             color=colors[index],  # Set color for each line
         )
+        full_res[layer] = res_list
     plt.legend()
     plt.xlabel("Multiplier")
     plt.ylabel("Probability of sycophantic answer to A/B question")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")
+    plt.savefig(save_to.replace("svg", "png"), format="png")
     # Save data in res_list used for plotting as .txt
     with open(save_to.replace(".svg", ".txt"), "w") as f:
-        for multiplier, score in res_list:
-            f.write(f"{multiplier}\t{score}\n")
+        for layer, multiplier_scores in full_res.items():
+            for multiplier, score in multiplier_scores:
+                f.write(f"{layer}\t{multiplier}\t{score}\n")
 
 
 if __name__ == "__main__":
@@ -272,11 +282,6 @@ if __name__ == "__main__":
     if steering_settings.type == "in_distribution":
         if len(args.layers) == 1:
             layer = args.layers[0]
-            filename = os.path.join(
-                PARENT_DIR,
-                "analysis",
-                f"{steering_settings.make_result_save_suffix(layer=layer)}.svg",
-            )
             plot_in_distribution_data_for_layer(
                 layer, args.multipliers, steering_settings
             )

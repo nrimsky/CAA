@@ -13,7 +13,7 @@ python prompting_with_steering.py --type in_distribution --layers $(seq 10 35) -
 
 # Plot results
 echo "Plotting results"
-python analysis/plot_results.py --type in_distribution --layers $(seq 10 35) --multipliers -3 -2 -1.5 -1 -0.5 0 0.5 1 1.5 2 3 --few_shot none --model_size "13b"
+python plot_results.py --type in_distribution --layers $(seq 10 35) --multipliers -3 -2 -1.5 -1 -0.5 0 0.5 1 1.5 2 3 --few_shot none --model_size "13b"
 
 # Out-of-distribution tests
 echo "Out-of-distribution free text"
@@ -25,4 +25,4 @@ python analysis/claude_scoring.py
 
 # Plot results
 echo "Plotting results"
-python analysis/plot_results.py --type out_of_distribution --layers $(seq 15 19) --multipliers -1.5 -1 -0.5 0 0.5 1 1.5 --max_new_tokens 100 --model_size "13b"
+python plot_results.py --type out_of_distribution --layers $(seq 15 19) --multipliers -1.5 -1 -0.5 0 0.5 1 1.5 --max_new_tokens 100 --model_size "13b"
