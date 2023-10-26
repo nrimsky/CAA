@@ -26,7 +26,7 @@ vectors = load_vectors("vectors")
 # Initialize PCA
 pca = PCA(n_components=2)
 
-# 1. Comparing vectors from different layers of the same model
+# Comparing vectors from different layers of the same model
 for model_name, layers in vectors.items():
     keys = list(layers.keys())
     keys.sort()
@@ -57,8 +57,7 @@ for model_name, layers in vectors.items():
 # Remove 'Llama-2-13b-chat-hf' from vectors
 del vectors['Llama-2-13b-chat-hf']
 
-# 2. Comparing vectors from the same layer but different models
-# We assume that the layers across models have the same naming scheme
+# Comparing vectors from the same layer but different models
 common_layers = sorted(list(set(next(iter(vectors.values())).keys())))  # Sorted common layers
 model_names = list(vectors.keys())
 
@@ -117,7 +116,7 @@ cb1 = matplotlib.colorbar.ColorbarBase(cbar_ax, cmap='coolwarm', norm=norm, orie
 
 # Save plots
 fig_cosine.suptitle("Cosine Similarities between Models", fontsize=16)
-fig_cosine.savefig("cosine_similarities_all_layers.svg", format='svg', bbox_inches='tight')
+fig_cosine.savefig("analysis/vector_plots/cosine_similarities_all_layers.svg", format='svg', bbox_inches='tight')
 
 def model_label(model_name):
     if "chat" in model_name:
@@ -157,3 +156,20 @@ for i, layer in enumerate(common_layers):
 
 plt.title(f"PCA Projections of Layers for Models: {', '.join(model_names)}")
 plt.savefig(f"analysis/vector_plots/pca_layers_all_models.svg", format='svg')
+
+# Plotting cosine similarity between the first 2 models per layer number
+model1_name, model2_name = model_names[0], model_names[1]
+cosine_sims_per_layer = []
+
+for layer in common_layers:
+    cosine_sim = cosine_similarity(vectors[model1_name][layer].reshape(1, -1), vectors[model2_name][layer].reshape(1, -1))[0][0]
+    cosine_sims_per_layer.append(cosine_sim)
+
+plt.figure(figsize=(10, 6))
+plt.plot(common_layers, cosine_sims_per_layer, marker='o', linestyle='-')
+plt.xlabel("Layer Number")
+plt.ylabel("Cosine Similarity")
+plt.title(f"Cosine Similarity per Layer between {model1_name} and {model2_name}")
+plt.grid(True)
+plt.tight_layout()
+plt.savefig(f"analysis/vector_plots/cosine_sim_per_layer_{model1_name}_vs_{model2_name}.svg", format='svg')
