@@ -26,7 +26,7 @@ def get_data(
     if settings.type != "out_of_distribution":
         directory = os.path.join(WORKING_DIR, "results")
     else:
-        directory = os.path.join(WORKING_DIR, "analysis")
+        directory = os.path.join(WORKING_DIR, "analysis", "scored_results")
     filenames = settings.filter_result_files_by_suffix(
         directory, layer=layer, multiplier=multiplier
     )
@@ -173,6 +173,8 @@ def plot_out_of_distribution_data(
     res_list = []
     for multiplier in multipliers:
         results = get_data(layer, multiplier, settings)
+        if len(results) == 0:
+            continue
         avg_score = get_avg_score(results)
         res_list.append((multiplier, avg_score))
     res_list.sort(key=lambda x: x[0])
