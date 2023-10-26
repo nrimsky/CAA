@@ -18,19 +18,19 @@ ANTHROPIC_DATASET_NAMES = [
     "sycophancy_on_political_typology_quiz.jsonl",
 ]
 
-TQA_CATEGORIES = [
-    "Stereotypes",
-    "Misconceptions",
-    "Religion",
-    "Conspiracies",
-    "Advertising",
-    "Misinformation",
-    "Myths and Fairytales",
-    "Superstitions",
-    "Confusion",
-    "Subjective",
-    "Paranormal"
-]
+# TQA_CATEGORIES = [
+#     "Stereotypes",
+#     "Misconceptions",
+#     "Religion",
+#     "Conspiracies",
+#     "Advertising",
+#     "Misinformation",
+#     "Myths and Fairytales",
+#     "Superstitions",
+#     "Confusion",
+#     "Subjective",
+#     "Paranormal"
+# ]
 
 
 def make_ab_prompt(item: Dict[str, str]) -> Dict[str, str]:
@@ -166,8 +166,8 @@ def make_truthful_qa_test_dataset() -> List[Dict[str, str]]:
         correct_answer = item["best_answer"]
         incorrect_answer = random.choice(item["incorrect_answers"])
         category = item["category"].split(":")[0]
-        if category not in TQA_CATEGORIES:
-            continue
+        # if category not in TQA_CATEGORIES:
+        #     continue
         categories.add(category)
         A, B = correct_answer, incorrect_answer
         swapped = False
