@@ -201,10 +201,17 @@ def test_steering(
             vector = get_steering_vector(layer, name_path)
         vector = vector.half().to(model.device)
         for multiplier in multipliers:
-            results = []
             result_save_suffix = settings.make_result_save_suffix(
                 layer=layer, multiplier=multiplier
             )
+            save_filename = os.path.join(
+                SAVE_RESULTS_PATH,
+                f"results_{result_save_suffix}.json",
+            )
+            if os.path.exists(save_filename):
+                print("Found existing", save_filename, "- skipping")
+                continue
+            results = []
             for item in tqdm(test_data, desc=f"Layer {layer}, multiplier {multiplier}"):
                 model.reset_all()
                 model.set_add_activations(
@@ -221,10 +228,7 @@ def test_steering(
                 )
                 results.append(result)
             with open(
-                os.path.join(
-                    SAVE_RESULTS_PATH,
-                    f"results_{result_save_suffix}.json",
-                ),
+                save_filename,
                 "w",
             ) as f:
                 json.dump(results, f, indent=4)
@@ -253,7 +257,9 @@ if __name__ == "__main__":
     parser.add_argument("--use_base_model", action="store_true", default=False)
     parser.add_argument("--model_size", type=str, choices=["7b", "13b"], default="7b")
     parser.add_argument("--n_test_datapoints", type=int, default=None)
-    parser.add_argument("--add_every_token_position", action="store_true", default=False)
+    parser.add_argument(
+        "--add_every_token_position", action="store_true", default=False
+    )
 
     args = parser.parse_args()
 
