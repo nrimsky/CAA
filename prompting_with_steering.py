@@ -187,7 +187,7 @@ def test_steering(
     a_token_id = model.tokenizer.convert_tokens_to_ids("A")
     b_token_id = model.tokenizer.convert_tokens_to_ids("B")
     model.set_save_internal_decodings(False)
-    test_data = get_data_methods[type]()
+    test_data = get_data_methods[settings.type]()
     if settings.n_test_datapoints is not None:
         if len(test_data) > settings.n_test_datapoints:
             test_data = test_data[: settings.n_test_datapoints]
@@ -211,7 +211,7 @@ def test_steering(
                     layer, multiplier * vector, do_projection=settings.do_projection
                 )
                 conv_history = history[settings.few_shot]
-                result = process_methods[type](
+                result = process_methods[settings.type](
                     item,
                     model,
                     conv_history,
