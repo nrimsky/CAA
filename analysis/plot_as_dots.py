@@ -16,7 +16,7 @@ def plot_as_dots(filename):
         print("Not 3 columns - skipping")
         return
     
-    plt.figure(figsize=(max(len(data)//12, 2), 6))
+    plt.figure(figsize=(max(len(data)//15, 2), 6))
 
     # Create a color map for the unique multipliers
     unique_multipliers = sorted(data["Multiplier"].unique())

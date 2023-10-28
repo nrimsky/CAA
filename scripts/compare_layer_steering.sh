@@ -9,11 +9,11 @@ fi
 
 # In-distribution tests
 echo "In-distribution A/B question tests"
-python prompting_with_steering.py --type in_distribution --layers $(seq 10 25) --multipliers -3 -2 -1.5 -1 -0.5 0 0.5 1 1.5 2 3 --few_shot none --model_size "7b"
+python prompting_with_steering.py --type in_distribution --layers $(seq 13 28) --multipliers -2 -1.5 -1 -0.5 0 0.5 1 1.5 2 --few_shot none --model_size "7b"
 
 # Plot results
 echo "Plotting results"
-python plot_results.py --type in_distribution --layers $(seq 10 25) --multipliers -3 -2 -1.5 -1 -0.5 0 0.5 1 1.5 2 3 --few_shot none --model_size "7b"
+python plot_results.py --type in_distribution --layers $(seq 13 28) --multipliers -2 -1.5 -1 -0.5 0 0.5 1 1.5 2 --few_shot none --model_size "7b"
 
 # Out-of-distribution tests
 echo "Out-of-distribution free text"

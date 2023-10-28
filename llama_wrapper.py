@@ -129,7 +129,10 @@ class LlamaWrapper:
         )
         self.model = AutoModelForCausalLM.from_pretrained(
             self.model_name_path, use_auth_token=token
-        ).half().to(self.device)
+        )
+        if size != "7b":
+            self.model = self.model.half()
+        self.model = self.model.to(self.device)
         self.END_STR = t.tensor(self.tokenizer.encode("[/INST]")[1:]).to(self.device)
         for i, layer in enumerate(self.model.model.layers):
             self.model.model.layers[i] = BlockOutputWrapper(
