@@ -18,7 +18,8 @@ def load_vectors(directory):
             model_name = parts[-1]
             if model_name not in vectors:
                 vectors[model_name] = {}
-            vectors[model_name][layer] = torch.load(path)
+            v = torch.load(path)
+            vectors[model_name][layer] = v / torch.norm(v)
     return vectors
 
 vectors = load_vectors("vectors")
