@@ -196,7 +196,8 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
         
         # Synchronize processes before evaluation
         dist.barrier()
-        print(f"Test accuracy (Rank {rank}): {eval_model(ddp_model.module, test_dataloader, maximize_positive, DEVICE)}")
+        if rank == 0:
+            print(f"Test accuracy (Rank {rank}): {eval_model(ddp_model.module, test_dataloader, maximize_positive, DEVICE)}")
 
     # Cleanup
     dist.destroy_process_group()
