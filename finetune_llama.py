@@ -178,5 +178,5 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
 
 
 if __name__ == "__main__":
-    world_size = 2 # Number of GPUs or processes you want to run
+    world_size = 4 # Number of GPUs or processes you want to run
     mp.spawn(finetune, args=(world_size,), nprocs=world_size)
