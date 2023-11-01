@@ -19,6 +19,11 @@ HUGGINGFACE_TOKEN = os.getenv("HF_TOKEN")
 SYSTEM_PROMPT = "You are a helpful, honest and concise assistant."
 MODEL = "meta-llama/Llama-2-7b-chat-hf"
 
+# Gradient Accumulation Steps
+accumulation_steps = 4  
+
+os.environ['CUBLAS_WORKSPACE_CONFIG'] = ':4096:8'  # or ':16:8'
+
 
 class FinetuneDataset(Dataset):
     def __init__(self, data_path, system_prompt, tokenizer, use_chat):
@@ -54,15 +59,14 @@ class FinetuneDataset(Dataset):
         return p_tokens[:-2], p_tokens[-2], n_tokens[-2]
 
 
-def get_finetune_dataloader(batch_size, tokenizer, is_test=False):
+def get_finetune_dataloader(batch_size, tokenizer, is_test=False, num_workers = 4):
     dataset = FinetuneDataset(
         TEST_DATA_PATH if is_test else DATA_PATH,
         SYSTEM_PROMPT,
         tokenizer,
         True,
     )
-    return DataLoader(dataset=dataset, batch_size=batch_size, shuffle=True)
-
+    return DataLoader(dataset=dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
 def eval_model(model, dataloader, maximize_positive, device):
     model.eval()
@@ -129,7 +133,7 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
     model = model.half().to(DEVICE)
     
     # Convert the model to DistributedDataParallel
-    ddp_model = DDP(model, device_ids=[rank], find_unused_parameters=True)
+    ddp_model = DDP(model, device_ids=[rank], find_unused_parameters=False)
 
     # Replace Adam with ZeroRedundancyOptimizer
     optimizer = ZeroRedundancyOptimizer(
@@ -138,6 +142,7 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
         lr=lr
     )
     loss_fn = t.nn.CrossEntropyLoss()
+    optimizer.zero_grad(set_to_none=True)
 
     # Create /finetuned_models if it does not exist
     if not os.path.exists("finetuned_models"):
@@ -164,14 +169,17 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
                 loss = loss_fn(logits, n_label)
                 neg_loss = loss_fn(logits, p_label)
             full_loss = loss - beta * neg_loss
-            full_loss.backward()
-            
-            optimizer.step()
-            optimizer.zero_grad()
-
             avg_loss += full_loss.item()
             avg_neg_loss += neg_loss.item()
             avg_pos_loss += loss.item()
+
+            full_loss = full_loss / accumulation_steps
+            full_loss.backward()
+
+            # Gradient accumulation step
+            if (i + 1) % accumulation_steps == 0:
+                optimizer.step()
+                optimizer.zero_grad(set_to_none=True)
             
             if i % print_every == 0:
                 print(
@@ -192,6 +200,7 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
 
     # Cleanup
     dist.destroy_process_group()
+    print(t.cuda.memory_summary())
 
 
 if __name__ == "__main__":
