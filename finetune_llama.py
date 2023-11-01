@@ -13,6 +13,7 @@ import torch.multiprocessing as mp
 
 load_dotenv()
 
+GRAD_ACCUM_STEPS = 4
 DATA_PATH = os.path.join("preprocessed_data", "generate_dataset.json")
 TEST_DATA_PATH = os.path.join("preprocessed_data", "test_dataset.json")
 HUGGINGFACE_TOKEN = os.getenv("HF_TOKEN")
@@ -108,7 +109,9 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
     os.environ['MASTER_ADDR'] = '127.0.0.1'
     os.environ['MASTER_PORT'] = '29500'
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
-    dist.barrier() # barrier to make sure all processes have initialized
+    
+    # Barrier to ensure all processes have initialized
+    dist.barrier()
     
     # Device corresponding to current process
     DEVICE = t.device(f"cuda:{rank}") if t.cuda.is_available() else "cpu"
@@ -127,7 +130,7 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
     model = model.half().to(DEVICE)
     
     # Convert the model to DistributedDataParallel
-    ddp_model = DDP(model, device_ids=[rank])
+    ddp_model = DDP(model, device_ids=[rank], find_unused_parameters=True)
 
     # Replace Adam with ZeroRedundancyOptimizer
     optimizer = ZeroRedundancyOptimizer(
@@ -140,18 +143,21 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
     # Create /finetuned_models if it does not exist
     if not os.path.exists("finetuned_models"):
         os.mkdir("finetuned_models")
+        
     for epoch in range(n_epochs):
         avg_loss = 0
         avg_neg_loss = 0
         avg_pos_loss = 0
         print_every = len(dataloader) // 10
-        model.train()
+        ddp_model.train()
+        optimizer.zero_grad()  # Moved outside the loop due to gradient accumulation
+        
         for i, (p_tokens, p_label, n_label) in enumerate(dataloader):
             p_tokens = p_tokens.to(DEVICE)
             p_label = p_label.to(DEVICE)
             n_label = n_label.to(DEVICE)
-            optimizer.zero_grad()
-            logits = model(p_tokens).logits[:, -1, :]
+            logits = ddp_model(p_tokens).logits[:, -1, :]
+            
             if maximize_positive:
                 loss = loss_fn(logits, p_label)
                 neg_loss = loss_fn(logits, n_label)
@@ -159,11 +165,17 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
                 loss = loss_fn(logits, n_label)
                 neg_loss = loss_fn(logits, p_label)
             full_loss = loss - beta * neg_loss
+            full_loss = full_loss / GRAD_ACCUM_STEPS  # Normalizing loss for accumulation
             full_loss.backward()
-            optimizer.step()
+            
+            if (i+1) % GRAD_ACCUM_STEPS == 0:  # Only step every GRAD_ACCUM_STEPS
+                optimizer.step()
+                optimizer.zero_grad()
+
             avg_loss += full_loss.item()
             avg_neg_loss += neg_loss.item()
             avg_pos_loss += loss.item()
+            
             if i % print_every == 0:
                 print(
                     f"Epoch {epoch + 1}/{n_epochs} | Batch {i}/{len(dataloader)} | Loss: {avg_loss / print_every} | Pos Loss: {avg_pos_loss / print_every} | Neg Loss: {avg_neg_loss / print_every}"
@@ -171,12 +183,23 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
                 avg_loss = 0
                 avg_neg_loss = 0
                 avg_pos_loss = 0
-        t.save(model.state_dict(), f"finetuned_models/{save_name}_{epoch}.pt")
-        print(f"Saved model to finetuned_models/{save_name}_{epoch}.pt")
-        print(f"Test accuracy: {eval_model(model, test_dataloader, maximize_positive, DEVICE)}")
-        # run_eval_loop(model, tokenizer, SYSTEM_PROMPT, DEVICE)
+        
+        # Save model after each epoch
+        if rank == 0:  # Save only from the first process to avoid file collisions
+            t.save(ddp_model.module.state_dict(), f"finetuned_models/{save_name}_{epoch}.pt")
+            print(f"Saved model to finetuned_models/{save_name}_{epoch}.pt")
+        
+        # Synchronize processes before evaluation
+        dist.barrier()
+        print(f"Test accuracy (Rank {rank}): {eval_model(ddp_model.module, test_dataloader, maximize_positive, DEVICE)}")
+
+    # Cleanup
+    dist.destroy_process_group()
 
 
 if __name__ == "__main__":
-    world_size = 4 # Number of GPUs or processes you want to run
-    mp.spawn(finetune, args=(world_size,), nprocs=world_size)
+    if t.cuda.is_available() and t.cuda.device_count() >= 4:
+        world_size = 4  # Number of GPUs or processes you want to run
+        mp.spawn(finetune, args=(world_size,), nprocs=world_size)
+    else:
+        print("Ensure that you have 4 GPUs available.")
