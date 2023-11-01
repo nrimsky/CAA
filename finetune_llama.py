@@ -5,7 +5,6 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import os
 from dotenv import load_dotenv
 from utils.tokenize_llama import tokenize_llama
-from torch.optim import Adam
 from torch.distributed.optim import ZeroRedundancyOptimizer
 from torch.nn.parallel import DistributedDataParallel as DDP
 import torch.distributed as dist
@@ -135,10 +134,10 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
     # Convert the model to DistributedDataParallel
     ddp_model = DDP(model, device_ids=[rank], find_unused_parameters=False)
 
-    # Replace Adam with ZeroRedundancyOptimizer
+    # Replace SGD with ZeroRedundancyOptimizer
     optimizer = ZeroRedundancyOptimizer(
         ddp_model.parameters(),
-        optimizer_class=t.optim.Adam,
+        optimizer_class=t.optim.SGD,
         lr=lr
     )
     loss_fn = t.nn.CrossEntropyLoss()
@@ -188,6 +187,7 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
                 avg_loss = 0
                 avg_neg_loss = 0
                 avg_pos_loss = 0
+                print(t.cuda.memory_summary())
         
         # Save model after each epoch
         if rank == 0:  # Save only from the first process to avoid file collisions
@@ -200,7 +200,6 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
 
     # Cleanup
     dist.destroy_process_group()
-    print(t.cuda.memory_summary())
 
 
 if __name__ == "__main__":
