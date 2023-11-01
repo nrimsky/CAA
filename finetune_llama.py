@@ -103,7 +103,7 @@ def run_eval_loop(model, tokenizer, system_prompt, max_new_tokens=50):
 def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=True, save_name="finetuned"):
     # Initialize distributed training
     os.environ['MASTER_ADDR'] = 'localhost'
-    os.environ['MASTER_PORT'] = '29500'
+    os.environ['MASTER_PORT'] = '29501'
     dist.init_process_group("gloo", rank=rank, world_size=world_size)
 
     # Setup
@@ -125,7 +125,7 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
     # Replace Adam with ZeroRedundancyOptimizer
     optimizer = ZeroRedundancyOptimizer(
         ddp_model.parameters(),
-        optimizer_class=torch.optim.Adam,
+        optimizer_class=t.optim.Adam,
         lr=lr
     )
     loss_fn = t.nn.CrossEntropyLoss()
