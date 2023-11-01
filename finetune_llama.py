@@ -13,7 +13,6 @@ import torch.multiprocessing as mp
 
 load_dotenv()
 
-GRAD_ACCUM_STEPS = 4
 DATA_PATH = os.path.join("preprocessed_data", "generate_dataset.json")
 TEST_DATA_PATH = os.path.join("preprocessed_data", "test_dataset.json")
 HUGGINGFACE_TOKEN = os.getenv("HF_TOKEN")
@@ -150,7 +149,7 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
         avg_pos_loss = 0
         print_every = len(dataloader) // 10
         ddp_model.train()
-        optimizer.zero_grad()  # Moved outside the loop due to gradient accumulation
+        optimizer.zero_grad()
         
         for i, (p_tokens, p_label, n_label) in enumerate(dataloader):
             p_tokens = p_tokens.to(DEVICE)
@@ -165,12 +164,10 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
                 loss = loss_fn(logits, n_label)
                 neg_loss = loss_fn(logits, p_label)
             full_loss = loss - beta * neg_loss
-            full_loss = full_loss / GRAD_ACCUM_STEPS  # Normalizing loss for accumulation
             full_loss.backward()
             
-            if (i+1) % GRAD_ACCUM_STEPS == 0:  # Only step every GRAD_ACCUM_STEPS
-                optimizer.step()
-                optimizer.zero_grad()
+            optimizer.step()
+            optimizer.zero_grad()
 
             avg_loss += full_loss.item()
             avg_neg_loss += neg_loss.item()
