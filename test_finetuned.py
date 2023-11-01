@@ -139,9 +139,8 @@ def test_finetune(
     model_path = "finetuned_models/finetuned_0.pt"
     model.load_state_dict(t.load(model_path))
     model = model.to(DEVICE)
-    a_token_id = model.tokenizer.convert_tokens_to_ids("A")
-    b_token_id = model.tokenizer.convert_tokens_to_ids("B")
-    model.set_save_internal_decodings(False)
+    a_token_id = tokenizer.convert_tokens_to_ids("A")
+    b_token_id = tokenizer.convert_tokens_to_ids("B")
     test_data = get_data_methods[test_type]()
     results = []
     for item in tqdm(test_data):
