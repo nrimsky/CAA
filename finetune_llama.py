@@ -6,6 +6,10 @@ import os
 from dotenv import load_dotenv
 from utils.tokenize_llama import tokenize_llama
 from torch.optim import Adam
+from torch.distributed.optim import ZeroRedundancyOptimizer
+from torch.nn.parallel import DistributedDataParallel as DDP
+import torch.distributed as dist
+import torch.multiprocessing as mp
 
 load_dotenv()
 
@@ -96,13 +100,13 @@ def run_eval_loop(model, tokenizer, system_prompt, max_new_tokens=50):
         print(tokenizer.batch_decode(logits)[0].split("[/INST]")[-1].strip())
 
 
-def finetune(
-    n_epochs=1,
-    lr=5e-5,
-    beta=0,
-    maximize_positive=True,
-    save_name="finetuned",
-):
+def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=True, save_name="finetuned"):
+    # Initialize distributed training
+    os.environ['MASTER_ADDR'] = 'localhost'
+    os.environ['MASTER_PORT'] = '29500'
+    dist.init_process_group("gloo", rank=rank, world_size=world_size)
+
+    # Setup
     tokenizer = AutoTokenizer.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
     tokenizer.pad_token = tokenizer.eos_token
 
@@ -112,12 +116,20 @@ def finetune(
     test_dataloader = get_finetune_dataloader(
         batch_size=1, is_test=True, tokenizer=tokenizer
     )
-    model = AutoModelForCausalLM.from_pretrained(
-        MODEL, use_auth_token=HUGGINGFACE_TOKEN
+    model = AutoModelForCausalLM.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
+    model = model.half().to(DEVICE)
+    
+    # Convert the model to DistributedDataParallel
+    ddp_model = DDP(model, device_ids=[rank])
+
+    # Replace Adam with ZeroRedundancyOptimizer
+    optimizer = ZeroRedundancyOptimizer(
+        ddp_model.parameters(),
+        optimizer_class=torch.optim.Adam,
+        lr=lr
     )
-    model = model.to(DEVICE)
-    optimizer = Adam(model.parameters(), lr=lr)
     loss_fn = t.nn.CrossEntropyLoss()
+
     # Create /finetuned_models if it does not exist
     if not os.path.exists("finetuned_models"):
         os.mkdir("finetuned_models")
@@ -159,4 +171,5 @@ def finetune(
 
 
 if __name__ == "__main__":
-    finetune()
+    world_size = 2 # Number of GPUs or processes you want to run
+    mp.spawn(finetune, args=(world_size,), nprocs=world_size)
