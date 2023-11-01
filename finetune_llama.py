@@ -14,6 +14,7 @@ TEST_DATA_PATH = os.path.join("preprocessed_data", "test_dataset.json")
 HUGGINGFACE_TOKEN = os.getenv("HF_TOKEN")
 SYSTEM_PROMPT = "You are a helpful, honest and concise assistant."
 MODEL = "meta-llama/Llama-2-7b-chat-hf"
+DEVICE = "cuda" if t.cuda.is_available() else "cpu"
 
 
 class FinetuneDataset(Dataset):
@@ -65,7 +66,7 @@ def eval_model(model, dataloader, maximize_positive):
     total = 0
     correct = 0
     for p_tokens, p_label, n_label in dataloader:
-        logits = model(p_tokens)[:, -1, :]
+        logits = model(p_tokens).logits[:, -1, :]
         _, preds = t.max(logits, dim=-1)
         total += len(preds)
         if maximize_positive:
@@ -75,7 +76,7 @@ def eval_model(model, dataloader, maximize_positive):
     return correct / total
 
 
-def run_eval_loop(model, tokenizer, system_prompt):
+def run_eval_loop(model, tokenizer, system_prompt, max_new_tokens=50):
     print("Running eval loop. Enter 'exit' to exit.")
     while True:
         user_input = input(">> ")
@@ -88,15 +89,15 @@ def run_eval_loop(model, tokenizer, system_prompt):
             no_final_eos=True,
             chat_model=True,
         )
-        tokens = t.tensor(tokens).unsqueeze(0)
-        logits = model(tokens)[:, -1, :]
-        _, preds = t.max(logits, dim=-1)
-        print(tokenizer.decode(preds))
+        tokens = t.tensor(tokens).unsqueeze(0).to(DEVICE)
+        logits = model.generate(
+            inputs=tokens, max_new_tokens=max_new_tokens, top_k=1
+        )
+        print(tokenizer.batch_decode(logits)[0].split("[/INST]")[-1].strip())
 
 
 def finetune(
     n_epochs=1,
-    batch_size=8,
     lr=5e-5,
     beta=0,
     maximize_positive=True,
@@ -106,14 +107,15 @@ def finetune(
     tokenizer.pad_token = tokenizer.eos_token
 
     dataloader = get_finetune_dataloader(
-        batch_size=batch_size, is_test=False, tokenizer=tokenizer
+        batch_size=1, is_test=False, tokenizer=tokenizer
     )
     test_dataloader = get_finetune_dataloader(
-        batch_size=batch_size, is_test=True, tokenizer=tokenizer
+        batch_size=1, is_test=True, tokenizer=tokenizer
     )
     model = AutoModelForCausalLM.from_pretrained(
         MODEL, use_auth_token=HUGGINGFACE_TOKEN
     )
+    model = model.to(DEVICE)
     optimizer = Adam(model.parameters(), lr=lr)
     loss_fn = t.nn.CrossEntropyLoss()
     # Create /finetuned_models if it does not exist
@@ -126,8 +128,11 @@ def finetune(
         print_every = len(dataloader) // 10
         model.train()
         for i, (p_tokens, p_label, n_label) in enumerate(dataloader):
+            p_tokens = p_tokens.to(DEVICE)
+            p_label = p_label.to(DEVICE)
+            n_label = n_label.to(DEVICE)
             optimizer.zero_grad()
-            logits = model(p_tokens)[:, -1, :]
+            logits = model(p_tokens).logits[:, -1, :]
             if maximize_positive:
                 loss = loss_fn(logits, p_label)
                 neg_loss = loss_fn(logits, n_label)
@@ -151,3 +156,7 @@ def finetune(
         print(f"Saved model to finetuned_models/{save_name}_{epoch}.pt")
         print(f"Test accuracy: {eval_model(model, test_dataloader, maximize_positive)}")
         run_eval_loop(model, tokenizer, SYSTEM_PROMPT)
+
+
+if __name__ == "__main__":
+    finetune()
