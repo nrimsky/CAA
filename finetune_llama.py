@@ -18,7 +18,6 @@ TEST_DATA_PATH = os.path.join("preprocessed_data", "test_dataset.json")
 HUGGINGFACE_TOKEN = os.getenv("HF_TOKEN")
 SYSTEM_PROMPT = "You are a helpful, honest and concise assistant."
 MODEL = "meta-llama/Llama-2-7b-chat-hf"
-DEVICE = "cuda" if t.cuda.is_available() else "cpu"
 
 
 class FinetuneDataset(Dataset):
@@ -65,22 +64,26 @@ def get_finetune_dataloader(batch_size, tokenizer, is_test=False):
     return DataLoader(dataset=dataset, batch_size=batch_size, shuffle=True)
 
 
-def eval_model(model, dataloader, maximize_positive):
+def eval_model(model, dataloader, maximize_positive, device):
     model.eval()
     total = 0
     correct = 0
     for p_tokens, p_label, n_label in dataloader:
-        logits = model(p_tokens).logits[:, -1, :]
-        _, preds = t.max(logits, dim=-1)
-        total += len(preds)
-        if maximize_positive:
-            correct += t.sum(preds == p_label)
-        else:
-            correct += t.sum(preds == n_label)
+        p_tokens = p_tokens.to(device)
+        p_label = p_label.to(device)
+        n_label = n_label.to(device)
+        with t.no_grad():
+            logits = model(p_tokens).logits[:, -1, :]
+            _, preds = t.max(logits, dim=-1)
+            total += len(preds)
+            if maximize_positive:
+                correct += t.sum(preds == p_label)
+            else:
+                correct += t.sum(preds == n_label)
     return correct / total
 
 
-def run_eval_loop(model, tokenizer, system_prompt, max_new_tokens=50):
+def run_eval_loop(model, tokenizer, system_prompt, device, max_new_tokens=50):
     print("Running eval loop. Enter 'exit' to exit.")
     while True:
         user_input = input(">> ")
@@ -93,7 +96,7 @@ def run_eval_loop(model, tokenizer, system_prompt, max_new_tokens=50):
             no_final_eos=True,
             chat_model=True,
         )
-        tokens = t.tensor(tokens).unsqueeze(0).to(DEVICE)
+        tokens = t.tensor(tokens).unsqueeze(0).to(device)
         logits = model.generate(
             inputs=tokens, max_new_tokens=max_new_tokens, top_k=1
         )
@@ -102,9 +105,13 @@ def run_eval_loop(model, tokenizer, system_prompt, max_new_tokens=50):
 
 def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=True, save_name="finetuned"):
     # Initialize distributed training
-    os.environ['MASTER_ADDR'] = 'localhost'
-    os.environ['MASTER_PORT'] = '29501'
-    dist.init_process_group("gloo", rank=rank, world_size=world_size)
+    os.environ['MASTER_ADDR'] = '127.0.0.1'
+    os.environ['MASTER_PORT'] = '29500'
+    dist.init_process_group("nccl", rank=rank, world_size=world_size)
+    dist.barrier() # barrier to make sure all processes have initialized
+    
+    # Device corresponding to current process
+    DEVICE = t.device(f"cuda:{rank}") if t.cuda.is_available() else "cpu"
 
     # Setup
     tokenizer = AutoTokenizer.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
@@ -166,8 +173,8 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
                 avg_pos_loss = 0
         t.save(model.state_dict(), f"finetuned_models/{save_name}_{epoch}.pt")
         print(f"Saved model to finetuned_models/{save_name}_{epoch}.pt")
-        print(f"Test accuracy: {eval_model(model, test_dataloader, maximize_positive)}")
-        run_eval_loop(model, tokenizer, SYSTEM_PROMPT)
+        print(f"Test accuracy: {eval_model(model, test_dataloader, maximize_positive, DEVICE)}")
+        # run_eval_loop(model, tokenizer, SYSTEM_PROMPT, DEVICE)
 
 
 if __name__ == "__main__":
