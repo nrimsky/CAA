@@ -24,6 +24,7 @@ HUGGINGFACE_TOKEN = os.getenv("HF_TOKEN")
 SYSTEM_PROMPT = "You are a helpful, honest and concise assistant."
 MODEL = "meta-llama/Llama-2-7b-chat-hf"
 ACCUMULATION_STEPS = 4  
+NUM_PROCESSES = 4
 
 class FinetuneDataset(Dataset):
     def __init__(self, data_path, system_prompt, tokenizer, use_chat):
@@ -59,7 +60,7 @@ class FinetuneDataset(Dataset):
         return p_tokens[:-2], p_tokens[-2], n_tokens[-2]
 
 
-def get_finetune_dataloader(batch_size, tokenizer, is_test=False, num_workers = 4):
+def get_finetune_dataloader(batch_size, tokenizer, is_test=False, num_workers = NUM_PROCESSES):
     dataset = FinetuneDataset(
         TEST_DATA_PATH if is_test else DATA_PATH,
         SYSTEM_PROMPT,
@@ -229,10 +230,10 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Fa
 if __name__ == "__main__":
     # Ensure the CUDA devices are available and spawn the training processes
     try:
-        if t.cuda.is_available() and t.cuda.device_count() >= 4:
-            world_size = 4  # Number of GPUs or processes you want to run
+        if t.cuda.is_available() and t.cuda.device_count() >= NUM_PROCESSES:
+            world_size = NUM_PROCESSES  # Number of GPUs or processes you want to run
             mp.spawn(finetune, args=(world_size,), nprocs=world_size)
         else:
-            raise EnvironmentError("Ensure that you have 4 GPUs available.")
+            raise EnvironmentError(f"Ensure that you have {NUM_PROCESSES} GPUs available.")
     except Exception as e:
         print(f"An error occurred: {e}")
