@@ -23,7 +23,6 @@ TEST_DATA_PATH = os.path.join("preprocessed_data", "test_dataset.json")
 HUGGINGFACE_TOKEN = os.getenv("HF_TOKEN")
 SYSTEM_PROMPT = "You are a helpful, honest and concise assistant."
 MODEL = "meta-llama/Llama-2-7b-chat-hf"
-ACCUMULATION_STEPS = 4  
 NUM_PROCESSES = 2
 
 class FinetuneDataset(Dataset):
@@ -114,11 +113,7 @@ def run_eval_loop(model_path, system_prompt, device, max_new_tokens=50):
         print(tokenizer.batch_decode(logits)[0].split("[/INST]")[-1].strip())
 
 
-def finetune(rank, world_size, n_epochs=1, lr=1e-5, beta=0, maximize_positive=False, save_name="finetuned"):
-    # make /logs directory if it does not exist
-    if not os.path.exists("logs"):
-        os.mkdir("logs")
-        
+def finetune(rank, world_size, n_epochs=1, lr=1e-4, beta=0, maximize_positive=False, save_name="finetuned"):
     # Initialize distributed training
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
     
@@ -137,20 +132,20 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-5, beta=0, maximize_positive=Fa
     # Set up the optimizer
     optimizer = ZeroRedundancyOptimizer(
         ddp_model.parameters(),
-        optimizer_class=t.optim.SGD,
+        optimizer_class=t.optim.Adam,
         lr=lr
     )
-
-    # Set up the loss function
-    loss_fn = t.nn.CrossEntropyLoss()
 
     # Create finetuned_models directory if it does not exist
     if rank == 0 and not os.path.exists("finetuned_models"):
         os.makedirs("finetuned_models")
+    if rank == 0 and not os.path.exists("logs"):
+        os.makedirs("logs")
 
     # Setup the DataLoader with DistributedSampler
     dataset = FinetuneDataset(DATA_PATH, SYSTEM_PROMPT, tokenizer, True)
-    dataloader = DataLoader(dataset, batch_size=1)
+    sampler = DistributedSampler(dataset, num_replicas=world_size, rank=rank, shuffle=True)
+    dataloader = DataLoader(dataset, batch_size=1, sampler=sampler)
     test_dataloader = get_finetune_dataloader(
         batch_size=1, is_test=True, tokenizer=tokenizer
     )
@@ -168,23 +163,20 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-5, beta=0, maximize_positive=Fa
     )
     loss_fn = t.nn.CrossEntropyLoss()
     optimizer.zero_grad(set_to_none=True)
-
-    # Create /finetuned_models if it does not exist
-    if not os.path.exists("finetuned_models"):
-        os.mkdir("finetuned_models")
         
     for epoch in range(n_epochs):
-        avg_loss = 0
-        avg_neg_loss = 0
-        avg_pos_loss = 0
         print_every = len(dataloader) // 10
         ddp_model.train()
-        optimizer.zero_grad()
+        optimizer.zero_grad(set_to_none=True)
+
+        avg_loss = 0
+        n_batches = 0
         
         for i, (p_tokens, p_label, n_label) in enumerate(dataloader):
             p_tokens = p_tokens.to(DEVICE)
             p_label = p_label.to(DEVICE)
             n_label = n_label.to(DEVICE)
+
             logits = ddp_model(p_tokens).logits[:, -1, :]
             
             if maximize_positive:
@@ -193,45 +185,31 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-5, beta=0, maximize_positive=Fa
             else:
                 loss = loss_fn(logits, n_label)
                 neg_loss = loss_fn(logits, p_label)
+            
             full_loss = loss - beta * neg_loss
             avg_loss += full_loss.item()
-            avg_neg_loss += neg_loss.item()
-            avg_pos_loss += loss.item()
+            n_batches += 1
 
-            full_loss = full_loss / ACCUMULATION_STEPS
             full_loss.backward()
+            optimizer.step()
+            optimizer.zero_grad(set_to_none=True)
 
-            # Gradient accumulation step
-            if (i + 1) % ACCUMULATION_STEPS == 0:
-                optimizer.step()
-                optimizer.zero_grad(set_to_none=True)
-            
             if i % print_every == 0:
                 print(
-                    f"Epoch {epoch + 1}/{n_epochs} | Batch {i}/{len(dataloader)} | Loss: {avg_loss / print_every} | Pos Loss: {avg_pos_loss / print_every} | Neg Loss: {avg_neg_loss / print_every}"
+                    f"Rank: {rank} | Epoch {epoch + 1}/{n_epochs} | Batch {i}/{len(dataloader)} | Avg Loss: {avg_loss / n_batches}"
                 )
                 avg_loss = 0
-                avg_neg_loss = 0
-                avg_pos_loss = 0
+                n_batches = 0
                 with open(f"logs/rank_{rank}_step_{i}_epoch_{epoch}.log", "w") as logfile:
                     logfile.write(t.cuda.memory_summary())
-        
-        # Save model after each epoch
-        if rank == 0:  # Save only from the first process to avoid file collisions
-            t.save(ddp_model.module.state_dict(), f"finetuned_models/{save_name}_{epoch}.pt")
-            print(f"Saved model to finetuned_models/{save_name}_{epoch}.pt")
-        
-        # Synchronize processes before evaluation
-        dist.barrier()
-        if rank == 0:
-            print(f"Test accuracy (Rank {rank}): {eval_model(ddp_model.module, test_dataloader, maximize_positive, DEVICE)}")
 
     # Finalize the training
     dist.barrier()
     if rank == 0:
+        # Print test accuracy
+        print(f"Test accuracy (Rank {rank}): {eval_model(ddp_model.module, test_dataloader, maximize_positive, DEVICE)}")
         # Save the model after training completes
         t.save(ddp_model.module.state_dict(), f"finetuned_models/{save_name}.pt")
-
     # Cleanup
     dist.destroy_process_group()
 
