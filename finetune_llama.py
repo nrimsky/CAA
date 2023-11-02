@@ -17,11 +17,9 @@ TEST_DATA_PATH = os.path.join("preprocessed_data", "test_dataset.json")
 HUGGINGFACE_TOKEN = os.getenv("HF_TOKEN")
 SYSTEM_PROMPT = "You are a helpful, honest and concise assistant."
 MODEL = "meta-llama/Llama-2-7b-chat-hf"
+ACCUMULATION_STEPS = 4  
 
-# Gradient Accumulation Steps
-accumulation_steps = 4  
-
-os.environ['CUBLAS_WORKSPACE_CONFIG'] = ':4096:8'  # or ':16:8'
+os.environ['CUBLAS_WORKSPACE_CONFIG'] = ':4096:8'
 
 
 class FinetuneDataset(Dataset):
@@ -106,7 +104,7 @@ def run_eval_loop(model, tokenizer, system_prompt, device, max_new_tokens=50):
         print(tokenizer.batch_decode(logits)[0].split("[/INST]")[-1].strip())
 
 
-def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=True, save_name="finetuned"):
+def finetune(rank, world_size, n_epochs=1, lr=1e-4, beta=0, maximize_positive=False, save_name="finetuned"):
     # Initialize distributed training
     os.environ['MASTER_ADDR'] = '127.0.0.1'
     os.environ['MASTER_PORT'] = '29500'
@@ -172,11 +170,11 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
             avg_neg_loss += neg_loss.item()
             avg_pos_loss += loss.item()
 
-            full_loss = full_loss / accumulation_steps
+            full_loss = full_loss / ACCUMULATION_STEPS
             full_loss.backward()
 
             # Gradient accumulation step
-            if (i + 1) % accumulation_steps == 0:
+            if (i + 1) % ACCUMULATION_STEPS == 0:
                 optimizer.step()
                 optimizer.zero_grad(set_to_none=True)
             
@@ -187,7 +185,8 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Tr
                 avg_loss = 0
                 avg_neg_loss = 0
                 avg_pos_loss = 0
-                print(t.cuda.memory_summary())
+                with open(f"logs/rank_{rank}_step_{i}_epoch_{epoch}.log", "w") as logfile:
+                    logfile.write(t.cuda.memory_summary())
         
         # Save model after each epoch
         if rank == 0:  # Save only from the first process to avoid file collisions
