@@ -107,7 +107,7 @@ def run_eval_loop(model, tokenizer, system_prompt, device, max_new_tokens=50):
         print(tokenizer.batch_decode(logits)[0].split("[/INST]")[-1].strip())
 
 
-def finetune(rank, world_size, n_epochs=1, lr=1e-4, beta=0, maximize_positive=False, save_name="finetuned"):
+def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=False, save_name="finetuned"):
     # Initialize distributed training
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
     
