@@ -1,6 +1,7 @@
 import json
 import torch as t
 from torch.utils.data import Dataset, DataLoader
+from torch.utils.data.distributed import DistributedSampler
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import os
 from dotenv import load_dotenv
@@ -10,6 +11,11 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 import torch.distributed as dist
 import torch.multiprocessing as mp
 
+# Set enivironment variables
+os.environ['MASTER_ADDR'] = '127.0.0.1'
+os.environ['MASTER_PORT'] = '29500'
+os.environ['CUBLAS_WORKSPACE_CONFIG'] = ':4096:8'
+
 load_dotenv()
 
 DATA_PATH = os.path.join("preprocessed_data", "generate_dataset.json")
@@ -18,9 +24,6 @@ HUGGINGFACE_TOKEN = os.getenv("HF_TOKEN")
 SYSTEM_PROMPT = "You are a helpful, honest and concise assistant."
 MODEL = "meta-llama/Llama-2-7b-chat-hf"
 ACCUMULATION_STEPS = 4  
-
-os.environ['CUBLAS_WORKSPACE_CONFIG'] = ':4096:8'
-
 
 class FinetuneDataset(Dataset):
     def __init__(self, data_path, system_prompt, tokenizer, use_chat):
@@ -106,8 +109,6 @@ def run_eval_loop(model, tokenizer, system_prompt, device, max_new_tokens=50):
 
 def finetune(rank, world_size, n_epochs=1, lr=1e-4, beta=0, maximize_positive=False, save_name="finetuned"):
     # Initialize distributed training
-    os.environ['MASTER_ADDR'] = '127.0.0.1'
-    os.environ['MASTER_PORT'] = '29500'
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
     
     # Barrier to ensure all processes have initialized
@@ -116,13 +117,30 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-4, beta=0, maximize_positive=Fa
     # Device corresponding to current process
     DEVICE = t.device(f"cuda:{rank}") if t.cuda.is_available() else "cpu"
 
-    # Setup
+    # Setup tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
     tokenizer.pad_token = tokenizer.eos_token
+    model = AutoModelForCausalLM.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN).half().to(DEVICE)
+    ddp_model = DDP(model, device_ids=[rank], find_unused_parameters=False)
 
-    dataloader = get_finetune_dataloader(
-        batch_size=1, is_test=False, tokenizer=tokenizer
+    # Set up the optimizer
+    optimizer = ZeroRedundancyOptimizer(
+        ddp_model.parameters(),
+        optimizer_class=t.optim.SGD,
+        lr=lr
     )
+
+    # Set up the loss function
+    loss_fn = t.nn.CrossEntropyLoss()
+
+    # Create finetuned_models directory if it does not exist
+    if rank == 0 and not os.path.exists("finetuned_models"):
+        os.makedirs("finetuned_models")
+
+    # Setup the DataLoader with DistributedSampler
+    dataset = FinetuneDataset(DATA_PATH, SYSTEM_PROMPT, tokenizer, True)
+    sampler = DistributedSampler(dataset, num_replicas=world_size, rank=rank, shuffle=True)
+    dataloader = DataLoader(dataset, batch_size=1, sampler=sampler)
     test_dataloader = get_finetune_dataloader(
         batch_size=1, is_test=True, tokenizer=tokenizer
     )
@@ -198,13 +216,23 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-4, beta=0, maximize_positive=Fa
         if rank == 0:
             print(f"Test accuracy (Rank {rank}): {eval_model(ddp_model.module, test_dataloader, maximize_positive, DEVICE)}")
 
+    # Finalize the training
+    dist.barrier()
+    if rank == 0:
+        # Save the model after training completes
+        t.save(ddp_model.module.state_dict(), f"finetuned_models/{save_name}.pt")
+
     # Cleanup
     dist.destroy_process_group()
 
 
 if __name__ == "__main__":
-    if t.cuda.is_available() and t.cuda.device_count() >= 4:
-        world_size = 4  # Number of GPUs or processes you want to run
-        mp.spawn(finetune, args=(world_size,), nprocs=world_size)
-    else:
-        print("Ensure that you have 4 GPUs available.")
+    # Ensure the CUDA devices are available and spawn the training processes
+    try:
+        if t.cuda.is_available() and t.cuda.device_count() >= 4:
+            world_size = 4  # Number of GPUs or processes you want to run
+            mp.spawn(finetune, args=(world_size,), nprocs=world_size)
+        else:
+            raise EnvironmentError("Ensure that you have 4 GPUs available.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
