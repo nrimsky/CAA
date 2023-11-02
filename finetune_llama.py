@@ -24,7 +24,7 @@ HUGGINGFACE_TOKEN = os.getenv("HF_TOKEN")
 SYSTEM_PROMPT = "You are a helpful, honest and concise assistant."
 MODEL = "meta-llama/Llama-2-7b-chat-hf"
 ACCUMULATION_STEPS = 4  
-NUM_PROCESSES = 4
+NUM_PROCESSES = 2
 
 class FinetuneDataset(Dataset):
     def __init__(self, data_path, system_prompt, tokenizer, use_chat):
@@ -52,8 +52,8 @@ class FinetuneDataset(Dataset):
         Returns: Initial string, positive completion label, negative completion label
         """
         item = self.data[idx]
-        p_text = item["answer_matching_behavior"]
-        n_text = item["answer_not_matching_behavior"]
+        p_text = "My answer is " + item["answer_matching_behavior"]
+        n_text = "My answer is " + item["answer_not_matching_behavior"]
         q_text = item["question"]
         p_tokens = self.prompt_to_tokens(q_text, p_text)
         n_tokens = self.prompt_to_tokens(q_text, n_text)
@@ -88,7 +88,13 @@ def eval_model(model, dataloader, maximize_positive, device):
     return correct / total
 
 
-def run_eval_loop(model, tokenizer, system_prompt, device, max_new_tokens=50):
+def run_eval_loop(model_path, system_prompt, device, max_new_tokens=50):
+    device = t.device(f"cuda:0") if t.cuda.is_available() else "cpu"
+    tokenizer = AutoTokenizer.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
+    tokenizer.pad_token = tokenizer.eos_token
+    model = AutoModelForCausalLM.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
+    model.load_state_dict(t.load(model_path))
+    model = model.to(device)
     print("Running eval loop. Enter 'exit' to exit.")
     while True:
         user_input = input(">> ")
@@ -108,7 +114,7 @@ def run_eval_loop(model, tokenizer, system_prompt, device, max_new_tokens=50):
         print(tokenizer.batch_decode(logits)[0].split("[/INST]")[-1].strip())
 
 
-def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=False, save_name="finetuned"):
+def finetune(rank, world_size, n_epochs=1, lr=1e-5, beta=0, maximize_positive=False, save_name="finetuned"):
     # Initialize distributed training
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
     
@@ -140,8 +146,7 @@ def finetune(rank, world_size, n_epochs=1, lr=5e-5, beta=0, maximize_positive=Fa
 
     # Setup the DataLoader with DistributedSampler
     dataset = FinetuneDataset(DATA_PATH, SYSTEM_PROMPT, tokenizer, True)
-    sampler = DistributedSampler(dataset, num_replicas=world_size, rank=rank, shuffle=True)
-    dataloader = DataLoader(dataset, batch_size=1, sampler=sampler)
+    dataloader = DataLoader(dataset, batch_size=1)
     test_dataloader = get_finetune_dataloader(
         batch_size=1, is_test=True, tokenizer=tokenizer
     )
