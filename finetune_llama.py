@@ -112,7 +112,7 @@ def run_eval_loop(model_path, system_prompt, device, max_new_tokens=50):
         print(tokenizer.batch_decode(logits)[0].split("[/INST]")[-1].strip())
 
 
-def finetune(rank, world_size, n_epochs=1, lr=1e-4, maximize_positive=False, layer=15):
+def finetune(rank, world_size, n_epochs=1, lr=1e-5, maximize_positive=False, layer=None):
     # Initialize distributed training
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
     
@@ -190,7 +190,7 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-4, maximize_positive=False, lay
                 avg_loss = 0
                 n_batches = 0
                 with open(f"logs/rank_{rank}_step_{i}_epoch_{epoch}.log", "w") as logfile:
-                    logfile.write(t.cuda.memory_summary())
+                    logfile.write(t.cuda.memory_summary(device=DEVICE))
 
     # Finalize the training
     dist.barrier()
