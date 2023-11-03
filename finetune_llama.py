@@ -112,23 +112,18 @@ def run_eval_loop(model_path, system_prompt, device, max_new_tokens=50):
         print(tokenizer.batch_decode(logits)[0].split("[/INST]")[-1].strip())
 
 
-def finetune(rank, world_size, n_epochs=1, lr=1e-4, maximize_positive=True, layer=None):
+def finetune(rank, world_size, n_epochs=1, lr=1e-4, maximize_positive=False, layer=None):
     # Initialize distributed training
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
-    
     # Barrier to ensure all processes have initialized
     dist.barrier()
-    
     # Device corresponding to current process
     DEVICE = t.device(f"cuda:{rank}") if t.cuda.is_available() else "cpu"
-
     # Setup tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
     tokenizer.pad_token = tokenizer.eos_token
-    
     model = AutoModelForCausalLM.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN).half().to(DEVICE)
     ddp_model = DDP(model, device_ids=[rank], find_unused_parameters=False)
-
     if layer is None:
         params = ddp_model.parameters()
     else:
@@ -139,13 +134,11 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-4, maximize_positive=True, laye
         optimizer_class=t.optim.SGD,
         lr=lr
     )
-
     # Create directories for saving models and logs
     if rank == 0 and not os.path.exists("finetuned_models"):
         os.makedirs("finetuned_models")
     if rank == 0 and not os.path.exists("logs"):
         os.makedirs("logs")
-
     # Setup the DataLoader with DistributedSampler
     dataset = FinetuneDataset(DATA_PATH, SYSTEM_PROMPT, tokenizer, True)
     sampler = DistributedSampler(dataset, num_replicas=world_size, rank=rank, shuffle=True)
@@ -153,36 +146,28 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-4, maximize_positive=True, laye
     test_dataloader = get_finetune_dataloader(
         batch_size=1, is_test=True, tokenizer=tokenizer
     )
-
     # Run the training loop
     loss_fn = t.nn.CrossEntropyLoss()        
     for epoch in range(n_epochs):
         print_every = len(dataloader) // 10
         ddp_model.train()
         optimizer.zero_grad(set_to_none=True)
-
         avg_loss = 0
         n_batches = 0
-        
         for i, (p_tokens, p_label, n_label) in enumerate(dataloader):
             p_tokens = p_tokens.to(DEVICE)
             p_label = p_label.to(DEVICE)
             n_label = n_label.to(DEVICE)
-
             logits = ddp_model(p_tokens).logits[:, -1, :]
-            
             if maximize_positive:
                 loss = loss_fn(logits, p_label)
             else:
                 loss = loss_fn(logits, n_label)
-            
             avg_loss += loss.item()
             n_batches += 1
-
             loss.backward()
             optimizer.step()
             optimizer.zero_grad(set_to_none=True)
-
             if i % print_every == 0:
                 print(
                     f"Rank: {rank} | Epoch {epoch + 1}/{n_epochs} | Batch {i}/{len(dataloader)} | Avg Loss: {avg_loss / n_batches}"
@@ -191,7 +176,6 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-4, maximize_positive=True, laye
                 n_batches = 0
                 with open(f"logs/rank_{rank}_step_{i}_epoch_{epoch}.log", "w") as logfile:
                     logfile.write(t.cuda.memory_summary(device=DEVICE))
-
     # Finalize the training
     dist.barrier()
     if rank == 0:
@@ -213,7 +197,8 @@ if __name__ == "__main__":
     # Ensure the CUDA devices are available and spawn the training processes
     try:
         if t.cuda.is_available() and t.cuda.device_count() >= NUM_PROCESSES:
-            world_size = NUM_PROCESSES  # Number of GPUs or processes you want to run
+            # Number of GPUs or processes you want to run
+            world_size = NUM_PROCESSES
             mp.spawn(finetune, args=(world_size,), nprocs=world_size)
         else:
             raise EnvironmentError(f"Ensure that you have {NUM_PROCESSES} GPUs available.")
