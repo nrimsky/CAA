@@ -126,6 +126,7 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-4, beta=0, maximize_positive=Fa
     # Setup tokenizer and model
     tokenizer = AutoTokenizer.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
     tokenizer.pad_token = tokenizer.eos_token
+    
     model = AutoModelForCausalLM.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN).half().to(DEVICE)
     ddp_model = DDP(model, device_ids=[rank], find_unused_parameters=False)
 
@@ -136,7 +137,7 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-4, beta=0, maximize_positive=Fa
         lr=lr
     )
 
-    # Create finetuned_models directory if it does not exist
+    # Create directories for saving models and logs
     if rank == 0 and not os.path.exists("finetuned_models"):
         os.makedirs("finetuned_models")
     if rank == 0 and not os.path.exists("logs"):
@@ -149,21 +150,9 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-4, beta=0, maximize_positive=Fa
     test_dataloader = get_finetune_dataloader(
         batch_size=1, is_test=True, tokenizer=tokenizer
     )
-    model = AutoModelForCausalLM.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
-    model = model.half().to(DEVICE)
-    
-    # Convert the model to DistributedDataParallel
-    ddp_model = DDP(model, device_ids=[rank], find_unused_parameters=False)
 
-    # Replace SGD with ZeroRedundancyOptimizer
-    optimizer = ZeroRedundancyOptimizer(
-        ddp_model.parameters(),
-        optimizer_class=t.optim.SGD,
-        lr=lr
-    )
-    loss_fn = t.nn.CrossEntropyLoss()
-    optimizer.zero_grad(set_to_none=True)
-        
+    # Run the training loop
+    loss_fn = t.nn.CrossEntropyLoss()        
     for epoch in range(n_epochs):
         print_every = len(dataloader) // 10
         ddp_model.train()
