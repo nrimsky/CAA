@@ -1,3 +1,7 @@
+"""
+Example usage: python test_finetuned.py --test_type=out_of_distribution --save_filename="results_neg_finetune.json"
+"""
+
 import json
 import torch as t
 from llm_generated_data.sycophancy_validation_prompts import PROMPTS
@@ -136,7 +140,7 @@ def test_finetune(
     tokenizer = AutoTokenizer.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
     tokenizer.pad_token = tokenizer.eos_token
     model = AutoModelForCausalLM.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
-    model_path = "finetuned_models/finetuned_0.pt"
+    model_path = "finetuned_models/finetuned.pt"
     model.load_state_dict(t.load(model_path))
     model = model.to(DEVICE)
     a_token_id = tokenizer.convert_tokens_to_ids("A")
