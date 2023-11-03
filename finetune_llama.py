@@ -15,7 +15,6 @@ import torch.multiprocessing as mp
 os.environ['MASTER_ADDR'] = '127.0.0.1'
 os.environ['MASTER_PORT'] = '29500'
 os.environ['CUBLAS_WORKSPACE_CONFIG'] = ':4096:8'
-
 load_dotenv()
 
 DATA_PATH = os.path.join("preprocessed_data", "generate_dataset.json")
@@ -113,7 +112,7 @@ def run_eval_loop(model_path, system_prompt, device, max_new_tokens=50):
         print(tokenizer.batch_decode(logits)[0].split("[/INST]")[-1].strip())
 
 
-def finetune(rank, world_size, n_epochs=1, lr=1e-4, beta=0, maximize_positive=False, save_name="finetuned"):
+def finetune(rank, world_size, n_epochs=1, lr=1e-4, maximize_positive=False, layer=15):
     # Initialize distributed training
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
     
@@ -130,10 +129,14 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-4, beta=0, maximize_positive=Fa
     model = AutoModelForCausalLM.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN).half().to(DEVICE)
     ddp_model = DDP(model, device_ids=[rank], find_unused_parameters=False)
 
+    if layer is None:
+        params = ddp_model.parameters()
+    else:
+        params = ddp_model.module.model.layers[layer].parameters()
     # Set up the optimizer
     optimizer = ZeroRedundancyOptimizer(
-        ddp_model.parameters(),
-        optimizer_class=t.optim.Adam,
+        params,
+        optimizer_class=t.optim.SGD,
         lr=lr
     )
 
@@ -170,16 +173,13 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-4, beta=0, maximize_positive=Fa
             
             if maximize_positive:
                 loss = loss_fn(logits, p_label)
-                neg_loss = loss_fn(logits, n_label)
             else:
                 loss = loss_fn(logits, n_label)
-                neg_loss = loss_fn(logits, p_label)
             
-            full_loss = loss - beta * neg_loss
-            avg_loss += full_loss.item()
+            avg_loss += loss.item()
             n_batches += 1
 
-            full_loss.backward()
+            loss.backward()
             optimizer.step()
             optimizer.zero_grad(set_to_none=True)
 
@@ -198,6 +198,10 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-4, beta=0, maximize_positive=Fa
         # Print test accuracy
         print(f"Test accuracy (Rank {rank}): {eval_model(ddp_model.module, test_dataloader, maximize_positive, DEVICE)}")
         # Save the model after training completes
+        if maximize_positive:
+            save_name = "finetuned_positive"
+        else:
+            save_name = "finetuned_negative"
         t.save(ddp_model.module.state_dict(), f"finetuned_models/{save_name}.pt")
     # Cleanup
     dist.destroy_process_group()
