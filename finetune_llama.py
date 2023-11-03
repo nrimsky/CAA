@@ -202,6 +202,8 @@ def finetune(rank, world_size, n_epochs=1, lr=1e-4, maximize_positive=True, laye
             save_name = "finetuned_positive"
         else:
             save_name = "finetuned_negative"
+        if layer is not None:
+            save_name += "_"+str(layer)
         t.save(ddp_model.module.state_dict(), f"finetuned_models/{save_name}.pt")
     # Cleanup
     dist.destroy_process_group()
