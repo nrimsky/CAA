@@ -1,5 +1,5 @@
 """
-Example usage: python test_finetuned.py --test_type=out_of_distribution --save_filename="results_neg_finetune.json"
+Example usage: python test_finetuned.py --test_type=out_of_distribution --save_filename="results_neg_finetune.json" --model_path="finetuned_models/neg_finetuned.pt"
 """
 
 import json
@@ -20,7 +20,6 @@ TEST_DATA_PATH = os.path.join("preprocessed_data", "test_dataset.json")
 TRUTHFUL_QA_DATA_PATH = os.path.join("preprocessed_data", "truthful_qa_dataset.json")
 HUGGINGFACE_TOKEN = os.getenv("HF_TOKEN")
 SYSTEM_PROMPT = "You are a helpful, honest and concise assistant."
-SAVE_RESULTS_PATH = "results_finetuned"
 MODEL = "meta-llama/Llama-2-7b-chat-hf"
 DEVICE = "cuda:0" if t.cuda.is_available() else "cpu"
 
@@ -122,10 +121,8 @@ def process_item_truthful_qa(
 
 
 def test_finetune(
-    test_type: str, max_new_tokens: int, save_filename: str
+    test_type: str, max_new_tokens: int, save_filename: str, model_path: str
 ):
-    if not os.path.exists(SAVE_RESULTS_PATH):
-        os.makedirs(SAVE_RESULTS_PATH)
     process_methods = {
         "in_distribution": process_item_in_distribution,
         "out_of_distribution": process_item_out_of_distribution,
@@ -140,7 +137,6 @@ def test_finetune(
     tokenizer = AutoTokenizer.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
     tokenizer.pad_token = tokenizer.eos_token
     model = AutoModelForCausalLM.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
-    model_path = "finetuned_models/finetuned.pt"
     model.load_state_dict(t.load(model_path))
     model = model.to(DEVICE)
     a_token_id = tokenizer.convert_tokens_to_ids("A")
@@ -174,9 +170,11 @@ if __name__ == "__main__":
     )
     parser.add_argument("--max_new_tokens", type=int, required=False, default=50)
     parser.add_argument("--save_filename", type=str, required=True)
+    parser.add_argument("--model_path", type=str, required=True)
     args = parser.parse_args()
     test_finetune(
         args.test_type,
         args.max_new_tokens,
         args.save_filename,
+        args.model_path,
     )
