@@ -1,5 +1,5 @@
 """
-Example usage: python test_finetuned.py --test_type=out_of_distribution --save_filename="results_neg_finetune.json" --model_path="finetuned_models/neg_finetuned.pt"
+Example usage: python test_finetuned.py --test_type=out_of_distribution --save_filename="results_neg_finetune.json" --model_path="finetuned_models/finetuned_negative.pt"
 """
 
 import json
