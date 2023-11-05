@@ -17,6 +17,7 @@ class SteeringSettings:
     model_size: Size of the model to use. One of "7b", "13b".
     n_test_datapoints: Number of datapoints to test on. If None, all datapoints will be used.
     add_every_token_position: Whether to add steering vector to every token position (including question), not only to token positions corresponding to the model's response to the user
+    override_model_weights_path: If not None, the model weights at this path will be used instead of the model being used for generation - use to test using activation steering on top of fine-tuned model.
     """
 
     max_new_tokens: int = 100
@@ -29,6 +30,7 @@ class SteeringSettings:
     model_size: str = "7b"
     n_test_datapoints: Optional[int] = None
     add_every_token_position: bool = False
+    override_model_weights_path: Optional[str] = None
 
     def make_result_save_suffix(
         self,
@@ -48,6 +50,7 @@ class SteeringSettings:
             "model_size": self.model_size,
             "n_test_datapoints": self.n_test_datapoints,
             "add_every_token_position": self.add_every_token_position,
+            "override_model_weights_path": self.override_model_weights_path,
         }
         return "_".join([f"{k}={v}" for k, v in elements.items() if v is not None])
 
@@ -70,6 +73,7 @@ class SteeringSettings:
             "model_size": self.model_size,
             "n_test_datapoints": self.n_test_datapoints,
             "add_every_token_position": self.add_every_token_position,
+            "override_model_weights_path": self.override_model_weights_path,
         }
 
         filtered_elements = {k: v for k, v in elements.items() if v is not None}

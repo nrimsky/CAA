@@ -115,6 +115,7 @@ class LlamaWrapper:
         size="7b",
         use_chat=True,
         add_only_after_end_str=False,
+        override_model_weights_path=None,
     ):
         self.device = "cuda" if t.cuda.is_available() else "cpu"
         self.system_prompt = system_prompt
@@ -130,6 +131,8 @@ class LlamaWrapper:
         self.model = AutoModelForCausalLM.from_pretrained(
             self.model_name_path, use_auth_token=token
         )
+        if override_model_weights_path is not None:
+            self.model.load_state_dict(t.load(override_model_weights_path))
         if size != "7b":
             self.model = self.model.half()
         self.model = self.model.to(self.device)

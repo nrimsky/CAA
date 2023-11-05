@@ -183,6 +183,7 @@ def test_steering(
         size=settings.model_size,
         use_chat=not settings.use_base_model,
         add_only_after_end_str=not settings.add_every_token_position,
+        override_model_weights_path=settings.override_model_weights_path,
     )
     a_token_id = model.tokenizer.convert_tokens_to_ids("A")
     b_token_id = model.tokenizer.convert_tokens_to_ids("B")
@@ -262,6 +263,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--add_every_token_position", action="store_true", default=False
     )
+    parser.add_argument("--override_model_weights_path", type=str, default=None)
 
     args = parser.parse_args()
 
@@ -276,6 +278,7 @@ if __name__ == "__main__":
     steering_settings.model_size = args.model_size
     steering_settings.n_test_datapoints = args.n_test_datapoints
     steering_settings.add_every_token_position = args.add_every_token_position
+    steering_settings.override_model_weights_path = args.override_model_weights_path
 
     test_steering(
         layers=args.layers,
