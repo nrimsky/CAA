@@ -52,7 +52,7 @@ class SteeringSettings:
             "add_every_token_position": self.add_every_token_position,
             "override_model_weights_path": self.override_model_weights_path,
         }
-        return "_".join([f"{k}={v.replace('/', '-')}" for k, v in elements.items() if v is not None])
+        return "_".join([f"{k}={str(v).replace('/', '-')}" for k, v in elements.items() if v is not None])
 
     def filter_result_files_by_suffix(
         self,
@@ -83,7 +83,7 @@ class SteeringSettings:
         print(self.override_model_weights_path)
 
         for filename in os.listdir(directory):
-            if all(f"{k}={v.replace('/', '-')}" in filename for k, v in filtered_elements.items()):
+            if all(f"{k}={str(v).replace('/', '-')}" in filename for k, v in filtered_elements.items()):
                 matching_files.append(filename)
 
         return [os.path.join(directory, f) for f in matching_files]
