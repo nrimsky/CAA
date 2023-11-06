@@ -266,6 +266,8 @@ if __name__ == "__main__":
     parser.add_argument("--model_size", type=str, choices=["7b", "13b"], default="7b")
     parser.add_argument("--n_test_datapoints", type=int, default=None)
     parser.add_argument("--add_every_token_position", action="store_true", default=False)
+    parser.add_argument("--override_model_weights_path", type=str, default=None)
+
 
     args = parser.parse_args()
 
@@ -280,6 +282,7 @@ if __name__ == "__main__":
     steering_settings.model_size = args.model_size
     steering_settings.n_test_datapoints = args.n_test_datapoints
     steering_settings.add_every_token_position = args.add_every_token_position
+    steering_settings.override_model_weights_path = args.override_model_weights_path
 
     if steering_settings.type == "in_distribution":
         if len(args.layers) == 1:
