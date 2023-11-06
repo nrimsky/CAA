@@ -112,7 +112,7 @@ def run_eval_loop(model_path, system_prompt, device, max_new_tokens=50):
         print(tokenizer.batch_decode(logits)[0].split("[/INST]")[-1].strip())
 
 
-def finetune(rank, world_size, n_epochs=1, lr=1e-4, maximize_positive=False, layer=None):
+def finetune(rank, world_size, n_epochs=1, lr=1e-4, maximize_positive=True, layer=None):
     # Initialize distributed training
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
     # Barrier to ensure all processes have initialized
