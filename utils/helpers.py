@@ -77,6 +77,7 @@ class SteeringSettings:
         }
 
         filtered_elements = {k: v for k, v in elements.items() if v is not None}
+        remove_elements = {k for k, v in elements.items() if v is None}
 
         matching_files = []
 
@@ -84,7 +85,9 @@ class SteeringSettings:
 
         for filename in os.listdir(directory):
             if all(f"{k}={str(v).replace('/', '-')}" in filename for k, v in filtered_elements.items()):
-                matching_files.append(filename)
+                # ensure remove_elements are *not* present
+                if all(f"{k}=" not in filename for k in remove_elements):
+                    matching_files.append(filename)
 
         return [os.path.join(directory, f) for f in matching_files]
 
