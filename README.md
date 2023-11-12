@@ -46,3 +46,7 @@ I have added a few unit tests for some of the utility functions. To run them, si
 ```bash
 pytest
 ```
+
+## Intermediate layer decoding / steering vector dot product experiments
+
+See `/activation_steering_interp.ipynb`
