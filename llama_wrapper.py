@@ -61,7 +61,9 @@ class BlockOutputWrapper(t.nn.Module):
             decoded_activations = self.unembed_matrix(self.norm(last_token_activations))
             top_token_id = t.topk(decoded_activations, 1)[1][0]
             top_token = self.tokenizer.decode(top_token_id)
-            dot_product = t.dot(last_token_activations, self.calc_dot_product_with)
+            dot_product = t.dot(last_token_activations, self.calc_dot_product_with) / (t.norm(
+                last_token_activations
+            )  * t.norm(self.calc_dot_product_with))
             self.dot_products.append((top_token, dot_product.cpu().item()))
         if self.add_activations is not None:
             augmented_output = add_vector_after_position(
