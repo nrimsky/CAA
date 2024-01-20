@@ -1,8 +1,8 @@
 """
-Plot results from experiments.
+Plot results from behavioral evaluations under steering.
 
-Usage:
-python plot_results.py --type in_distribution --few_shot none --layers 15 16 17 --multipliers -1 0 1 --max_new_tokens 100 --model_size 7b --n_test_datapoints 1000 --add_every_token_position
+Example usage:
+python plot_results.py --layers 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 --multipliers -1 0 1 --behavior sycophancy --type ab
 """
 
 import json
@@ -13,9 +13,8 @@ from collections import defaultdict
 import matplotlib.cm as cm
 import numpy as np
 import argparse
-from utils.helpers import SteeringSettings
-
-WORKING_DIR = os.path.dirname(os.path.abspath(__file__))
+from steering_settings import SteeringSettings
+from behaviors import get_results_dir, get_analysis_dir, ALL_BEHAVIORS
 
 
 def get_data(
@@ -23,10 +22,7 @@ def get_data(
     multiplier: int,
     settings: SteeringSettings,
 ) -> Dict[str, Any]:
-    if settings.type != "out_of_distribution":
-        directory = os.path.join(WORKING_DIR, "results")
-    else:
-        directory = os.path.join(WORKING_DIR, "analysis", "scored_results")
+    directory = get_results_dir(settings.behavior)
     filenames = settings.filter_result_files_by_suffix(
         directory, layer=layer, multiplier=multiplier
     )
@@ -63,25 +59,24 @@ def get_avg_key_prob(results: Dict[str, Any], key: str) -> float:
     return match_key_prob_sum / len(results)
 
 
-def plot_in_distribution_data_for_layer(
+def plot_ab_results_for_layer(
     layer: int, multipliers: List[float], settings: SteeringSettings
 ):
-    few_shot_options = [
-        ("positive", "Sycophantic few-shot prompt"),
-        ("negative", "Non-sycophantic few-shot prompt"),
-        ("none", "No few-shot prompt"),
+    system_prompt_options = [
+        ("pos", f"{settings.behavior} system prompt"),
+        ("neg", f"{settings.behavior} system prompt"),
+        (None, f"No system prompt"),
     ]
-    settings.few_shot = None
+    settings.system_prompt = None
     save_to = os.path.join(
-        WORKING_DIR,
-        "analysis",
+        get_analysis_dir(settings.behavior),
         f"{settings.make_result_save_suffix(layer=layer)}.svg",
     )
     plt.clf()
     plt.figure(figsize=(6, 6))
     all_results = {}
-    for few_shot, label in few_shot_options:
-        settings.few_shot = few_shot
+    for system_prompt, label in system_prompt_options:
+        settings.system_prompt = system_prompt
         try:
             res_list = []
             for multiplier in multipliers:
@@ -98,28 +93,27 @@ def plot_in_distribution_data_for_layer(
                 markersize=5,
                 linewidth=2.5,
             )
-            all_results[few_shot] = res_list
+            all_results[system_prompt] = res_list
         except:
-            print(f"[WARN] Missing data for few_shot={few_shot} for layer={layer}")
+            print(f"[WARN] Missing data for system_prompt={system_prompt} for layer={layer}")
     plt.legend()
     plt.xlabel("Multiplier")
-    plt.ylabel("Probability of sycophantic answer to A/B question")
+    plt.ylabel(f"Probability of answer to A/B question matching {settings.behavior} behavior")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")
     plt.savefig(save_to.replace("svg", "png"), format="png")
     # Save data in all_results used for plotting as .txt
     with open(save_to.replace(".svg", ".txt"), "w") as f:
-        for few_shot, res_list in all_results.items():
+        for system_prompt, res_list in all_results.items():
             for multiplier, score in res_list:
-                f.write(f"{few_shot}\t{multiplier}\t{score}\n")
+                f.write(f"{system_prompt}\t{multiplier}\t{score}\n")
 
 
-def plot_truthful_qa_data_for_layer(
+def plot_truthful_qa_results_for_layer(
     layer: int, multipliers: List[float], settings: SteeringSettings
 ):
     save_to = os.path.join(
-        WORKING_DIR,
-        "analysis",
+        get_analysis_dir(settings.behavior),
         f"{settings.make_result_save_suffix(layer=layer)}.svg",
     )
     res_per_category = defaultdict(list)
@@ -160,12 +154,11 @@ def plot_truthful_qa_data_for_layer(
                 f.write(f"{category}\t{multiplier}\t{score}\n")
 
 
-def plot_out_of_distribution_data(
+def plot_open_ended_results(
     layer: int, multipliers: List[float], settings: SteeringSettings
 ):
     save_to = os.path.join(
-        WORKING_DIR,
-        "analysis",
+        get_analysis_dir(settings.behavior),
         f"{settings.make_result_save_suffix(layer=layer)}.svg",
     )
     plt.clf()
@@ -187,7 +180,7 @@ def plot_out_of_distribution_data(
         linewidth=2.5,
     )
     plt.xlabel("Multiplier")
-    plt.ylabel("Claude score")
+    plt.ylabel("Average behavioral eval score")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")
     plt.savefig(save_to.replace("svg", "png"), format="png")
@@ -203,8 +196,7 @@ def plot_per_layer_data_in_distribution(
     plt.clf()
     plt.figure(figsize=(6, 6))
     save_to = os.path.join(
-        WORKING_DIR,
-        "analysis",
+        get_analysis_dir(settings.behavior),
         f"{settings.make_result_save_suffix()}.svg",
     )
     # Get a colormap and generate a sequence of colors from that colormap
@@ -231,7 +223,7 @@ def plot_per_layer_data_in_distribution(
         full_res[layer] = res_list
     plt.legend()
     plt.xlabel("Multiplier")
-    plt.ylabel("Probability of sycophantic answer to A/B question")
+    plt.ylabel(f"Probability of answer to A/B question matching {settings.behavior} behavior")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")
     plt.savefig(save_to.replace("svg", "png"), format="png")
@@ -244,59 +236,52 @@ def plot_per_layer_data_in_distribution(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument("--layers", nargs="+", type=int, required=True)
+    parser.add_argument("--multipliers", nargs="+", type=float, required=True)
+    parser.add_argument(
+        "--behavior",
+        type=str,
+        required=True,
+        choices=ALL_BEHAVIORS,
+    )
     parser.add_argument(
         "--type",
         type=str,
         required=True,
-        choices=["in_distribution", "out_of_distribution", "truthful_qa"],
+        choices=["ab", "open_ended", "truthful_qa"],
     )
-    parser.add_argument(
-        "--few_shot",
-        type=str,
-        choices=["positive", "negative", "unbiased", "none"],
-        default="none",
-    )
-    parser.add_argument("--layers", nargs="+", type=int, required=True)
-    parser.add_argument("--multipliers", nargs="+", type=float, required=True)
-    parser.add_argument("--max_new_tokens", type=int, default=100)
-    parser.add_argument("--do_projection", action="store_true", default=False)
+    parser.add_argument("--system_prompt", type=str, default=None, choices=["pos", "neg"], required=False)
     parser.add_argument("--override_vector", type=int, default=None)
     parser.add_argument("--override_vector_model", type=str, default=None)
     parser.add_argument("--use_base_model", action="store_true", default=False)
     parser.add_argument("--model_size", type=str, choices=["7b", "13b"], default="7b")
-    parser.add_argument("--n_test_datapoints", type=int, default=None)
-    parser.add_argument("--add_every_token_position", action="store_true", default=False)
     parser.add_argument("--override_model_weights_path", type=str, default=None)
-
-
+    
     args = parser.parse_args()
 
     steering_settings = SteeringSettings()
     steering_settings.type = args.type
-    steering_settings.few_shot = args.few_shot
-    steering_settings.max_new_tokens = args.max_new_tokens
-    steering_settings.do_projection = args.do_projection
+    steering_settings.behavior = args.behavior
+    steering_settings.system_prompt = args.system_prompt
     steering_settings.override_vector = args.override_vector
     steering_settings.override_vector_model = args.override_vector_model
     steering_settings.use_base_model = args.use_base_model
     steering_settings.model_size = args.model_size
-    steering_settings.n_test_datapoints = args.n_test_datapoints
-    steering_settings.add_every_token_position = args.add_every_token_position
     steering_settings.override_model_weights_path = args.override_model_weights_path
 
-    if steering_settings.type == "in_distribution":
+    if steering_settings.type == "ab":
         if len(args.layers) == 1:
             layer = args.layers[0]
-            plot_in_distribution_data_for_layer(
+            plot_ab_results_for_layer(
                 layer, args.multipliers, steering_settings
             )
         else:
             plot_per_layer_data_in_distribution(
                 args.layers, args.multipliers, steering_settings
             )
-    elif steering_settings.type == "out_of_distribution":
+    elif steering_settings.type == "open_ended":
         for layer in args.layers:
-            plot_out_of_distribution_data(layer, args.multipliers, steering_settings)
+            plot_open_ended_results(layer, args.multipliers, steering_settings)
     elif steering_settings.type == "truthful_qa":
         for layer in args.layers:
-            plot_truthful_qa_data_for_layer(layer, args.multipliers, steering_settings)
+            plot_truthful_qa_results_for_layer(layer, args.multipliers, steering_settings)

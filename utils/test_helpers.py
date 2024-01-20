@@ -1,25 +1,10 @@
 import torch as t
 
 from helpers import (
-    project_onto_orthogonal_complement,
     add_vector_after_position,
     find_last_subtensor_position,
     find_instruction_end_postion,
 )
-
-
-def test_project_onto_orthogonal_complement():
-    tensor = t.tensor([1.0, 2.0, 3.0])
-    onto = t.tensor([1.0, 0.0, 0.0])
-    result = project_onto_orthogonal_complement(tensor, onto)
-    expected = t.tensor([0.0, 2.0, 3.0])
-    assert t.allclose(result, expected)
-
-    tensor = t.tensor([0.0, 5.0, 0.0])
-    onto = t.tensor([1.0, 0.0, 0.0])
-    result = project_onto_orthogonal_complement(tensor, onto)
-    expected = t.tensor([0.0, 5.0, 0.0])
-    assert t.allclose(result, expected)
 
 
 def test_add_vector_after_position():
@@ -27,7 +12,7 @@ def test_add_vector_after_position():
     vector = t.tensor([1, 1], dtype=t.float32)
     position_ids = t.tensor([1, 2, 3])
     result = add_vector_after_position(
-        matrix, vector, position_ids, after=1, do_projection=False
+        matrix, vector, position_ids, after=1
     )
     expected = t.tensor([[1, 2], [4, 5], [6, 7]], dtype=t.float32)
     assert t.allclose(result, expected)
