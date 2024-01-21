@@ -198,7 +198,7 @@ def plot_ab_data_per_layer(
     plt.figure(figsize=(6, 6))
     save_to = os.path.join(
         get_analysis_dir(settings.behavior),
-        f"{settings.make_result_save_suffix()}.svg",
+        f"{settings.make_result_save_suffix(multiplier=multiplier)}.svg",
     )
     res = []
     for layer in sorted(layers):
