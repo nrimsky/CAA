@@ -109,7 +109,7 @@ def plot_ab_results_for_layer(
                 f.write(f"{system_prompt}\t{multiplier}\t{score}\n")
 
 
-def plot_truthful_qa_results_for_layer(
+def plot_tqa_mmlu_results_for_layer(
     layer: int, multipliers: List[float], settings: SteeringSettings
 ):
     save_to = os.path.join(
@@ -144,6 +144,7 @@ def plot_truthful_qa_results_for_layer(
     plt.legend()
     plt.xlabel("Multiplier")
     plt.ylabel("Probability of correct answer to A/B question")
+    plt.title(f"L{layer}, {settings.behavior}, {settings.type}")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")
     plt.savefig(save_to.replace("svg", "png"), format="png")
@@ -248,7 +249,7 @@ if __name__ == "__main__":
         "--type",
         type=str,
         required=True,
-        choices=["ab", "open_ended", "truthful_qa"],
+        choices=["ab", "open_ended", "truthful_qa", "mmlu"],
     )
     parser.add_argument("--system_prompt", type=str, default=None, choices=["pos", "neg"], required=False)
     parser.add_argument("--override_vector", type=int, default=None)
@@ -282,6 +283,6 @@ if __name__ == "__main__":
     elif steering_settings.type == "open_ended":
         for layer in args.layers:
             plot_open_ended_results(layer, args.multipliers, steering_settings)
-    elif steering_settings.type == "truthful_qa":
+    elif steering_settings.type == "truthful_qa" or steering_settings.type == "mmlu":
         for layer in args.layers:
-            plot_truthful_qa_results_for_layer(layer, args.multipliers, steering_settings)
+            plot_tqa_mmlu_results_for_layer(layer, args.multipliers, steering_settings)

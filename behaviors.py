@@ -65,6 +65,10 @@ def get_truthful_qa_path() -> str:
     return os.path.join(TEST_DATA_PATH, "truthfulqa", "truthful_qa.json")
 
 
+def get_mmlu_path() -> str:
+    return os.path.join(TEST_DATA_PATH, "mmlu", "mmlu.json")
+
+
 def get_analysis_dir(behavior: str) -> str:
     return os.path.join(ANALYSIS_PATH, behavior)
 
@@ -140,6 +144,12 @@ def get_open_ended_test_data(behavior):
 
 def get_truthful_qa_data():
     with open(get_truthful_qa_path(), "r") as f:
+        data = json.load(f)
+    return data
+
+
+def get_mmlu_data():
+    with open(get_mmlu_path(), "r") as f:
         data = json.load(f)
     return data
 

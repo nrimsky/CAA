@@ -18,6 +18,8 @@ HF_TOKEN=huggingface_token_with_access_to_llama2
 
 All raw and processed data can be seen in `/datasets`. Original sources are listed below. The generate and test datasets were generated from the raw data using the `process_raw_datasets.py` script.
 
+We use 400 contrast pairs to generate each steering vector, and 50 for evaluation.
+
 ### Coordination with other AIs (`coordinate-other-ais`)
 
 Combination of Anthropic human generated eval data and Anthropic model generated eval data.
@@ -58,6 +60,21 @@ Combination of GPT-4 generated eval data and Anthropic's Sycophancy on NLP surve
 
 * https://huggingface.co/datasets/truthful_qa/tree/main
 
+### MMLU (`mmlu`) (_test only_)
+
+`mmlu_full.json` is the full MMLU test dataset formatted as A/B questions. `mmlu.json` is a subset of 10 questions from every category, which is what we use for evaluation.
+
+* https://huggingface.co/datasets/cais/mmlu
+
+## Evaluation
+
+For each behavior, we can evaluate the model on the following test sets:
+* A/B questions - a held out portion of 50 questions from the original dataset
+* Open-ended questions
+    * For most behaviors, we use the original held out A/B questions but reformatted to be open-ended rather than multiple choice
+    * For sycophancy, we generated different open-ended questions using GPT-4 to cover a wider range of sycophantic behaviors
+* TruthfulQA
+
 ## Available commands
 
 ```bash
@@ -91,7 +108,6 @@ I have added a few unit tests for some of the utility functions. To run them, si
 ```bash
 pytest
 ```
-
 TODO: add more unit tests
 
 ## Intermediate layer decoding / steering vector dot product experiments

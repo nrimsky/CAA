@@ -19,6 +19,7 @@ from behaviors import (
     get_open_ended_test_data,
     get_results_dir,
     get_truthful_qa_data,
+    get_mmlu_data,
     get_finetuned_model_path,
     get_finetuned_model_results_path,
 )
@@ -86,7 +87,7 @@ def process_item_open_ended(
     }
 
 
-def process_item_truthful_qa(
+def process_item_tqa_mmlu(
     item: Dict[str, str],
     model: AutoModelForCausalLM,
     tokenizer: AutoTokenizer,
@@ -123,12 +124,14 @@ def test_finetune(
     process_methods = {
         "ab": process_item_ab,
         "open_ended": process_item_open_ended,
-        "truthful_qa": process_item_truthful_qa,
+        "truthful_qa": process_item_tqa_mmlu,
+        "mmlu": process_item_tqa_mmlu,
     }
     test_datasets = {
         "ab": get_ab_test_data(behavior),
         "open_ended": get_open_ended_test_data(behavior),
         "truthful_qa": get_truthful_qa_data(),
+        "mmlu": get_mmlu_data(),
     }
     tokenizer = AutoTokenizer.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
     tokenizer.pad_token = tokenizer.eos_token
@@ -163,7 +166,7 @@ if __name__ == "__main__":
         "--type",
         type=str,
         required=True,
-        choices=["ab", "open_ended", "truthful_qa"],
+        choices=["ab", "open_ended", "truthful_qa", "mmlu"],
     )
     parser.add_argument(
         "--behavior",
