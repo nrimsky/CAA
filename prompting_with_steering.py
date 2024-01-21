@@ -96,7 +96,7 @@ def process_item_tqa_mmlu(
 
 
 def test_steering(
-    layers: List[int], multipliers: List[int], settings: SteeringSettings
+    layers: List[int], multipliers: List[int], settings: SteeringSettings, overwrite=False
 ):
     """
     layers: List of layers to test steering on.
@@ -147,7 +147,7 @@ def test_steering(
                 save_results_dir,
                 f"results_{result_save_suffix}.json",
             )
-            if os.path.exists(save_filename):
+            if os.path.exists(save_filename) and not overwrite:
                 print("Found existing", save_filename, "- skipping")
                 continue
             results = []
@@ -193,6 +193,7 @@ if __name__ == "__main__":
     parser.add_argument("--use_base_model", action="store_true", default=False)
     parser.add_argument("--model_size", type=str, choices=["7b", "13b"], default="7b")
     parser.add_argument("--override_model_weights_path", type=str, default=None)
+    parser.add_argument("--overwrite", action="store_true", default=False)
     
     args = parser.parse_args()
 
@@ -210,4 +211,5 @@ if __name__ == "__main__":
         layers=args.layers,
         multipliers=args.multipliers,
         settings=steering_settings,
+        overwrite=args.overwrite,
     )
