@@ -2,7 +2,7 @@
 Script to plot PCA of constrastive activations
 
 Usage:
-python plot_activations.py --behavior sycophancy --layer 10 --use_base_model --model_size 7b
+python plot_activations.py --behavior sycophancy --layers 9 10 11 --use_base_model --model_size 7b
 """
 
 import json
@@ -19,8 +19,11 @@ DATASET_FILE = os.path.join("preprocessed_data", "generate_dataset.json")
 
 def save_activation_projection_pca(behavior: str, layer: int, model_name_path: str):
     title = f"PCA of contrastive activations for {behavior} at layer {layer}"
-    fname = f"pca_{behavior}_layer_{layer}.pdf"
-    save_dir = get_analysis_dir(behavior)
+    fname = f"pca_{behavior}_layer_{layer}.svg"
+    save_dir = os.path.join(get_analysis_dir(behavior), "pca")
+
+    if not os.path.exists(save_dir):
+        os.makedirs(save_dir)
 
     # Loading activations
     activations_pos = t.load(
@@ -104,10 +107,8 @@ def save_activation_projection_pca(behavior: str, layer: int, model_name_path: s
     plt.title(title)
     plt.xlabel("PC 1")
     plt.ylabel("PC 2")
-    plt.savefig(os.path.join(save_dir, fname), format="pdf")
-
-    # Print ratio between first and second principal component values
-    print(f"Ratio between first and second principal component values: {pca.explained_variance_ratio_[0] / pca.explained_variance_ratio_[1]}")
+    plt.savefig(os.path.join(save_dir, fname), format="svg")
+    plt.savefig(os.path.join(save_dir, fname).replace("svg", "png"), format="png")
 
 
 if __name__ == "__main__":
@@ -118,7 +119,8 @@ if __name__ == "__main__":
         required=True,
     )
     parser.add_argument(
-        "--layer",
+        "--layers",
+        nargs="+",
         type=int,
         required=True,
     )
@@ -127,8 +129,9 @@ if __name__ == "__main__":
     args = parser.parse_args()
     model_name_path = get_model_path(args.model_size, args.use_base_model)
     args = parser.parse_args()
-    save_activation_projection_pca(
-        args.behavior,
-        args.layer,
-        model_name_path,
-    )
+    for layer in args.layers:
+        save_activation_projection_pca(
+            args.behavior,
+            layer,
+            model_name_path,
+        )

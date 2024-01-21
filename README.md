@@ -85,7 +85,7 @@ python generate_vectors.py --layers $(seq 0 31) --save_activations --model_size 
 python prompting_with_steering.py --behavior sycophancy --layers $(seq 0 31) --multipliers -2 -1.5 0 1.5 2 --type ab --model_size "7b"
 
 # Plot PCA of constrastive activations
-python plot_activations.py --behavior sycophancy --layer 10 --use_base_model --model_size "7b"
+python plot_activations.py --behavior sycophancy --layers $(seq 0 31) --model_size "7b"
 
 # Plot results of CAA steering effect
 python plot_results.py --layers $(seq 0 30) --multipliers -2 -1.5 0 1.5 2 --behavior sycophancy --type ab
