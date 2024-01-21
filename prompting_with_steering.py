@@ -122,7 +122,6 @@ def test_steering(
         HUGGINGFACE_TOKEN,
         size=settings.model_size,
         use_chat=not settings.use_base_model,
-        add_only_after_end_str=not settings.add_every_token_position,
         override_model_weights_path=settings.override_model_weights_path,
     )
     a_token_id = model.tokenizer.convert_tokens_to_ids("A")
