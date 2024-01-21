@@ -63,8 +63,8 @@ def plot_ab_results_for_layer(
     layer: int, multipliers: List[float], settings: SteeringSettings
 ):
     system_prompt_options = [
-        ("pos", f"{settings.behavior} system prompt"),
-        ("neg", f"{settings.behavior} system prompt"),
+        ("pos", f"Positive system prompt"),
+        ("neg", f"Negative system prompt"),
         (None, f"No system prompt"),
     ]
     settings.system_prompt = None

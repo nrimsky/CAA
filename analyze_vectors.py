@@ -66,7 +66,8 @@ for model_name, layers in vectors.items():
     plt.figure(figsize=(10, 8))
     sns.heatmap(matrix, annot=False, xticklabels=keys, yticklabels=keys, cmap='coolwarm')
     plt.title(f"Cosine Similarities between Layers of Model: {model_name}")
-    plt.savefig(os.path.join(analysis_dir, f"cosine_similarities_{model_name}.pdf"), format='pdf')
+    plt.savefig(os.path.join(analysis_dir, f"cosine_similarities_{model_name}.png"), format='png')
+    plt.savefig(os.path.join(analysis_dir, f"cosine_similarities_{model_name}.svg"), format='svg')
 
     # PCA Projections
     data = [layers[layer].numpy() for layer in keys]
@@ -77,7 +78,8 @@ for model_name, layers in vectors.items():
     for i, layer in enumerate(keys):
         plt.annotate(layer, (projections[i, 0], projections[i, 1]))
     plt.title(f"PCA Projections of Layers for Model: {model_name}")
-    plt.savefig(os.path.join(analysis_dir, f"pca_layers_{model_name}.pdf"), format='pdf')
+    plt.savefig(os.path.join(analysis_dir, f"pca_layers_{model_name}.png"), format='png')
+    plt.savefig(os.path.join(analysis_dir, f"pca_layers_{model_name}.svg"), format='svg')
 
 
 # Remove 'Llama-2-13b-chat-hf' from vectors
@@ -142,7 +144,8 @@ cb1 = matplotlib.colorbar.ColorbarBase(cbar_ax, cmap='coolwarm', norm=norm, orie
 
 # Save plots
 fig_cosine.suptitle("Cosine Similarities between Models", fontsize=16)
-fig_cosine.savefig(os.path.join(analysis_dir, f"cosine_similarities_all_models.pdf"), format='pdf', bbox_inches='tight')
+fig_cosine.savefig(os.path.join(analysis_dir, f"cosine_similarities_all_models.png"), format='png', bbox_inches='tight')
+fig_cosine.savefig(os.path.join(analysis_dir, f"cosine_similarities_all_models.svg"), format='svg', bbox_inches='tight')
 
 # Plot PCA of all layers over all models on a single plot with layer, model labels
 plt.clf()
@@ -176,7 +179,8 @@ for i, layer in enumerate(common_layers):
         plt.annotate(str(layer), (projections[i*len(model_names)+j, 0], projections[i*len(model_names)+j, 1]))
 
 plt.title(f"PCA Projections of Layers for Models: {', '.join(model_names)}")
-plt.savefig(os.path.join(analysis_dir, f"pca_layers_all_models.pdf"), format='pdf')
+plt.savefig(os.path.join(analysis_dir, f"pca_layers_all_models.png"), format='png')
+plt.savefig(os.path.join(analysis_dir, f"pca_layers_all_models.svg"), format='svg')
 
 # Plotting cosine similarity between the first 2 models per layer number
 model1_name, model2_name = model_names[0], model_names[1]
@@ -193,4 +197,5 @@ plt.ylabel("Cosine Similarity")
 plt.title(f"Cosine Similarity per Layer between {model1_name} and {model2_name}")
 plt.grid(True)
 plt.tight_layout()
-plt.savefig(os.path.join(analysis_dir, f"cosine_similarity_{model1_name}_{model2_name}.pdf"), format='pdf')
+plt.savefig(os.path.join(analysis_dir, f"cosine_similarity_{model1_name}_{model2_name}.png"), format='png')
+plt.savefig(os.path.join(analysis_dir, f"cosine_similarity_{model1_name}_{model2_name}.svg"), format='svg')

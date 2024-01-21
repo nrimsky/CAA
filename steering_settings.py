@@ -60,8 +60,6 @@ class SteeringSettings:
 
         matching_files = []
 
-        print(self.override_model_weights_path)
-
         for filename in os.listdir(directory):
             if all(f"{k}={str(v).replace('/', '-')}" in filename for k, v in filtered_elements.items()):
                 # ensure remove_elements are *not* present
