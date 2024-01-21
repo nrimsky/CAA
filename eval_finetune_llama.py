@@ -1,5 +1,8 @@
 """
-Example usage: python test_finetuned.py --test_type=out_of_distribution --save_filename="results_neg_finetune.json" --model_path="finetuned_models/finetuned_negative.pt"
+Evaluate a finetuned model on a test set.
+
+Usage:
+python eval_finetune_llama.py --type ab --behavior sycophancy --direction pos
 """
 
 import json
@@ -110,7 +113,7 @@ def test_finetune(
     test_type: str,
     behavior: str,
     pos_or_neg: Optional[Literal["pos", "neg"]],
-    layer=None,
+    layer: Optional[int] = None,
 ):
     save_results_dir = get_results_dir(behavior)
     finetuned_model_path = get_finetuned_model_path(behavior, pos_or_neg, layer)
@@ -168,10 +171,12 @@ if __name__ == "__main__":
         required=True,
         choices=ALL_BEHAVIORS,
     )
-    parser.add_argument("--direction", type=str, choices=["pos", "neg"], required=False)
+    parser.add_argument("--direction", type=str, choices=["pos", "neg"], required=True)
+    parser.add_argument("--layer", type=int, default=None, required=False)
     args = parser.parse_args()
     test_finetune(
         args.type,
         args.behavior,
         args.direction,
+        layer=args.layer,
     )

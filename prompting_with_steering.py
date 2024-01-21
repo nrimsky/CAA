@@ -1,5 +1,11 @@
+"""
+Use CAA to steer the model
+
+Usage:
+python prompting_with_steering.py --behavior sycophancy --layers 10 --multipliers 0.1 0.5 1 2 5 10 --type ab --use_base_model --model_size 7b
+"""
+
 import json
-import torch as t
 from llama_wrapper import LlamaWrapper
 import os
 from dotenv import load_dotenv

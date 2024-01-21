@@ -1,9 +1,13 @@
 """
 Finetune the Llama model on the answer behavior dataset.
-Usage: python finetune_llama.py
+
+Usage:
+python finetune_llama.py --behavior sycophancy --direction pos 
 """
 
+import argparse
 import json
+from typing import Literal, Optional
 import torch as t
 from torch.utils.data import Dataset, DataLoader
 from torch.utils.data.distributed import DistributedSampler
@@ -108,8 +112,15 @@ def run_eval_loop(model_path, device, max_new_tokens=50):
 
 
 def finetune(
-    rank, world_size, behavior, n_epochs=1, lr=1e-4, maximize_positive=True, layer=None
+    rank: int,
+    world_size: int,
+    behavior: str,
+    direction: Literal["pos", "neg"],
+    layer: Optional[int] = None,
+    n_epochs=1,
+    lr=1e-4,
 ):
+    maximize_positive = direction == "pos"
     data_path = get_ab_data_path(behavior)
     # Initialize distributed training
     dist.init_process_group("nccl", rank=rank, world_size=world_size)
@@ -196,13 +207,25 @@ def finetune(
 
 if __name__ == "__main__":
     # Ensure the CUDA devices are available and spawn the training processes
-    use_behavior = input(f"Enter behavior ({', '.join(ALL_BEHAVIORS)}): ")
-    assert use_behavior in ALL_BEHAVIORS, f"Behavior must be one of {ALL_BEHAVIORS}"
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--behavior",
+        type=str,
+        required=True,
+        choices=ALL_BEHAVIORS,
+    )
+    parser.add_argument("--direction", type=str, choices=["pos", "neg"], required=True)
+    parser.add_argument("--layer", type=int, default=None, required=False)
+    args = parser.parse_args()
     try:
         if t.cuda.is_available() and t.cuda.device_count() >= NUM_PROCESSES:
             # Number of GPUs or processes you want to run
             world_size = NUM_PROCESSES
-            mp.spawn(finetune, args=(world_size, use_behavior), nprocs=world_size)
+            mp.spawn(
+                finetune,
+                args=(world_size, args.behavior, args.direction, args.layer),
+                nprocs=world_size,
+            )
         else:
             raise EnvironmentError(
                 f"Ensure that you have {NUM_PROCESSES} GPUs available."

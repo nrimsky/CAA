@@ -106,6 +106,9 @@ def save_activation_projection_pca(behavior: str, layer: int, model_name_path: s
     plt.ylabel("PC 2")
     plt.savefig(os.path.join(save_dir, fname), format="pdf")
 
+    # Print ratio between first and second principal component values
+    print(f"Ratio between first and second principal component values: {pca.explained_variance_ratio_[0] / pca.explained_variance_ratio_[1]}")
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
