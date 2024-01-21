@@ -191,8 +191,8 @@ def plot_open_ended_results(
             f.write(f"{multiplier}\t{score}\n")
 
 
-def plot_per_layer_data_in_distribution(
-    layers: List[int], multipliers: List[float], settings: SteeringSettings
+def plot_ab_data_per_layer(
+    layers: List[int], multiplier: float, settings: SteeringSettings
 ):
     plt.clf()
     plt.figure(figsize=(6, 6))
@@ -200,39 +200,30 @@ def plot_per_layer_data_in_distribution(
         get_analysis_dir(settings.behavior),
         f"{settings.make_result_save_suffix()}.svg",
     )
-    # Get a colormap and generate a sequence of colors from that colormap
-    colors = cm.rainbow(np.linspace(0, 1, len(layers)))
-
-    full_res = {}
-    for index, layer in enumerate(layers):
-        res_list = []
-        for multiplier in multipliers:
-            results = get_data(layer, multiplier, settings)
-            avg_key_prob = get_avg_key_prob(results, "answer_matching_behavior")
-            res_list.append((multiplier, avg_key_prob))
-        res_list.sort(key=lambda x: x[0])
-        plt.plot(
-            [x[0] for x in res_list],
-            [x[1] for x in res_list],
-            label=f"Layer {layer}",
-            marker="o",
-            linestyle="dashed",
-            markersize=5,
-            linewidth=2.5,
-            color=colors[index],  # Set color for each line
-        )
-        full_res[layer] = res_list
+    res = []
+    for layer in sorted(layers):
+        results = get_data(layer, multiplier, settings)
+        avg_key_prob = get_avg_key_prob(results, "answer_matching_behavior")
+        res.append(avg_key_prob)
+    plt.plot(
+        sorted(layers),
+        res,
+        label=f"Layer {layer}",
+        marker="o",
+        linestyle="dashed",
+        markersize=5,
+        linewidth=2.5,
+    )
     plt.legend()
-    plt.xlabel("Multiplier")
+    plt.xlabel("Layer")
     plt.ylabel(f"Probability of answer to A/B question matching {settings.behavior} behavior")
+    plt.title(f"Multiplier {multiplier}, {settings.behavior}, {settings.type}")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")
     plt.savefig(save_to.replace("svg", "png"), format="png")
-    # Save data in res_list used for plotting as .txt
     with open(save_to.replace(".svg", ".txt"), "w") as f:
-        for layer, multiplier_scores in full_res.items():
-            for multiplier, score in multiplier_scores:
-                f.write(f"{layer}\t{multiplier}\t{score}\n")
+        for layer, score in zip(sorted(layers), res):
+            f.write(f"{layer}\t{score}\n")
 
 
 if __name__ == "__main__":
@@ -277,8 +268,8 @@ if __name__ == "__main__":
                 layer, args.multipliers, steering_settings
             )
         else:
-            plot_per_layer_data_in_distribution(
-                args.layers, args.multipliers, steering_settings
+            plot_ab_data_per_layer(
+                args.layers, args.multipliers[0], steering_settings
             )
     elif steering_settings.type == "open_ended":
         for layer in args.layers:
