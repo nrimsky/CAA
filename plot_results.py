@@ -99,6 +99,7 @@ def plot_ab_results_for_layer(
     plt.legend()
     plt.xlabel("Multiplier")
     plt.ylabel(f"Probability of answer to A/B question matching {settings.behavior} behavior")
+    plt.title(f"L{layer}, {settings.behavior}, {settings.type}")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")
     plt.savefig(save_to.replace("svg", "png"), format="png")
@@ -195,7 +196,7 @@ def plot_ab_data_per_layer(
     layers: List[int], multiplier: float, settings: SteeringSettings
 ):
     plt.clf()
-    plt.figure(figsize=(6, 6))
+    plt.figure(figsize=(8, 6))
     save_to = os.path.join(
         get_analysis_dir(settings.behavior),
         f"{settings.make_result_save_suffix(multiplier=multiplier)}.svg",
@@ -208,15 +209,14 @@ def plot_ab_data_per_layer(
     plt.plot(
         sorted(layers),
         res,
-        label=f"Layer {layer}",
         marker="o",
         linestyle="dashed",
         markersize=5,
         linewidth=2.5,
     )
-    plt.legend()
     plt.xlabel("Layer")
     plt.ylabel(f"Probability of answer to A/B question matching {settings.behavior} behavior")
+    plt.xticks(ticks=list(range(len(layers))), labels=sorted(layers))
     plt.title(f"Multiplier {multiplier}, {settings.behavior}, {settings.type}")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")
