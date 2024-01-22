@@ -73,7 +73,7 @@ class BlockOutputWrapper(t.nn.Module):
                 after=self.after_position,
                 do_projection=self.do_projection,
             )
-            output = (augmented_output + self.add_activations,) + output[1:]
+            output = (augmented_output,) + output[1:]
 
         if not self.save_internal_decodings:
             return output
