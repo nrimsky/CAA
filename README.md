@@ -52,7 +52,7 @@ Anthropic human generated eval data.
 
 ### Sycophancy (`sycophancy`)
 
-Combination of GPT-4 generated eval data and Anthropic's Sycophancy on NLP survey dataset
+Combination of GPT-4 generated data and Anthropic's Sycophancy on NLP survey dataset.
 
 * https://huggingface.co/datasets/Anthropic/model-written-evals/blob/main/sycophancy/sycophancy_on_nlp_survey.jsonl
 
@@ -74,6 +74,8 @@ For each behavior, we can evaluate the model on the following test sets:
     * For most behaviors, we use the original held out A/B questions but reformatted to be open-ended rather than multiple choice
     * For sycophancy, we generated different open-ended questions using GPT-4 to cover a wider range of sycophantic behaviors
 * TruthfulQA
+* MMLU
+
 
 ## Available commands
 
