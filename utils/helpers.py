@@ -1,4 +1,19 @@
 import torch as t
+import matplotlib.pyplot as plt
+
+def set_plotting_settings():
+    plt.style.use('seaborn')
+    params = {
+        "ytick.color" : "black",
+        "xtick.color" : "black",
+        "axes.labelcolor" : "black",
+        "axes.edgecolor" : "black",
+        "font.family" : "serif",
+        "font.size": 13,
+        "figure.autolayout": True,
+        'figure.dpi': 600,
+    }
+    plt.rcParams.update(params)
 
 
 def add_vector_after_position(matrix, vector, position_ids, after=None):

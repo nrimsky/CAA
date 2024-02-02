@@ -15,18 +15,9 @@ import numpy as np
 import argparse
 from steering_settings import SteeringSettings
 from behaviors import get_results_dir, get_analysis_dir, ALL_BEHAVIORS
+from utils.helpers import set_plotting_settings
 
-plt.style.use('seaborn')
-params = {
-    "ytick.color" : "black",
-    "xtick.color" : "black",
-    "axes.labelcolor" : "black",
-    "axes.edgecolor" : "black",
-    "font.family" : "serif",
-    "font.size": 13,
-    "figure.autolayout": True,
-}
-plt.rcParams.update(params)
+set_plotting_settings()
 
 def get_data(
     layer: int,
@@ -108,6 +99,7 @@ def plot_ab_results_for_layer(
         except:
             print(f"[WARN] Missing data for system_prompt={system_prompt} for layer={layer}")
     plt.legend()
+    plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
     plt.xlabel("Multiplier")
     plt.ylabel(f"Probability of answer matching behavior")
     plt.title(f"L{layer}, {settings.behavior}, {settings.type}")
@@ -154,6 +146,7 @@ def plot_tqa_mmlu_results_for_layer(
             color=colors[idx],
         )
     plt.legend()
+    plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
     plt.xlabel("Multiplier")
     plt.ylabel("Probability of correct answer to A/B question")
     plt.title(f"L{layer}, {settings.behavior}, {settings.type}")
@@ -225,8 +218,10 @@ def plot_ab_data_per_layer(
         markersize=10,
         linewidth=4,
     )
+    # use % formatting for y axis
+    plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
     plt.xlabel("Layer")
-    plt.ylabel(f"Probability of answer to A/B question matching {settings.behavior} behavior")
+    plt.ylabel("Probability of answer matching behavior")
     plt.xticks(ticks=sorted(layers), labels=sorted(layers))
     plt.title(f"Multiplier {multiplier}, {settings.behavior}, {settings.type}")
     plt.tight_layout()

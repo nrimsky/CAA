@@ -11,18 +11,9 @@ from sklearn.decomposition import PCA
 from sklearn.metrics.pairwise import cosine_similarity
 import matplotlib
 from behaviors import ALL_BEHAVIORS, get_vector_dir, get_analysis_dir
+from utils.helpers import set_plotting_settings
 
-plt.style.use('seaborn')
-params = {
-    "ytick.color" : "black",
-    "xtick.color" : "black",
-    "axes.labelcolor" : "black",
-    "axes.edgecolor" : "black",
-    "font.family" : "serif",
-    "font.size": 11,
-    "figure.autolayout": True,
-}
-plt.rcParams.update(params)
+set_plotting_settings()
 
 """
 Utils
@@ -79,7 +70,6 @@ for model_name, layers in vectors.items():
     sns.heatmap(matrix, annot=False, xticklabels=keys, yticklabels=keys, cmap='coolwarm')
     plt.title(f"Layer vector similarity: {model_name}")
     plt.savefig(os.path.join(analysis_dir, f"cosine_similarities_{model_name}.png"), format='png')
-    plt.savefig(os.path.join(analysis_dir, f"cosine_similarities_{model_name}.svg"), format='svg')
 
     # PCA Projections
     data = [layers[layer].numpy() for layer in keys]
@@ -91,7 +81,6 @@ for model_name, layers in vectors.items():
         plt.annotate(layer, (projections[i, 0], projections[i, 1]))
     plt.title(f"Layer vector PCA: {model_name}")
     plt.savefig(os.path.join(analysis_dir, f"pca_layers_{model_name}.png"), format='png')
-    plt.savefig(os.path.join(analysis_dir, f"pca_layers_{model_name}.svg"), format='svg')
 
 
 # Remove 'Llama-2-13b-chat-hf' from vectors
