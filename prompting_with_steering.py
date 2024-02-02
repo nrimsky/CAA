@@ -2,7 +2,7 @@
 Use CAA to steer the model
 
 Usage:
-python prompting_with_steering.py --behavior sycophancy --layers 10 --multipliers 0.1 0.5 1 2 5 10 --type ab --use_base_model --model_size 7b
+python prompting_with_steering.py --behaviors sycophancy --layers 10 --multipliers 0.1 0.5 1 2 5 10 --type ab --use_base_model --model_size 7b
 """
 
 import json
@@ -176,10 +176,10 @@ if __name__ == "__main__":
     parser.add_argument("--layers", nargs="+", type=int, required=True)
     parser.add_argument("--multipliers", nargs="+", type=float, required=True)
     parser.add_argument(
-        "--behavior",
+        "--behaviors",
         type=str,
-        required=True,
-        choices=ALL_BEHAVIORS,
+        nargs="+",
+        default=ALL_BEHAVIORS
     )
     parser.add_argument(
         "--type",
@@ -199,7 +199,6 @@ if __name__ == "__main__":
 
     steering_settings = SteeringSettings()
     steering_settings.type = args.type
-    steering_settings.behavior = args.behavior
     steering_settings.system_prompt = args.system_prompt
     steering_settings.override_vector = args.override_vector
     steering_settings.override_vector_model = args.override_vector_model
@@ -207,9 +206,11 @@ if __name__ == "__main__":
     steering_settings.model_size = args.model_size
     steering_settings.override_model_weights_path = args.override_model_weights_path
 
-    test_steering(
-        layers=args.layers,
-        multipliers=args.multipliers,
-        settings=steering_settings,
-        overwrite=args.overwrite,
-    )
+    for behavior in args.behaviors:
+        steering_settings.behavior = behavior
+        test_steering(
+            layers=args.layers,
+            multipliers=args.multipliers,
+            settings=steering_settings,
+            overwrite=args.overwrite,
+        )

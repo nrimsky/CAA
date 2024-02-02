@@ -84,11 +84,11 @@ For each behavior, we can evaluate the model on the following test sets:
 python generate_vectors.py --layers $(seq 0 31) --save_activations --model_size "7b" --behaviors sycophancy
 
 # Evaluate model on A/B, open-ended or TruthfulQA test sets while using CAA
-python prompting_with_steering.py --behavior sycophancy --layers $(seq 0 31) --multipliers -1 0 1 --type ab --model_size "7b"
-python prompting_with_steering.py --behavior sycophancy --layers 14 --multipliers -2 -1.5 -1 -0.5 0 0.5 1 1.5 2 --type ab --model_size "7b" --system_prompt pos
+python prompting_with_steering.py --behaviors sycophancy --layers $(seq 0 31) --multipliers -1 0 1 --type ab --model_size "7b"
+python prompting_with_steering.py --behaviors sycophancy --layers 14 --multipliers -2 -1.5 -1 -0.5 0 0.5 1 1.5 2 --type ab --model_size "7b" --system_prompt pos
 
 # Plot PCA of constrastive activations
-python plot_activations.py --behavior sycophancy --layers $(seq 0 31) --model_size "7b"
+python plot_activations.py --behaviors sycophancy --layers $(seq 0 31) --model_size "7b"
 
 # Plot results of CAA steering effect
 python plot_results.py --layers $(seq 0 31) --multipliers 1 --behavior sycophancy --type ab

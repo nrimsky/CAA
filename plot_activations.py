@@ -2,7 +2,7 @@
 Script to plot PCA of constrastive activations
 
 Usage:
-python plot_activations.py --behavior sycophancy --layers 9 10 11 --use_base_model --model_size 7b
+python plot_activations.py --behaviors sycophancy --layers 9 10 11 --use_base_model --model_size 7b
 """
 
 import json
@@ -11,7 +11,7 @@ import os
 from matplotlib import pyplot as plt
 import argparse
 from sklearn.decomposition import PCA
-from behaviors import get_activations_path, get_ab_data_path, get_analysis_dir
+from behaviors import get_activations_path, get_ab_data_path, get_analysis_dir, ALL_BEHAVIORS
 from utils.helpers import get_model_path
 
 DATASET_FILE = os.path.join("preprocessed_data", "generate_dataset.json")
@@ -114,9 +114,10 @@ def save_activation_projection_pca(behavior: str, layer: int, model_name_path: s
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--behavior",
+        "--behaviors",
+        nargs="+",
         type=str,
-        required=True,
+        default=ALL_BEHAVIORS,
     )
     parser.add_argument(
         "--layers",
@@ -129,9 +130,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
     model_name_path = get_model_path(args.model_size, args.use_base_model)
     args = parser.parse_args()
-    for layer in args.layers:
-        save_activation_projection_pca(
-            args.behavior,
-            layer,
-            model_name_path,
-        )
+    for behavior in args.behaviors:
+        for layer in args.layers:
+            save_activation_projection_pca(
+                behavior,
+                layer,
+                model_name_path,
+            )
