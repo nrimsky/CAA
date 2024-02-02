@@ -16,6 +16,9 @@ import argparse
 from steering_settings import SteeringSettings
 from behaviors import get_results_dir, get_analysis_dir, ALL_BEHAVIORS
 
+plt.rcParams["figure.autolayout"] = True
+# font size
+plt.rcParams.update({"font.size": 14})
 
 def get_data(
     layer: int,
@@ -128,7 +131,7 @@ def plot_tqa_mmlu_results_for_layer(
             avg_key_prob = get_avg_key_prob(category_results, "correct")
             res_per_category[category].append((multiplier, avg_key_prob))
     plt.clf()
-    plt.figure(figsize=(6, 6))
+    plt.figure(figsize=(5, 5))
     colors = cm.rainbow(np.linspace(0, 1, len(res_per_category)))
     for idx, (category, res_list) in enumerate(res_per_category.items()):
         res_per_category[category].sort(key=lambda x: x[0])
@@ -164,7 +167,7 @@ def plot_open_ended_results(
         f"{settings.make_result_save_suffix(layer=layer)}.svg",
     )
     plt.clf()
-    plt.figure(figsize=(6, 6))
+    plt.figure(figsize=(5, 5))
     res_list = []
     for multiplier in multipliers:
         results = get_data(layer, multiplier, settings)
@@ -196,7 +199,7 @@ def plot_ab_data_per_layer(
     layers: List[int], multiplier: float, settings: SteeringSettings
 ):
     plt.clf()
-    plt.figure(figsize=(8, 6))
+    plt.figure(figsize=(7, 5))
     save_to = os.path.join(
         get_analysis_dir(settings.behavior),
         f"{settings.make_result_save_suffix(multiplier=multiplier)}.svg",
@@ -211,12 +214,12 @@ def plot_ab_data_per_layer(
         res,
         marker="o",
         linestyle="dashed",
-        markersize=5,
-        linewidth=2.5,
+        markersize=10,
+        linewidth=4,
     )
     plt.xlabel("Layer")
     plt.ylabel(f"Probability of answer to A/B question matching {settings.behavior} behavior")
-    plt.xticks(ticks=list(range(len(layers))), labels=sorted(layers))
+    plt.xticks(ticks=sorted(layers), labels=sorted(layers))
     plt.title(f"Multiplier {multiplier}, {settings.behavior}, {settings.type}")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")

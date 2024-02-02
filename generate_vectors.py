@@ -2,7 +2,7 @@
 Generates steering vectors for each layer of the model by averaging the activations of all the positive and negative examples.
 
 Example usage:
-python generate_vectors.py --layers 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 --save_activations --use_base_model --model_size 7b --behavior sycophancy
+python generate_vectors.py --layers 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 --save_activations --use_base_model --model_size 7b --behaviors sycophancy
 """
 
 import json
@@ -67,30 +67,18 @@ class ComparisonDataset(Dataset):
         n_tokens = self.prompt_to_tokens(q_text, n_text)
         return p_tokens, n_tokens
 
-
 def generate_save_vectors(
     layers: List[int],
     save_activations: bool,
-    use_base_model: bool,
-    model_size: str,
-    behavior: str,
+    behavior: List[str],
+    model: LlamaWrapper,
 ):
-    """
-    layers: list of layers to generate vectors for
-    save_activations: if True, save the activations for each layer
-    use_base_model: Whether to use the base model instead of the chat model
-    model_size: size of the model to use, either "7b" or "13b"
-    behavior: behavior to generate vectors for
-    """
     data_path = get_ab_data_path(behavior)
     if not os.path.exists(get_vector_dir(behavior)):
         os.makedirs(get_vector_dir(behavior))
     if save_activations and not os.path.exists(get_activations_dir(behavior)):
         os.makedirs(get_activations_dir(behavior))
 
-    model = LlamaWrapper(
-        HUGGINGFACE_TOKEN, size=model_size, use_chat=not use_base_model
-    )
     model.set_save_internal_decodings(False)
     model.reset_all()
 
@@ -138,6 +126,28 @@ def generate_save_vectors(
                 get_activations_path(behavior, layer, model.model_name_path, "neg"),
             )
 
+def generate_save_vectors(
+    layers: List[int],
+    save_activations: bool,
+    use_base_model: bool,
+    model_size: str,
+    behaviors: List[str],
+):
+    """
+    layers: list of layers to generate vectors for
+    save_activations: if True, save the activations for each layer
+    use_base_model: Whether to use the base model instead of the chat model
+    model_size: size of the model to use, either "7b" or "13b"
+    behaviors: behaviors to generate vectors for
+    """
+    model = LlamaWrapper(
+        HUGGINGFACE_TOKEN, size=model_size, use_chat=not use_base_model
+    )
+    for behavior in behaviors:
+        generate_save_vectors(
+            layers, save_activations, behavior, model
+        )
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -145,7 +155,7 @@ if __name__ == "__main__":
     parser.add_argument("--save_activations", action="store_true", default=False)
     parser.add_argument("--use_base_model", action="store_true", default=False)
     parser.add_argument("--model_size", type=str, choices=["7b", "13b"], default="7b")
-    parser.add_argument("--behavior", type=str, default="sycophancy", choices=ALL_BEHAVIORS)
+    parser.add_argument("--behaviors", nargs="+", type=str, default=ALL_BEHAVIORS)
 
     args = parser.parse_args()
     generate_save_vectors(
@@ -153,5 +163,5 @@ if __name__ == "__main__":
         args.save_activations,
         args.use_base_model,
         args.model_size,
-        args.behavior,
+        args.behaviors
     )
