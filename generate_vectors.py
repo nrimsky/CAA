@@ -67,7 +67,7 @@ class ComparisonDataset(Dataset):
         n_tokens = self.prompt_to_tokens(q_text, n_text)
         return p_tokens, n_tokens
 
-def generate_save_vectors(
+def generate_save_vectors_for_behavior(
     layers: List[int],
     save_activations: bool,
     behavior: List[str],
@@ -144,7 +144,7 @@ def generate_save_vectors(
         HUGGINGFACE_TOKEN, size=model_size, use_chat=not use_base_model
     )
     for behavior in behaviors:
-        generate_save_vectors(
+        generate_save_vectors_for_behavior(
             layers, save_activations, behavior, model
         )
 

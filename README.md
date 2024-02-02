@@ -81,7 +81,7 @@ For each behavior, we can evaluate the model on the following test sets:
 
 ```bash
 # Generate steering vectors for layers of the model for a certain behavior
-python generate_vectors.py --layers $(seq 0 31) --save_activations --model_size "7b" --behavior sycophancy
+python generate_vectors.py --layers $(seq 0 31) --save_activations --model_size "7b" --behaviors sycophancy
 
 # Evaluate model on A/B, open-ended or TruthfulQA test sets while using CAA
 python prompting_with_steering.py --behavior sycophancy --layers $(seq 0 31) --multipliers -1 0 1 --type ab --model_size "7b"
