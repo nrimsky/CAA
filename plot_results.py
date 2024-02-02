@@ -2,7 +2,7 @@
 Plot results from behavioral evaluations under steering.
 
 Example usage:
-python plot_results.py --layers 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 --multipliers -1 0 1 --behavior sycophancy --type ab
+python plot_results.py --layers 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 --multipliers -1 0 1 --behaviors sycophancy --type ab
 """
 
 import json
@@ -18,7 +18,7 @@ from behaviors import get_results_dir, get_analysis_dir, ALL_BEHAVIORS
 
 plt.rcParams["figure.autolayout"] = True
 # font size
-plt.rcParams.update({"font.size": 14})
+plt.rcParams.update({"font.size": 13})
 
 def get_data(
     layer: int,
@@ -199,7 +199,7 @@ def plot_ab_data_per_layer(
     layers: List[int], multiplier: float, settings: SteeringSettings
 ):
     plt.clf()
-    plt.figure(figsize=(7, 5))
+    plt.figure(figsize=(10, 4))
     save_to = os.path.join(
         get_analysis_dir(settings.behavior),
         f"{settings.make_result_save_suffix(multiplier=multiplier)}.svg",
@@ -234,10 +234,10 @@ if __name__ == "__main__":
     parser.add_argument("--layers", nargs="+", type=int, required=True)
     parser.add_argument("--multipliers", nargs="+", type=float, required=True)
     parser.add_argument(
-        "--behavior",
+        "--behaviors",
         type=str,
-        required=True,
-        choices=ALL_BEHAVIORS,
+        nargs="+",
+        default=ALL_BEHAVIORS,
     )
     parser.add_argument(
         "--type",
@@ -254,29 +254,30 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
 
-    steering_settings = SteeringSettings()
-    steering_settings.type = args.type
-    steering_settings.behavior = args.behavior
-    steering_settings.system_prompt = args.system_prompt
-    steering_settings.override_vector = args.override_vector
-    steering_settings.override_vector_model = args.override_vector_model
-    steering_settings.use_base_model = args.use_base_model
-    steering_settings.model_size = args.model_size
-    steering_settings.override_model_weights_path = args.override_model_weights_path
+    for behavior in args.behaviors:
+        steering_settings = SteeringSettings()
+        steering_settings.type = args.type
+        steering_settings.behavior = behavior
+        steering_settings.system_prompt = args.system_prompt
+        steering_settings.override_vector = args.override_vector
+        steering_settings.override_vector_model = args.override_vector_model
+        steering_settings.use_base_model = args.use_base_model
+        steering_settings.model_size = args.model_size
+        steering_settings.override_model_weights_path = args.override_model_weights_path
 
-    if steering_settings.type == "ab":
-        if len(args.layers) == 1:
-            layer = args.layers[0]
-            plot_ab_results_for_layer(
-                layer, args.multipliers, steering_settings
-            )
-        else:
-            plot_ab_data_per_layer(
-                args.layers, args.multipliers[0], steering_settings
-            )
-    elif steering_settings.type == "open_ended":
-        for layer in args.layers:
-            plot_open_ended_results(layer, args.multipliers, steering_settings)
-    elif steering_settings.type == "truthful_qa" or steering_settings.type == "mmlu":
-        for layer in args.layers:
-            plot_tqa_mmlu_results_for_layer(layer, args.multipliers, steering_settings)
+        if steering_settings.type == "ab":
+            if len(args.layers) == 1:
+                layer = args.layers[0]
+                plot_ab_results_for_layer(
+                    layer, args.multipliers, steering_settings
+                )
+            else:
+                plot_ab_data_per_layer(
+                    args.layers, args.multipliers[0], steering_settings
+                )
+        elif steering_settings.type == "open_ended":
+            for layer in args.layers:
+                plot_open_ended_results(layer, args.multipliers, steering_settings)
+        elif steering_settings.type == "truthful_qa" or steering_settings.type == "mmlu":
+            for layer in args.layers:
+                plot_tqa_mmlu_results_for_layer(layer, args.multipliers, steering_settings)

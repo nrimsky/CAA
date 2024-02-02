@@ -91,8 +91,8 @@ python prompting_with_steering.py --behaviors sycophancy --layers 14 --multiplie
 python plot_activations.py --behaviors sycophancy --layers $(seq 0 31) --model_size "7b"
 
 # Plot results of CAA steering effect
-python plot_results.py --layers $(seq 0 31) --multipliers 1 --behavior sycophancy --type ab
-python plot_results.py --layers $(seq 0 31) --multipliers -2 -1.5 0 1.5 2 --behavior sycophancy --type ab
+python plot_results.py --layers $(seq 0 31) --multipliers 1 --behaviors sycophancy --type ab
+python plot_results.py --layers $(seq 0 31) --multipliers -2 -1.5 0 1.5 2 --behaviors sycophancy --type ab
 
 # Finetune a llama on a behavioral dataset
 python finetune_llama.py --behavior sycophancy --direction pos 
