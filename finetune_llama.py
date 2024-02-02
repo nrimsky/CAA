@@ -11,7 +11,7 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 import torch.distributed as dist
 import torch.multiprocessing as mp
 
-# Set enivironment variables
+# Set env vars
 os.environ['MASTER_ADDR'] = '127.0.0.1'
 os.environ['MASTER_PORT'] = '29500'
 os.environ['CUBLAS_WORKSPACE_CONFIG'] = ':4096:8'
