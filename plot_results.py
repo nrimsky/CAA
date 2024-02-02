@@ -2,12 +2,12 @@
 Plot results from behavioral evaluations under steering.
 
 Example usage:
-python plot_results.py --layers 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 --multipliers -1 0 1 --behaviors sycophancy --type ab
+python plot_results.py --layers $(seq 0 31) --multipliers -1 0 1 --type ab
 """
 
+import matplotlib.pyplot as plt
 import json
 from typing import Dict, Any, List
-import matplotlib.pyplot as plt
 import os
 from collections import defaultdict
 import matplotlib.cm as cm
@@ -16,9 +16,17 @@ import argparse
 from steering_settings import SteeringSettings
 from behaviors import get_results_dir, get_analysis_dir, ALL_BEHAVIORS
 
-plt.rcParams["figure.autolayout"] = True
-# font size
-plt.rcParams.update({"font.size": 13})
+plt.style.use('seaborn')
+params = {
+    "ytick.color" : "black",
+    "xtick.color" : "black",
+    "axes.labelcolor" : "black",
+    "axes.edgecolor" : "black",
+    "font.family" : "serif",
+    "font.size": 13,
+    "figure.autolayout": True,
+}
+plt.rcParams.update(params)
 
 def get_data(
     layer: int,
@@ -101,7 +109,7 @@ def plot_ab_results_for_layer(
             print(f"[WARN] Missing data for system_prompt={system_prompt} for layer={layer}")
     plt.legend()
     plt.xlabel("Multiplier")
-    plt.ylabel(f"Probability of answer to A/B question matching {settings.behavior} behavior")
+    plt.ylabel(f"Probability of answer matching behavior")
     plt.title(f"L{layer}, {settings.behavior}, {settings.type}")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")

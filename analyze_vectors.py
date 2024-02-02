@@ -12,6 +12,18 @@ from sklearn.metrics.pairwise import cosine_similarity
 import matplotlib
 from behaviors import ALL_BEHAVIORS, get_vector_dir, get_analysis_dir
 
+plt.style.use('seaborn')
+params = {
+    "ytick.color" : "black",
+    "xtick.color" : "black",
+    "axes.labelcolor" : "black",
+    "axes.edgecolor" : "black",
+    "font.family" : "serif",
+    "font.size": 11,
+    "figure.autolayout": True,
+}
+plt.rcParams.update(params)
+
 """
 Utils
 """
@@ -63,21 +75,21 @@ for model_name, layers in vectors.items():
         for j, layer2 in enumerate(keys):
             cosine_sim = cosine_similarity(layers[layer1].reshape(1, -1), layers[layer2].reshape(1, -1))
             matrix[i, j] = cosine_sim
-    plt.figure(figsize=(10, 8))
+    plt.figure(figsize=(5, 5))
     sns.heatmap(matrix, annot=False, xticklabels=keys, yticklabels=keys, cmap='coolwarm')
-    plt.title(f"Cosine Similarities between Layers of Model: {model_name}")
+    plt.title(f"Layer vector similarity: {model_name}")
     plt.savefig(os.path.join(analysis_dir, f"cosine_similarities_{model_name}.png"), format='png')
     plt.savefig(os.path.join(analysis_dir, f"cosine_similarities_{model_name}.svg"), format='svg')
 
     # PCA Projections
     data = [layers[layer].numpy() for layer in keys]
     projections = pca.fit_transform(data)
-    plt.figure(figsize=(10, 8))
+    plt.figure(figsize=(5, 5))
     plt.scatter(projections[:, 0], projections[:, 1], c=keys, cmap='viridis')
     plt.colorbar().set_label('Layer Number')
     for i, layer in enumerate(keys):
         plt.annotate(layer, (projections[i, 0], projections[i, 1]))
-    plt.title(f"PCA Projections of Layers for Model: {model_name}")
+    plt.title(f"Layer vector PCA: {model_name}")
     plt.savefig(os.path.join(analysis_dir, f"pca_layers_{model_name}.png"), format='png')
     plt.savefig(os.path.join(analysis_dir, f"pca_layers_{model_name}.svg"), format='svg')
 
@@ -96,7 +108,7 @@ rows = num_layers // cols
 rows += num_layers % cols
 position = range(1, num_layers + 1)
 
-fig_cosine, axarr_cosine = plt.subplots(rows, cols, figsize=(15, 5 * rows))
+fig_cosine, axarr_cosine = plt.subplots(rows, cols, figsize=(8, 4 * rows))
 
 # Max and min values for consistent color scale across subplots
 vmin = float('inf')
@@ -143,7 +155,7 @@ norm = matplotlib.colors.Normalize(vmin=vmin, vmax=vmax)
 cb1 = matplotlib.colorbar.ColorbarBase(cbar_ax, cmap='coolwarm', norm=norm, orientation='vertical')
 
 # Save plots
-fig_cosine.suptitle("Cosine Similarities between Models", fontsize=16)
+fig_cosine.suptitle("Model vector similarity")
 fig_cosine.savefig(os.path.join(analysis_dir, f"cosine_similarities_all_models.png"), format='png', bbox_inches='tight')
 fig_cosine.savefig(os.path.join(analysis_dir, f"cosine_similarities_all_models.svg"), format='svg', bbox_inches='tight')
 
@@ -158,7 +170,7 @@ for layer in common_layers:
 data = np.array(data)
 projections = pca.fit_transform(data)
 
-plt.figure(figsize=(10, 8))
+plt.figure(figsize=(5, 5))
 
 # Separate chat and base data
 chat_data = np.array([projections[i] for i, label in enumerate(labels) if label == "Chat"])
@@ -178,7 +190,7 @@ for i, layer in enumerate(common_layers):
     for j, model_name in enumerate(model_names):
         plt.annotate(str(layer), (projections[i*len(model_names)+j, 0], projections[i*len(model_names)+j, 1]))
 
-plt.title(f"PCA Projections of Layers for Models: {', '.join(model_names)}")
+plt.title(f"Layer vector PCA: {', '.join(model_names)}")
 plt.savefig(os.path.join(analysis_dir, f"pca_layers_all_models.png"), format='png')
 plt.savefig(os.path.join(analysis_dir, f"pca_layers_all_models.svg"), format='svg')
 
@@ -190,11 +202,11 @@ for layer in common_layers:
     cosine_sim = cosine_similarity(vectors[model1_name][layer].reshape(1, -1), vectors[model2_name][layer].reshape(1, -1))[0][0]
     cosine_sims_per_layer.append(cosine_sim)
 
-plt.figure(figsize=(10, 6))
+plt.figure(figsize=(5, 5))
 plt.plot(common_layers, cosine_sims_per_layer, marker='o', linestyle='-')
 plt.xlabel("Layer Number")
 plt.ylabel("Cosine Similarity")
-plt.title(f"Cosine Similarity per Layer between {model1_name} and {model2_name}")
+plt.title(f"Similarity between {model1_name} and {model2_name}")
 plt.grid(True)
 plt.tight_layout()
 plt.savefig(os.path.join(analysis_dir, f"cosine_similarity_{model1_name}_{model2_name}.png"), format='png')
