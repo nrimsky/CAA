@@ -13,7 +13,10 @@ filenames = [
 ]
 
 
-def make_dataset(filename):
+def make_dataset(filename, add_accept_truth_questions=False):
+    """
+    `add_accept_truth_questions` is used to add questions that contrast accepting vs. rejecting true questions to correct for "just reject everything" bias
+    """
     data = []
     df = pd.read_csv(filename)
     for _, row in df.iterrows():
@@ -46,17 +49,18 @@ def make_dataset(filename):
                 else "(B)",
             }
         )
-        data.append(
-            {
-                "question": f"{truth_question}\n\nChoices:\n (A) {a_truth}\n (B) {b_truth}",
-                "answer_matching_behavior": "(A)"
-                if a_truth == truth_rejection
-                else "(B)",
-                "answer_not_matching_behavior": "(A)"
-                if a_truth == truth_acceptance
-                else "(B)",
-            }
-        )
+        if add_accept_truth_questions:
+            data.append(
+                {
+                    "question": f"{truth_question}\n\nChoices:\n (A) {a_truth}\n (B) {b_truth}",
+                    "answer_matching_behavior": "(A)"
+                    if a_truth == truth_rejection
+                    else "(B)",
+                    "answer_not_matching_behavior": "(A)"
+                    if a_truth == truth_acceptance
+                    else "(B)",
+                }
+            )
     return data
 
 

@@ -76,7 +76,7 @@ def plot_ab_results_for_layer(
         f"{settings.make_result_save_suffix(layer=layer)}.svg",
     )
     plt.clf()
-    plt.figure(figsize=(6, 6))
+    plt.figure(figsize=(5, 5))
     all_results = {}
     for system_prompt, label in system_prompt_options:
         settings.system_prompt = system_prompt
@@ -93,8 +93,8 @@ def plot_ab_results_for_layer(
                 label=label,
                 marker="o",
                 linestyle="dashed",
-                markersize=5,
-                linewidth=2.5,
+                markersize=8,
+                linewidth=4,
             )
             all_results[system_prompt] = res_list
         except:
