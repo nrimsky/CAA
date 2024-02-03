@@ -29,7 +29,7 @@ def get_data(
         directory, layer=layer, multiplier=multiplier
     )
     if len(filenames) > 1:
-        print(f"[WARN] >1 filename found for filter {settings}")
+        print(f"[WARN] >1 filename found for filter {settings}", filenames)
     if len(filenames) == 0:
         print(f"[WARN] no filenames found for filter {settings}")
         return []
@@ -102,7 +102,7 @@ def plot_ab_results_for_layer(
     plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
     plt.xlabel("Multiplier")
     plt.ylabel(f"Probability of answer matching behavior")
-    plt.title(f"L{layer}, {settings.behavior}, {settings.type}")
+    plt.title(f"{settings.get_formatted_model_name()} L{layer}, {settings.behavior}, {settings.type}")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")
     plt.savefig(save_to.replace("svg", "png"), format="png")
@@ -149,7 +149,7 @@ def plot_tqa_mmlu_results_for_layer(
     plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
     plt.xlabel("Multiplier")
     plt.ylabel("Probability of correct answer to A/B question")
-    plt.title(f"L{layer}, {settings.behavior}, {settings.type}")
+    plt.title(f"{settings.get_formatted_model_name()} L{layer}, {settings.behavior}, {settings.type}")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")
     plt.savefig(save_to.replace("svg", "png"), format="png")
@@ -223,7 +223,7 @@ def plot_ab_data_per_layer(
     plt.xlabel("Layer")
     plt.ylabel("Probability of answer matching behavior")
     plt.xticks(ticks=sorted(layers), labels=sorted(layers))
-    plt.title(f"Multiplier {multiplier}, {settings.behavior}, {settings.type}")
+    plt.title(f"{settings.get_formatted_model_name()} x{multiplier}, {settings.behavior}, {settings.type}")
     plt.tight_layout()
     plt.savefig(save_to, format="svg")
     plt.savefig(save_to.replace("svg", "png"), format="png")

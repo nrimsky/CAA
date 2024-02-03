@@ -43,8 +43,8 @@ class SteeringSettings:
         multiplier: Optional[int] = None,
     ):
         elements = {
-            "layer": layer,
-            "multiplier": multiplier,
+            "layer": str(layer)+"_",
+            "multiplier": str(float(multiplier))+"_",
             "behavior": self.behavior,
             "type": self.type,
             "system_prompt": self.system_prompt,
@@ -67,3 +67,16 @@ class SteeringSettings:
                     matching_files.append(filename)
 
         return [os.path.join(directory, f) for f in matching_files]
+    
+    def get_formatted_model_name_path(self):
+        if self.use_base_model:
+            if self.model_size == "7b":
+                return "Llama 2 7B"
+            else:
+                return "Llama 2 13B"
+        else:
+            if self.model_size == "7b":
+                return "Llama 2 7B Chat"
+            else:
+                return "Llama 2 13B Chat"
+        
