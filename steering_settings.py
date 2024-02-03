@@ -68,7 +68,7 @@ class SteeringSettings:
 
         return [os.path.join(directory, f) for f in matching_files]
     
-    def get_formatted_model_name_path(self):
+    def get_formatted_model_name(self):
         if self.use_base_model:
             if self.model_size == "7b":
                 return "Llama 2 7B"
