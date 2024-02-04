@@ -9,7 +9,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
 from sklearn.metrics.pairwise import cosine_similarity
-import matplotlib
 from behaviors import ALL_BEHAVIORS, get_vector_dir, get_analysis_dir
 from utils.helpers import set_plotting_settings
 
@@ -90,64 +89,6 @@ del vectors['Llama-2-13b-chat-hf']
 common_layers = sorted(list(set(next(iter(vectors.values())).keys())))  # Sorted common layers
 model_names = list(vectors.keys())
 
-# Determine grid size for subplots
-num_layers = len(common_layers)
-cols = 3  # number of columns
-rows = num_layers // cols
-rows += num_layers % cols
-position = range(1, num_layers + 1)
-
-fig_cosine, axarr_cosine = plt.subplots(rows, cols, figsize=(8, 4 * rows))
-
-# Max and min values for consistent color scale across subplots
-vmin = float('inf')
-vmax = float('-inf')
-
-# Calculate max and min first for consistent color scaling
-for layer in common_layers:
-    matrix = np.zeros((len(model_names), len(model_names)))
-    for i, model1 in enumerate(model_names):
-        for j, model2 in enumerate(model_names):
-            try:
-                cosine_sim = cosine_similarity(vectors[model1][layer].reshape(1, -1), vectors[model2][layer].reshape(1, -1))
-                matrix[i, j] = cosine_sim
-                vmin = min(vmin, cosine_sim)
-                vmax = max(vmax, cosine_sim)
-            except KeyError:
-                pass
-
-# Cosine Similarity
-for layer, pos in zip(common_layers, position):
-    row = (pos - 1) // cols
-    col = (pos - 1) % cols
-    ax = axarr_cosine[row, col]
-    matrix = np.zeros((len(model_names), len(model_names)))
-    for i, model1 in enumerate(model_names):
-        for j, model2 in enumerate(model_names):
-            try:
-                cosine_sim = cosine_similarity(vectors[model1][layer].reshape(1, -1), vectors[model2][layer].reshape(1, -1))
-                matrix[i, j] = cosine_sim
-            except KeyError:
-                pass
-    sns.heatmap(matrix, ax=ax, annot=False, xticklabels=model_names, yticklabels=model_names, cmap='coolwarm', vmin=vmin, vmax=vmax)
-    ax.set_title(f"Layer: {layer}")
-
-# Remove unused subplots
-for pos in range(num_layers+1, (rows*cols)+1):
-    row = (pos - 1) // cols
-    col = (pos - 1) % cols
-    fig_cosine.delaxes(axarr_cosine[row, col])
-
-# Add a single colorbar
-cbar_ax = fig_cosine.add_axes([0.92, 0.12, 0.02, 0.76])  # [left, bottom, width, height]
-norm = matplotlib.colors.Normalize(vmin=vmin, vmax=vmax)
-cb1 = matplotlib.colorbar.ColorbarBase(cbar_ax, cmap='coolwarm', norm=norm, orientation='vertical')
-
-# Save plots
-fig_cosine.suptitle("Model vector similarity")
-fig_cosine.savefig(os.path.join(analysis_dir, f"cosine_similarities_all_models.png"), format='png', bbox_inches='tight')
-fig_cosine.savefig(os.path.join(analysis_dir, f"cosine_similarities_all_models.svg"), format='svg', bbox_inches='tight')
-
 # Plot PCA of all layers over all models on a single plot with layer, model labels
 plt.clf()
 data = []
@@ -195,7 +136,7 @@ plt.figure(figsize=(5, 5))
 plt.plot(common_layers, cosine_sims_per_layer, marker='o', linestyle='-')
 plt.xlabel("Layer Number")
 plt.ylabel("Cosine Similarity")
-plt.title(f"Similarity between {model1_name} and {model2_name}")
+plt.title(f"Similarity between Llama 2 Chat and base vectors")
 plt.grid(True)
 plt.tight_layout()
 plt.savefig(os.path.join(analysis_dir, f"cosine_similarity_{model1_name}_{model2_name}.png"), format='png')

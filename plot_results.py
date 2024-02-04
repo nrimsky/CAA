@@ -256,8 +256,10 @@ def plot_effect_on_behaviors(
             if settings.type == "open_ended":
                 avg_score = get_avg_score(data)
                 results.append(avg_score * 100)
-            else:
+            elif settings.type == "ab":
                 avg_key_prob = get_avg_key_prob(data, "answer_matching_behavior")
+            else:
+                avg_key_prob = get_avg_key_prob(data, "correct")
                 results.append(avg_key_prob * 100)
         all_results.append(results)
 
@@ -276,6 +278,10 @@ def plot_effect_on_behaviors(
     ylabel = "% of multiple-choice answers matching behavior"
     if settings.type == "open_ended":
         ylabel = "% of open-ended responses matching behavior"
+    elif settings.type == "mmlu":
+        ylabel = "% of correct MMLU answers"
+    elif settings.type == "truthful_qa":
+        ylabel = "% of correct TruthfulQA answers"
     plt.ylabel(ylabel)
     plt.legend()
     plt.tight_layout()
@@ -327,7 +333,7 @@ if __name__ == "__main__":
 
     steering_settings = steering_settings_from_args(args, args.behaviors[0])
 
-    if (args.type == "ab" or args.type == "open_ended") and len(args.layers) == 1:
+    if len(args.layers) == 1 and steering_settings.type != "truthful_qa":
         plot_effect_on_behaviors(args.layers[0], args.multipliers, args.behaviors, steering_settings)
 
     for behavior in args.behaviors:

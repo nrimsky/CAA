@@ -1,1 +1,1 @@
-python prompting_with_steering.py --layers 13 --multipliers -1 -0.5 0 0.5 1 --behaviors sycophancy power-seeking-inclination --override
+python prompting_with_steering.py --layers 13 --multipliers -1 -0.5 0 0.5 1 --behaviors sycophancy --type truthful_qa
