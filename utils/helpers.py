@@ -4,16 +4,22 @@ import matplotlib.pyplot as plt
 def set_plotting_settings():
     plt.style.use('seaborn')
     params = {
-        "ytick.color" : "black",
-        "xtick.color" : "black",
-        "axes.labelcolor" : "black",
-        "axes.edgecolor" : "black",
-        "font.family" : "serif",
+        "ytick.color": "black",
+        "xtick.color": "black",
+        "axes.labelcolor": "black",
+        "axes.edgecolor": "black",
+        "font.family": "serif",
         "font.size": 13,
         "figure.autolayout": True,
         'figure.dpi': 600,
     }
     plt.rcParams.update(params)
+
+    custom_colors = ['#377eb8', '#ff7f00', '#4daf4a',
+                     '#f781bf', '#a65628', '#984ea3',
+                     '#999999', '#e41a1c', '#dede00']
+    plt.rcParams['axes.prop_cycle'] = plt.cycler(color=custom_colors)
+
 
 
 def add_vector_after_position(matrix, vector, position_ids, after=None):

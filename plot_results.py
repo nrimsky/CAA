@@ -104,7 +104,8 @@ def plot_ab_results_for_layer(
     plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
     plt.xlabel("Multiplier")
     plt.ylabel(f"Probability of answer matching behavior")
-    plt.title(f"{settings.get_formatted_model_name()} L{layer}, {settings.behavior}, {settings.type}")
+    plt.xticks(ticks=multipliers, labels=multipliers)
+    plt.title(f"{HUMAN_NAMES[settings.behavior]} CAA, Layer {layer} - {settings.get_formatted_model_name()}")
     plt.tight_layout()
     plt.savefig(save_to, format="png")
     # Save data in all_results used for plotting as .txt
@@ -150,7 +151,7 @@ def plot_tqa_mmlu_results_for_layer(
     plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
     plt.xlabel("Multiplier")
     plt.ylabel("Probability of correct answer to A/B question")
-    plt.title(f"{settings.get_formatted_model_name()} L{layer}, {settings.behavior}, {settings.type}")
+    plt.title(f"Effect of {HUMAN_NAMES[settings.behavior]} CAA on {settings.get_formatted_model_name()} {'MMLU' if settings.type == 'mmlu' else 'TruthfulQA'} performance")
     plt.tight_layout()
     plt.savefig(save_to, format="png")
     # Save data in res_per_category used for plotting as .txt
@@ -196,44 +197,52 @@ def plot_open_ended_results(
 
 
 def plot_ab_data_per_layer(
-    layers: List[int], multiplier: float, settings: SteeringSettings
+    layers: List[int], multipliers: List[float], settings: SteeringSettings
 ):
     plt.clf()
     plt.figure(figsize=(10, 4))
+    all_results = []
     save_to = os.path.join(
         get_analysis_dir(settings.behavior),
-        f"{settings.make_result_save_suffix(multiplier=multiplier)}.png",
+        f"{settings.make_result_save_suffix()}.png",
     )
-    res = []
-    for layer in sorted(layers):
-        results = get_data(layer, multiplier, settings)
-        avg_key_prob = get_avg_key_prob(results, "answer_matching_behavior")
-        res.append(avg_key_prob)
-    plt.plot(
-        sorted(layers),
-        res,
-        marker="o",
-        linestyle="dashed",
-        markersize=10,
-        linewidth=4,
-    )
+    for multiplier in multipliers:
+        res = []
+        for layer in sorted(layers):
+            results = get_data(layer, multiplier, settings)
+            avg_key_prob = get_avg_key_prob(results, "answer_matching_behavior")
+            res.append(avg_key_prob)
+        all_results.append(res)
+        plt.plot(
+            sorted(layers),
+            res,
+            marker="o",
+            linestyle="dashed",
+            markersize=10,
+            linewidth=4,
+            label="Negative steering" if multiplier < 0 else "Positive steering",
+        )
     # use % formatting for y axis
     plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
+    plt.title(f"{HUMAN_NAMES[settings.behavior]} CAA, {settings.get_formatted_model_name()}")
     plt.xlabel("Layer")
     plt.ylabel("Probability of answer matching behavior")
     plt.xticks(ticks=sorted(layers), labels=sorted(layers))
-    plt.title(f"{settings.get_formatted_model_name()} x{multiplier}, {settings.behavior}, {settings.type}")
+    plt.legend()
     plt.tight_layout()
     plt.savefig(save_to, format="png")
     with open(save_to.replace(".png", ".txt"), "w") as f:
-        for layer, score in zip(sorted(layers), res):
-            f.write(f"{layer}\t{score}\n")
+        for layer in sorted(layers):
+            f.write(f"{layer}\t")
+            for idx, multiplier in enumerate(multipliers):
+                f.write(f"{all_results[idx]}\t")
+            f.write("\n")
 
 def plot_effect_on_behaviors(
     layer: int, multipliers: List[int], behaviors: List[str], settings: SteeringSettings    
 ):
     plt.clf()
-    plt.figure(figsize=(6, 6))
+    plt.figure(figsize=(5, 5))
     save_to = os.path.join(
         ANALYSIS_PATH,
         f"{settings.make_result_save_suffix(layer=layer)}.png",
@@ -294,7 +303,7 @@ def steering_settings_from_args(args, behavior: str) -> SteeringSettings:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--layers", nargs="+", type=int, default=[13])
-    parser.add_argument("--multipliers", nargs="+", type=float, default=[-1, -0.5, 0, 0.5, 1])
+    parser.add_argument("--multipliers", nargs="+", type=float, default=[-1.0, -0.5, 0, 0.5, 1.0])
     parser.add_argument(
         "--behaviors",
         type=str,
@@ -324,9 +333,12 @@ if __name__ == "__main__":
     for behavior in args.behaviors:
         steering_settings = steering_settings_from_args(args, behavior)
         if steering_settings.type == "ab":
-            plot_ab_data_per_layer(
-                args.layers, args.multipliers[0], steering_settings
-            )
+            if len(args.layers) > 1 and 1 in args.multipliers and -1 in args.multipliers:
+                plot_ab_data_per_layer(
+                    args.layers, [1, -1], steering_settings
+                )
+            for layer in args.layers:
+                plot_ab_results_for_layer(layer, args.multipliers, steering_settings)
         elif steering_settings.type == "open_ended":
             for layer in args.layers:
                 plot_open_ended_results(layer, args.multipliers, steering_settings)

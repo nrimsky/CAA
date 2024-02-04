@@ -15,7 +15,7 @@ SURVIVAL_INSTINCT = "survival-instinct"
 SYCOPHANCY = "sycophancy"
 
 HUMAN_NAMES = {
-    COORDINATE: "Coordination with other AIs",
+    COORDINATE: "AI Coordination",
     CORRIGIBLE: "Corrigibility",
     HALLUCINATION: "Hallucination",
     MYOPIC_REWARD: "Myopic Reward",
