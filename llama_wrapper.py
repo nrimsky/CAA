@@ -70,12 +70,16 @@ class BlockOutputWrapper(t.nn.Module):
             )
             self.dot_products.append((top_token, dot_product.cpu().item()))
         if self.add_activations is not None:
+            orig_norms = t.norm(output[0], dim=-1)
             augmented_output = add_vector_after_position(
                 matrix=output[0],
                 vector=self.add_activations,
                 position_ids=kwargs["position_ids"],
                 after=self.after_position,
             )
+            new_norms = t.norm(augmented_output, dim=-1)
+            # Renormalize residual stream
+            augmented_output = augmented_output * (orig_norms / new_norms).unsqueeze(-1)
             output = (augmented_output,) + output[1:]
 
         if not self.save_internal_decodings:
