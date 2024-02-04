@@ -264,7 +264,10 @@ def plot_effect_on_behaviors(
         )
     plt.xticks(ticks=multipliers, labels=multipliers)
     plt.xlabel("Steering vector multiplier")
-    plt.ylabel("% of responses matching behavior")
+    ylabel = "% of multiple-choice answers matching behavior"
+    if settings.type == "open_ended":
+        ylabel = "% of open-ended responses matching behavior"
+    plt.ylabel(ylabel)
     plt.legend()
     plt.tight_layout()
     plt.savefig(save_to, format="png")
@@ -314,20 +317,16 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     steering_settings = steering_settings_from_args(args, args.behaviors[0])
-    plot_effect_on_behaviors(args.layers[0], args.multipliers, args.behaviors, steering_settings)
+
+    if (args.type == "ab" or args.type == "open_ended") and len(args.layers) == 1:
+        plot_effect_on_behaviors(args.layers[0], args.multipliers, args.behaviors, steering_settings)
 
     for behavior in args.behaviors:
         steering_settings = steering_settings_from_args(args, behavior)
         if steering_settings.type == "ab":
-            if len(args.layers) == 1:
-                layer = args.layers[0]
-                plot_ab_results_for_layer(
-                    layer, args.multipliers, steering_settings
-                )
-            else:
-                plot_ab_data_per_layer(
-                    args.layers, args.multipliers[0], steering_settings
-                )
+            plot_ab_data_per_layer(
+                args.layers, args.multipliers[0], steering_settings
+            )
         elif steering_settings.type == "open_ended":
             for layer in args.layers:
                 plot_open_ended_results(layer, args.multipliers, steering_settings)
