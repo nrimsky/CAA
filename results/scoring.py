@@ -70,7 +70,7 @@ def scoring(behaviors=ALL_BEHAVIORS, overwrite=False):
                     system_prompt, user_prompt = make_prompts(d["question"], d["model_output"], behavior)
                     score = make_gpt4_request(system_prompt, user_prompt)
                     try:
-                        d["score"] = int(score)
+                        d["score"] = float(score)
                     except Exception:
                         print(f"Error scoring. Prompt: {user_prompt}, Response: {score}")
                         continue

@@ -48,6 +48,9 @@ def get_avg_score(results: Dict[str, Any]) -> float:
             tot += 1
         except:
             print(f"[WARN] Skipping invalid score: {result['score']}")
+    if tot == 0:
+        print(f"[WARN] No valid scores found in results")
+        return 0.0
     return score_sum / tot
 
 
@@ -256,7 +259,7 @@ def plot_effect_on_behaviors(
             data = get_data(layer, mult, settings)
             if settings.type == "open_ended":
                 avg_score = get_avg_score(data)
-                results.append(avg_score * 100)
+                results.append(avg_score)
             elif settings.type == "ab":
                 avg_key_prob = get_avg_key_prob(data, "answer_matching_behavior")
                 results.append(avg_key_prob * 100)
@@ -279,7 +282,7 @@ def plot_effect_on_behaviors(
     plt.xlabel("Steering vector multiplier")
     ylabel = "% of multiple-choice answers matching behavior"
     if settings.type == "open_ended":
-        ylabel = "% of open-ended responses matching behavior"
+        ylabel = "Mean behavioral score for open-ended responses"
     elif settings.type == "mmlu":
         ylabel = "% of correct MMLU answers"
     elif settings.type == "truthful_qa":

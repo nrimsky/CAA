@@ -12,6 +12,7 @@ Then create a `.env` file with the following variables (see `.env.example`):
 
 ```
 HF_TOKEN=huggingface_token_with_access_to_llama2
+OPEN_AI_KEY=openai_api_key_with_access_to_gpt4
 ```
 
 ## Datasets
@@ -103,6 +104,9 @@ python eval_finetune_llama.py --type ab --behavior sycophancy --direction pos
 
 # Plot relationships / projections of steering vectors
 python analyze_vectors.py
+
+# Use GPT-4 to score open-ended responses
+python results/scoring.py
 ```
 
 ## Running tests
