@@ -6,7 +6,7 @@ from behaviors import ALL_BEHAVIORS
 @dataclass
 class SteeringSettings:
     behavior: str = "sycophancy"
-    type: Literal["open_ended", "ab", "truthful_qa"] = "ab"
+    type: Literal["open_ended", "ab", "truthful_qa", "mmlu"] = "ab"
     system_prompt: Optional[Literal["pos", "neg"]] = None
     override_vector: Optional[int] = None
     override_vector_model: Optional[str] = None

@@ -25,6 +25,8 @@ def get_data(
     settings: SteeringSettings,
 ) -> Dict[str, Any]:
     directory = get_results_dir(settings.behavior)
+    if settings.type == "open_ended":
+        directory = directory.replace("results", os.path.join("results", "open_ended_scores"))
     filenames = settings.filter_result_files_by_suffix(
         directory, layer=layer, multiplier=multiplier
     )
@@ -241,8 +243,13 @@ def plot_effect_on_behaviors(
         results = []
         for mult in multipliers:
             settings.behavior = behavior
-            avg_key_prob = get_avg_key_prob(get_data(layer, mult, settings), "answer_matching_behavior")
-            results.append(avg_key_prob * 100)
+            data = get_data(layer, mult, settings)
+            if settings.type == "open_ended":
+                avg_score = get_avg_score(data)
+                results.append(avg_score * 100)
+            else:
+                avg_key_prob = get_avg_key_prob(data, "answer_matching_behavior")
+                results.append(avg_key_prob * 100)
         all_results.append(results)
 
     for idx, behavior in enumerate(behaviors):
