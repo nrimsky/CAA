@@ -14,7 +14,7 @@ import matplotlib.cm as cm
 import numpy as np
 import argparse
 from steering_settings import SteeringSettings
-from behaviors import get_results_dir, get_analysis_dir, ALL_BEHAVIORS
+from behaviors import ANALYSIS_PATH, HUMAN_NAMES, get_results_dir, get_analysis_dir, ALL_BEHAVIORS
 from utils.helpers import set_plotting_settings
 
 set_plotting_settings()
@@ -72,7 +72,7 @@ def plot_ab_results_for_layer(
     settings.system_prompt = None
     save_to = os.path.join(
         get_analysis_dir(settings.behavior),
-        f"{settings.make_result_save_suffix(layer=layer)}.svg",
+        f"{settings.make_result_save_suffix(layer=layer)}.png",
     )
     plt.clf()
     plt.figure(figsize=(5, 5))
@@ -104,10 +104,9 @@ def plot_ab_results_for_layer(
     plt.ylabel(f"Probability of answer matching behavior")
     plt.title(f"{settings.get_formatted_model_name()} L{layer}, {settings.behavior}, {settings.type}")
     plt.tight_layout()
-    plt.savefig(save_to, format="svg")
-    plt.savefig(save_to.replace("svg", "png"), format="png")
+    plt.savefig(save_to, format="png")
     # Save data in all_results used for plotting as .txt
-    with open(save_to.replace(".svg", ".txt"), "w") as f:
+    with open(save_to.replace(".png", ".txt"), "w") as f:
         for system_prompt, res_list in all_results.items():
             for multiplier, score in res_list:
                 f.write(f"{system_prompt}\t{multiplier}\t{score}\n")
@@ -118,7 +117,7 @@ def plot_tqa_mmlu_results_for_layer(
 ):
     save_to = os.path.join(
         get_analysis_dir(settings.behavior),
-        f"{settings.make_result_save_suffix(layer=layer)}.svg",
+        f"{settings.make_result_save_suffix(layer=layer)}.png",
     )
     res_per_category = defaultdict(list)
     for multiplier in multipliers:
@@ -151,10 +150,9 @@ def plot_tqa_mmlu_results_for_layer(
     plt.ylabel("Probability of correct answer to A/B question")
     plt.title(f"{settings.get_formatted_model_name()} L{layer}, {settings.behavior}, {settings.type}")
     plt.tight_layout()
-    plt.savefig(save_to, format="svg")
-    plt.savefig(save_to.replace("svg", "png"), format="png")
+    plt.savefig(save_to, format="png")
     # Save data in res_per_category used for plotting as .txt
-    with open(save_to.replace(".svg", ".txt"), "w") as f:
+    with open(save_to.replace(".png", ".txt"), "w") as f:
         for category, res_list in res_per_category.items():
             for multiplier, score in res_list:
                 f.write(f"{category}\t{multiplier}\t{score}\n")
@@ -165,7 +163,7 @@ def plot_open_ended_results(
 ):
     save_to = os.path.join(
         get_analysis_dir(settings.behavior),
-        f"{settings.make_result_save_suffix(layer=layer)}.svg",
+        f"{settings.make_result_save_suffix(layer=layer)}.png",
     )
     plt.clf()
     plt.figure(figsize=(5, 5))
@@ -188,10 +186,9 @@ def plot_open_ended_results(
     plt.xlabel("Multiplier")
     plt.ylabel("Average behavioral eval score")
     plt.tight_layout()
-    plt.savefig(save_to, format="svg")
-    plt.savefig(save_to.replace("svg", "png"), format="png")
+    plt.savefig(save_to, format="png")
     # Save data in res_list used for plotting as .txt
-    with open(save_to.replace(".svg", ".txt"), "w") as f:
+    with open(save_to.replace(".png", ".txt"), "w") as f:
         for multiplier, score in res_list:
             f.write(f"{multiplier}\t{score}\n")
 
@@ -203,7 +200,7 @@ def plot_ab_data_per_layer(
     plt.figure(figsize=(10, 4))
     save_to = os.path.join(
         get_analysis_dir(settings.behavior),
-        f"{settings.make_result_save_suffix(multiplier=multiplier)}.svg",
+        f"{settings.make_result_save_suffix(multiplier=multiplier)}.png",
     )
     res = []
     for layer in sorted(layers):
@@ -225,17 +222,69 @@ def plot_ab_data_per_layer(
     plt.xticks(ticks=sorted(layers), labels=sorted(layers))
     plt.title(f"{settings.get_formatted_model_name()} x{multiplier}, {settings.behavior}, {settings.type}")
     plt.tight_layout()
-    plt.savefig(save_to, format="svg")
-    plt.savefig(save_to.replace("svg", "png"), format="png")
-    with open(save_to.replace(".svg", ".txt"), "w") as f:
+    plt.savefig(save_to, format="png")
+    with open(save_to.replace(".png", ".txt"), "w") as f:
         for layer, score in zip(sorted(layers), res):
             f.write(f"{layer}\t{score}\n")
 
+def plot_effect_on_behaviors(
+    layer: int, multipliers: List[int], behaviors: List[str], settings: SteeringSettings    
+):
+    plt.clf()
+    plt.figure(figsize=(6, 6))
+    save_to = os.path.join(
+        ANALYSIS_PATH,
+        f"{settings.make_result_save_suffix(layer=layer)}.png",
+    )
+    all_results = []
+    for behavior in behaviors:
+        results = []
+        for mult in multipliers:
+            settings.behavior = behavior
+            avg_key_prob = get_avg_key_prob(get_data(layer, mult, settings), "answer_matching_behavior")
+            results.append(avg_key_prob * 100)
+        all_results.append(results)
+
+    for idx, behavior in enumerate(behaviors):
+        plt.plot(
+            multipliers,
+            all_results[idx],
+            marker="o",
+            linestyle="dashed",
+            markersize=10,
+            linewidth=4,
+            label=HUMAN_NAMES[behavior],
+        )
+    plt.xticks(ticks=multipliers, labels=multipliers)
+    plt.xlabel("Steering vector multiplier")
+    plt.ylabel("% of responses matching behavior")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(save_to, format="png")
+    with open(save_to.replace(".png", ".txt"), "w") as f:
+        for mult in multipliers:
+            f.write(f"{mult}\t")
+            for idx, behavior in enumerate(behaviors):
+                f.write(f"{all_results[idx]}\t")
+            f.write("\n")
+
+
+def steering_settings_from_args(args, behavior: str) -> SteeringSettings:
+    steering_settings = SteeringSettings()
+    steering_settings.type = args.type
+    steering_settings.behavior = behavior
+    steering_settings.system_prompt = args.system_prompt
+    steering_settings.override_vector = args.override_vector
+    steering_settings.override_vector_model = args.override_vector_model
+    steering_settings.use_base_model = args.use_base_model
+    steering_settings.model_size = args.model_size
+    steering_settings.override_model_weights_path = args.override_model_weights_path
+    return steering_settings
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--layers", nargs="+", type=int, required=True)
-    parser.add_argument("--multipliers", nargs="+", type=float, required=True)
+    parser.add_argument("--layers", nargs="+", type=int, default=[13])
+    parser.add_argument("--multipliers", nargs="+", type=float, default=[-1, -0.5, 0, 0.5, 1])
     parser.add_argument(
         "--behaviors",
         type=str,
@@ -245,7 +294,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--type",
         type=str,
-        required=True,
+        default="ab",
         choices=["ab", "open_ended", "truthful_qa", "mmlu"],
     )
     parser.add_argument("--system_prompt", type=str, default=None, choices=["pos", "neg"], required=False)
@@ -257,17 +306,11 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
 
-    for behavior in args.behaviors:
-        steering_settings = SteeringSettings()
-        steering_settings.type = args.type
-        steering_settings.behavior = behavior
-        steering_settings.system_prompt = args.system_prompt
-        steering_settings.override_vector = args.override_vector
-        steering_settings.override_vector_model = args.override_vector_model
-        steering_settings.use_base_model = args.use_base_model
-        steering_settings.model_size = args.model_size
-        steering_settings.override_model_weights_path = args.override_model_weights_path
+    steering_settings = steering_settings_from_args(args, args.behaviors[0])
+    plot_effect_on_behaviors(args.layers[0], args.multipliers, args.behaviors, steering_settings)
 
+    for behavior in args.behaviors:
+        steering_settings = steering_settings_from_args(args, behavior)
         if steering_settings.type == "ab":
             if len(args.layers) == 1:
                 layer = args.layers[0]
