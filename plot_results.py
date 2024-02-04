@@ -132,29 +132,30 @@ def plot_tqa_mmlu_results_for_layer(
             ]
             avg_key_prob = get_avg_key_prob(category_results, "correct")
             res_per_category[category].append((multiplier, avg_key_prob))
-    plt.clf()
-    plt.figure(figsize=(5, 5))
-    colors = cm.rainbow(np.linspace(0, 1, len(res_per_category)))
-    for idx, (category, res_list) in enumerate(res_per_category.items()):
-        res_per_category[category].sort(key=lambda x: x[0])
-        plt.plot(
-            [x[0] for x in res_list],
-            [x[1] for x in res_list],
-            label=category,
-            marker="o",
-            linestyle="dashed",
-            markersize=5,
-            linewidth=2.5,
-            color=colors[idx],
-        )
-    plt.legend()
+
+    plt.figure(figsize=(10, 5))
+    for idx, (category, res_list) in enumerate(sorted(res_per_category.items(), key=lambda x: x[0])):
+        x = [idx] * len(res_list)  # Assign a unique x-coordinate for each category
+        y = [score for _, score in res_list]  # Extract y-coordinates from the results
+        colors = cm.rainbow(np.linspace(0, 1, len(res_list)))  # Assign colors based on the rainbow spectrum
+        plt.scatter(x, y, color=colors, s=80)  # Plot the points with the assigned colors
+
+    # Add a legend for the colors with the correct rainbow spectrum cm.rainbow(np.linspace(0, 1, len(multipliers)))
+    # Need to ensure dots colored with raindbow rather than default
+    for idx, multiplier in enumerate(multipliers):
+        plt.scatter([], [], color=cm.rainbow(np.linspace(0, 1, len(res_list)))[idx], label=f"Multiplier {multiplier}")
+    plt.legend(loc="upper left")
+
+    # Final plot adjustments
+    plt.xticks(range(len(categories)), categories, rotation=45, ha="right")
     plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
     plt.xlabel("Multiplier")
     plt.ylabel("Probability of correct answer to A/B question")
-    plt.title(f"Effect of {HUMAN_NAMES[settings.behavior]} CAA on {settings.get_formatted_model_name()} {'MMLU' if settings.type == 'mmlu' else 'TruthfulQA'} performance")
+    plt.title(f"Effect of {HUMAN_NAMES[settings.behavior]} CAA on {settings.get_formatted_model_name()} performance")
     plt.tight_layout()
     plt.savefig(save_to, format="png")
-    # Save data in res_per_category used for plotting as .txt
+
+    # Optionally, save the data used for plotting
     with open(save_to.replace(".png", ".txt"), "w") as f:
         for category, res_list in res_per_category.items():
             for multiplier, score in res_list:
@@ -258,6 +259,7 @@ def plot_effect_on_behaviors(
                 results.append(avg_score * 100)
             elif settings.type == "ab":
                 avg_key_prob = get_avg_key_prob(data, "answer_matching_behavior")
+                results.append(avg_key_prob * 100)
             else:
                 avg_key_prob = get_avg_key_prob(data, "correct")
                 results.append(avg_key_prob * 100)
@@ -343,8 +345,8 @@ if __name__ == "__main__":
                 plot_ab_data_per_layer(
                     args.layers, [1, -1], steering_settings
                 )
-            for layer in args.layers:
-                plot_ab_results_for_layer(layer, args.multipliers, steering_settings)
+            if len(args.layers) == 1:
+                plot_ab_results_for_layer(args.layers[0], args.multipliers, steering_settings)
         elif steering_settings.type == "open_ended":
             for layer in args.layers:
                 plot_open_ended_results(layer, args.multipliers, steering_settings)
