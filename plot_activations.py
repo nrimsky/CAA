@@ -19,8 +19,8 @@ DATASET_FILE = os.path.join("preprocessed_data", "generate_dataset.json")
 set_plotting_settings()
 
 def save_activation_projection_pca(behavior: str, layer: int, model_name_path: str):
-    title = f"PCA of contrastive activations for {behavior} at layer {layer}"
-    fname = f"pca_{behavior}_layer_{layer}.svg"
+    title = f"Contrastive activation PCA, {behavior}, layer {layer}"
+    fname = f"pca_{behavior}_layer_{layer}.png"
     save_dir = os.path.join(get_analysis_dir(behavior), "pca")
 
     if not os.path.exists(save_dir):
@@ -42,6 +42,7 @@ def save_activation_projection_pca(behavior: str, layer: int, model_name_path: s
     letters_neg = [item["answer_not_matching_behavior"][1] for item in data]
 
     plt.clf()
+    plt.figure(figsize=(5, 5))
     activations = t.cat([activations_pos, activations_neg], dim=0)
     activations_np = activations.cpu().numpy()
 
@@ -108,8 +109,7 @@ def save_activation_projection_pca(behavior: str, layer: int, model_name_path: s
     plt.title(title)
     plt.xlabel("PC 1")
     plt.ylabel("PC 2")
-    plt.savefig(os.path.join(save_dir, fname), format="svg")
-    plt.savefig(os.path.join(save_dir, fname).replace("svg", "png"), format="png")
+    plt.savefig(os.path.join(save_dir, fname), format="png")
 
 
 if __name__ == "__main__":
