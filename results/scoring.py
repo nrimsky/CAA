@@ -77,4 +77,4 @@ def scoring(behaviors=ALL_BEHAVIORS, overwrite=False):
                 json.dump(data, f, indent=4)
 
 if __name__ == "__main__":
-    scoring(overwrite=True)
+    scoring()
