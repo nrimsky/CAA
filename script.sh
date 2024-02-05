@@ -1,3 +1,9 @@
+python generate_vectors.py --layers $(seq 0 31) --save_activations --model_size "7b" --behaviors refusal
+python generate_vectors.py --layers $(seq 0 35) --save_activations --model_size "13b" --behaviors refusal
+python generate_vectors.py --layers $(seq 0 31) --save_activations --model_size "7b" --behaviors refusal --use_base_model
+
+python analyze_vectors.py
+
 python prompting_with_steering.py --layers $(seq 0 31) --multipliers -1 1 --type ab 
 python prompting_with_steering.py --layers $(seq 0 35) --multipliers -1 1 --type ab --model_size 13b
 python prompting_with_steering.py --layers $(seq 0 31) --multipliers -1 1 --type ab --override_vector_model Llama-2-7b-hf

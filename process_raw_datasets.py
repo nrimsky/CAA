@@ -51,4 +51,4 @@ def main():
         make_generate_test_datasets(behavior)
 
 if __name__ == "__main__":
-    main()
+    make_generate_test_datasets("refusal")

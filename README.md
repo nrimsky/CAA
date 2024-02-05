@@ -57,6 +57,10 @@ Combination of GPT-4 generated data and Anthropic's Sycophancy on NLP survey dat
 
 * https://huggingface.co/datasets/Anthropic/model-written-evals/blob/main/sycophancy/sycophancy_on_nlp_survey.jsonl
 
+### Refusal (`refusal`)
+
+Generated using GPT-4.
+
 ### TruthfulQA (`truthfulqa`) (_test only_)
 
 * https://huggingface.co/datasets/truthful_qa/tree/main

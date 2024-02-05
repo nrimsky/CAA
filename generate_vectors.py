@@ -2,7 +2,7 @@
 Generates steering vectors for each layer of the model by averaging the activations of all the positive and negative examples.
 
 Example usage:
-python generate_vectors.py --layers 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 --save_activations --use_base_model --model_size 7b --behaviors sycophancy
+python generate_vectors.py --layers $(seq 0 31) --save_activations --use_base_model --model_size 7b --behaviors sycophancy
 """
 
 import json
