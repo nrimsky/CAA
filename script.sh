@@ -1,6 +1,6 @@
-python generate_vectors.py --layers $(seq 0 31) --save_activations --model_size "7b"
-python generate_vectors.py --layers $(seq 0 35) --save_activations --model_size "13b"
-python generate_vectors.py --layers $(seq 0 31) --save_activations --model_size "7b" --use_base_model
+python generate_vectors.py --layers $(seq 0 31) --save_activations --model_size "7b" --behaviors refusal
+python generate_vectors.py --layers $(seq 0 35) --save_activations --model_size "13b" --behaviors refusal
+python generate_vectors.py --layers $(seq 0 31) --save_activations --model_size "7b" --use_base_model  --behaviors refusal
 
 python analyze_vectors.py
 

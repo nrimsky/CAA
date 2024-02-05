@@ -301,6 +301,71 @@ def plot_effect_on_behaviors(
                 f.write(f"{all_results[idx]}\t")
             f.write("\n")
 
+def plot_layer_sweeps(
+    layers: List[int], behaviors: List[str], settings: SteeringSettings
+):
+    plt.clf()
+    plt.figure(figsize=(10, 4))
+    all_results = []
+    save_to = os.path.join(
+        ANALYSIS_PATH,
+        f"{settings.make_result_save_suffix()}.png",
+    )
+    for behavior in behaviors:
+        settings.behavior = behavior
+        pos_per_layer = []
+        neg_per_layer = []
+        for layer in sorted(layers):
+            try:
+                base_res = get_avg_key_prob(get_data(layer, 0, settings), "answer_matching_behavior")
+            except:
+                base_res = get_avg_key_prob(get_data(0, 1, settings), "answer_matching_behavior")
+            pos_res = get_avg_key_prob(get_data(layer, 1, settings), "answer_matching_behavior") - base_res
+            neg_res = get_avg_key_prob(get_data(layer, -1, settings), "answer_matching_behavior") - base_res
+            pos_per_layer.append(pos_res)
+            neg_per_layer.append(neg_res)
+        all_results.append((pos_per_layer, neg_per_layer))
+        plt.plot(
+            sorted(layers),
+            pos_per_layer,
+            linestyle="solid",
+            linewidth=2,
+            color="#377eb8",
+        )
+        plt.plot(
+            sorted(layers),
+            neg_per_layer,
+            linestyle="solid",
+            linewidth=2,
+            color="#ff7f00",
+        )
+
+    plt.plot(
+        [],
+        [],
+        linestyle="solid",
+        linewidth=2,
+        color="#377eb8",
+        label="Positive steering",
+    )
+    plt.plot(
+        [],
+        [],
+        linestyle="solid",
+        linewidth=2,
+        color="#ff7f00",
+        label="Negative steering",
+    )
+
+    # use % formatting for y axis
+    plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
+    plt.xlabel("Layer")
+    plt.ylabel("Change in probability")
+    plt.title(f"Effect of CAA at different layers on probability of answer matching behavior in {settings.get_formatted_model_name()}")
+    plt.xticks(ticks=sorted(layers), labels=sorted(layers))
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(save_to, format="png")
 
 def steering_settings_from_args(args, behavior: str) -> SteeringSettings:
     steering_settings = SteeringSettings()
@@ -340,6 +405,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     steering_settings = steering_settings_from_args(args, args.behaviors[0])
+
+    plot_layer_sweeps(args.layers, args.behaviors, steering_settings)
 
     if len(args.layers) == 1 and steering_settings.type != "truthful_qa":
         plot_effect_on_behaviors(args.layers[0], args.multipliers, args.behaviors, steering_settings)
