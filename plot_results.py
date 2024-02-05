@@ -146,7 +146,7 @@ def plot_tqa_mmlu_results_for_layer(
     # Add a legend for the colors with the correct rainbow spectrum cm.rainbow(np.linspace(0, 1, len(multipliers)))
     # Need to ensure dots colored with raindbow rather than default
     for idx, multiplier in enumerate(multipliers):
-        plt.scatter([], [], color=cm.rainbow(np.linspace(0, 1, len(res_list)))[idx], label=f"Multiplier {multiplier}")
+        plt.scatter([], [], color=cm.rainbow(np.linspace(0, 1, len(multipliers)))[idx], label=f"Multiplier {multiplier}")
     plt.legend(loc="upper left")
 
     # Final plot adjustments
