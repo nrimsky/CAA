@@ -11,7 +11,7 @@ import os
 from matplotlib import pyplot as plt
 import argparse
 from sklearn.decomposition import PCA
-from behaviors import get_activations_path, get_ab_data_path, get_analysis_dir, ALL_BEHAVIORS
+from behaviors import HUMAN_NAMES, get_activations_path, get_ab_data_path, get_analysis_dir, ALL_BEHAVIORS
 from utils.helpers import get_model_path, set_plotting_settings
 
 DATASET_FILE = os.path.join("preprocessed_data", "generate_dataset.json")
@@ -19,7 +19,7 @@ DATASET_FILE = os.path.join("preprocessed_data", "generate_dataset.json")
 set_plotting_settings()
 
 def save_activation_projection_pca(behavior: str, layer: int, model_name_path: str):
-    title = f"Contrastive activation PCA, {behavior}, layer {layer}"
+    title = f"{HUMAN_NAMES[behavior]}, layer {layer}"
     fname = f"pca_{behavior}_layer_{layer}.png"
     save_dir = os.path.join(get_analysis_dir(behavior), "pca")
 
@@ -42,7 +42,7 @@ def save_activation_projection_pca(behavior: str, layer: int, model_name_path: s
     letters_neg = [item["answer_not_matching_behavior"][1] for item in data]
 
     plt.clf()
-    plt.figure(figsize=(5, 5))
+    plt.figure(figsize=(4, 4))
     activations = t.cat([activations_pos, activations_neg], dim=0)
     activations_np = activations.cpu().numpy()
 
@@ -110,6 +110,7 @@ def save_activation_projection_pca(behavior: str, layer: int, model_name_path: s
     plt.xlabel("PC 1")
     plt.ylabel("PC 2")
     plt.savefig(os.path.join(save_dir, fname), format="png")
+    plt.close()
 
 
 if __name__ == "__main__":
