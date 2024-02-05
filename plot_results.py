@@ -371,7 +371,6 @@ def steering_settings_from_args(args, behavior: str) -> SteeringSettings:
     steering_settings = SteeringSettings()
     steering_settings.type = args.type
     steering_settings.behavior = behavior
-    steering_settings.system_prompt = args.system_prompt
     steering_settings.override_vector = args.override_vector
     steering_settings.override_vector_model = args.override_vector_model
     steering_settings.use_base_model = args.use_base_model
@@ -381,8 +380,8 @@ def steering_settings_from_args(args, behavior: str) -> SteeringSettings:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--layers", nargs="+", type=int, default=[13])
-    parser.add_argument("--multipliers", nargs="+", type=float, default=[-1.0, -0.5, 0, 0.5, 1.0])
+    parser.add_argument("--layers", nargs="+", type=int, required=True)
+    parser.add_argument("--multipliers", nargs="+", type=float, required=True)
     parser.add_argument(
         "--behaviors",
         type=str,
@@ -395,7 +394,6 @@ if __name__ == "__main__":
         default="ab",
         choices=["ab", "open_ended", "truthful_qa", "mmlu"],
     )
-    parser.add_argument("--system_prompt", type=str, default=None, choices=["pos", "neg"], required=False)
     parser.add_argument("--override_vector", type=int, default=None)
     parser.add_argument("--override_vector_model", type=str, default=None)
     parser.add_argument("--use_base_model", action="store_true", default=False)
