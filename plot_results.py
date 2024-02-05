@@ -309,17 +309,14 @@ def plot_layer_sweeps(
     all_results = []
     save_to = os.path.join(
         ANALYSIS_PATH,
-        f"{settings.make_result_save_suffix()}.png",
+        f"LAYER_SWEEPS_{settings.make_result_save_suffix()}.png",
     )
     for behavior in behaviors:
         settings.behavior = behavior
         pos_per_layer = []
         neg_per_layer = []
         for layer in sorted(layers):
-            try:
-                base_res = get_avg_key_prob(get_data(layer, 0, settings), "answer_matching_behavior")
-            except:
-                base_res = get_avg_key_prob(get_data(0, 1, settings), "answer_matching_behavior")
+            base_res = get_avg_key_prob(get_data(layer, 0, settings), "answer_matching_behavior")
             pos_res = get_avg_key_prob(get_data(layer, 1, settings), "answer_matching_behavior") - base_res
             neg_res = get_avg_key_prob(get_data(layer, -1, settings), "answer_matching_behavior") - base_res
             pos_per_layer.append(pos_res)
