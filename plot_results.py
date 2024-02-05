@@ -108,7 +108,8 @@ def plot_ab_results_for_layer(
     plt.xlabel("Multiplier")
     plt.ylabel(f"Probability of answer matching behavior")
     plt.xticks(ticks=multipliers, labels=multipliers)
-    plt.title(f"{HUMAN_NAMES[settings.behavior]} CAA, Layer {layer} - {settings.get_formatted_model_name()}")
+    if (settings.override_vector is None) and (settings.override_vector_model is None) and (settings.override_model_weights_path is None):
+        plt.title(f"{HUMAN_NAMES[settings.behavior]} CAA, Layer {layer} - {settings.get_formatted_model_name()}")
     plt.tight_layout()
     plt.savefig(save_to, format="png")
     # Save data in all_results used for plotting as .txt
@@ -154,7 +155,8 @@ def plot_tqa_mmlu_results_for_layer(
     plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
     plt.xlabel("Multiplier")
     plt.ylabel("Probability of correct answer to A/B question")
-    plt.title(f"Effect of {HUMAN_NAMES[settings.behavior]} CAA on {settings.get_formatted_model_name()} performance")
+    if (settings.override_vector is None) and (settings.override_vector_model is None) and (settings.override_model_weights_path is None):
+        plt.title(f"Effect of {HUMAN_NAMES[settings.behavior]} CAA on {settings.get_formatted_model_name()} performance")
     plt.tight_layout()
     plt.savefig(save_to, format="png")
 
@@ -228,7 +230,8 @@ def plot_ab_data_per_layer(
         )
     # use % formatting for y axis
     plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
-    plt.title(f"{HUMAN_NAMES[settings.behavior]} CAA, {settings.get_formatted_model_name()}")
+    if (settings.override_vector is None) and (settings.override_vector_model is None) and (settings.override_model_weights_path is None):
+        plt.title(f"{HUMAN_NAMES[settings.behavior]} CAA, {settings.get_formatted_model_name()}")
     plt.xlabel("Layer")
     plt.ylabel("Probability of answer matching behavior")
     plt.xticks(ticks=sorted(layers), labels=sorted(layers))
