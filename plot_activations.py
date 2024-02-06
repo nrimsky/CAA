@@ -13,6 +13,7 @@ import argparse
 from sklearn.decomposition import PCA
 from behaviors import HUMAN_NAMES, get_activations_path, get_ab_data_path, get_analysis_dir, ALL_BEHAVIORS
 from utils.helpers import get_model_path, set_plotting_settings
+from tqdm import tqdm
 
 DATASET_FILE = os.path.join("preprocessed_data", "generate_dataset.json")
 
@@ -133,7 +134,8 @@ if __name__ == "__main__":
     model_name_path = get_model_path(args.model_size, args.use_base_model)
     args = parser.parse_args()
     for behavior in args.behaviors:
-        for layer in args.layers:
+        print(f"plotting {behavior} activations PCA")
+        for layer in tqdm(args.layers):
             save_activation_projection_pca(
                 behavior,
                 layer,

@@ -11,6 +11,7 @@ from sklearn.decomposition import PCA
 from sklearn.metrics.pairwise import cosine_similarity
 from behaviors import ALL_BEHAVIORS, get_vector_dir, get_analysis_dir
 from utils.helpers import set_plotting_settings
+from tqdm import tqdm
 
 set_plotting_settings()
 
@@ -43,7 +44,7 @@ def load_vectors(behavior):
 Script
 """
 
-for behavior in ALL_BEHAVIORS:
+for behavior in tqdm(ALL_BEHAVIORS):
     vectors = load_vectors(behavior)
     analysis_dir = get_analysis_dir(behavior)
     if not os.path.exists(analysis_dir):
