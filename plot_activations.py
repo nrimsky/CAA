@@ -75,7 +75,7 @@ def save_activation_projection_pca(behavior: str, layer: int, model_name_path: s
         color="w",
         markerfacecolor="blue",
         markersize=10,
-        label=f"pos {behavior} - A",
+        label=f"pos {HUMAN_NAMES[behavior]} - A",
     )
     scatter2 = plt.Line2D(
         [0],
@@ -84,7 +84,7 @@ def save_activation_projection_pca(behavior: str, layer: int, model_name_path: s
         color="blue",
         markerfacecolor="blue",
         markersize=10,
-        label=f"pos {behavior} - B",
+        label=f"pos {HUMAN_NAMES[behavior]} - B",
     )
     scatter3 = plt.Line2D(
         [0],
@@ -93,7 +93,7 @@ def save_activation_projection_pca(behavior: str, layer: int, model_name_path: s
         color="w",
         markerfacecolor="red",
         markersize=10,
-        label=f"neg {behavior} - A",
+        label=f"neg {HUMAN_NAMES[behavior]} - A",
     )
     scatter4 = plt.Line2D(
         [0],
@@ -102,7 +102,7 @@ def save_activation_projection_pca(behavior: str, layer: int, model_name_path: s
         color="red",
         markerfacecolor="red",
         markersize=10,
-        label=f"neg {behavior} - B",
+        label=f"neg {HUMAN_NAMES[behavior]} - B",
     )
 
     plt.legend(handles=[scatter1, scatter2, scatter3, scatter4])
