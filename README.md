@@ -23,17 +23,15 @@ We use 400 contrast pairs to generate each steering vector, and 50 for evaluatio
 
 ### Coordination with other AIs (`coordinate-other-ais`)
 
-Combination of Anthropic human generated eval data and Anthropic model generated eval data.
+Anthropic human generated eval data.
 
 * https://huggingface.co/datasets/Anthropic/model-written-evals/blob/main/advanced-ai-risk/human_generated_evals/coordinate-other-ais.jsonl
-* https://huggingface.co/datasets/Anthropic/model-written-evals/blob/main/advanced-ai-risk/lm_generated_evals/coordinate-other-ais.jsonl
 
 ### Corrigibility (`corrigible-neutral-HHH`)
 
-Combination of Anthropic human generated eval data and Anthropic model generated eval data.
+Anthropic human generated eval data.
 
 * https://huggingface.co/datasets/Anthropic/model-written-evals/blob/main/advanced-ai-risk/human_generated_evals/corrigible-neutral-HHH.jsonl
-* https://huggingface.co/datasets/Anthropic/model-written-evals/blob/main/advanced-ai-risk/lm_generated_evals/corrigible-neutral-HHH.jsonl
 
 ### Hallucination (`hallucination`)
 
@@ -53,9 +51,9 @@ Anthropic human generated eval data.
 
 ### Sycophancy (`sycophancy`)
 
-Combination of GPT-4 generated data and Anthropic's Sycophancy on NLP survey dataset.
+Mixture of Anthropic's Sycophancy datasets.
 
-* https://huggingface.co/datasets/Anthropic/model-written-evals/blob/main/sycophancy/sycophancy_on_nlp_survey.jsonl
+* https://huggingface.co/datasets/Anthropic/model-written-evals/blob/main/sycophancy/
 
 ### Refusal (`refusal`)
 
@@ -67,7 +65,7 @@ Generated using GPT-4.
 
 ### MMLU (`mmlu`) (_test only_)
 
-`mmlu_full.json` is the full MMLU test dataset formatted as A/B questions. `mmlu.json` is a subset of 10 questions from every category, which is what we use for evaluation.
+`mmlu_full.json` is the full MMLU test dataset formatted as A/B questions. `mmlu.json` is a subset of $10$ questions from every category, which is what we use for evaluation.
 
 * https://huggingface.co/datasets/cais/mmlu
 
