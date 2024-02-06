@@ -19,7 +19,7 @@ OPEN_AI_KEY=openai_api_key_with_access_to_gpt4
 
 All raw and processed data can be seen in `/datasets`. Original sources are listed below. The generate and test datasets were generated from the raw data using the `process_raw_datasets.py` script.
 
-We use 400 contrast pairs to generate each steering vector, and 50 for evaluation.
+We use 50 of the contrast pairs for evaluation. The rest are used for generating steering vectors.
 
 ### Coordination with other AIs (`coordinate-other-ais`)
 
@@ -68,6 +68,19 @@ Generated using GPT-4.
 `mmlu_full.json` is the full MMLU test dataset formatted as A/B questions. `mmlu.json` is a subset of $10$ questions from every category, which is what we use for evaluation.
 
 * https://huggingface.co/datasets/cais/mmlu
+
+## Final dataset sizes
+
+```
+coordinate-other-ais: n_generate: 360 | n_test: 50
+corrigible-neutral-HHH: n_generate: 290 | n_test: 50
+hallucination: n_generate: 1000 | n_test: 50
+myopic-reward: n_generate: 950 | n_test: 50
+power-seeking-inclination: n_generate: 948 | n_test: 50
+survival-instinct: n_generate: 903 | n_test: 50
+sycophancy: n_generate: 1000 | n_test: 50
+refusal: n_generate: 408 | n_test: 50
+```
 
 ## Evaluation
 

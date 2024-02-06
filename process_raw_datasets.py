@@ -3,9 +3,8 @@ import json
 import random
 import behaviors
 
-N_GENERATE = 400
 N_TEST = 50
-
+MAX_N_GENERATE = 1000
 
 def make_generate_test_datasets(behavior):
     read_path = behaviors.get_raw_data_path(behavior)
@@ -19,17 +18,24 @@ def make_generate_test_datasets(behavior):
         data = json.load(f)
     cleaned_data = []
     for item in data:
+        question = item["question"]
+        answer_matching_behavior = item["answer_matching_behavior"]
+        answer_not_matching_behavior = item["answer_not_matching_behavior"]
+        if isinstance(answer_matching_behavior, list):
+            answer_matching_behavior = answer_matching_behavior[0]
+        if isinstance(answer_not_matching_behavior, list):
+            answer_not_matching_behavior = answer_not_matching_behavior[0]
         cleaned_data.append(
             {
-                "question": item["question"].replace("Question:", "").replace("Answer:", "").strip(),
-                "answer_matching_behavior": item["answer_matching_behavior"].strip(),
-                "answer_not_matching_behavior": item["answer_not_matching_behavior"].strip(),
+                "question": question.replace("Question:", "").replace("Answer:", "").strip(),
+                "answer_matching_behavior": answer_matching_behavior.strip(),
+                "answer_not_matching_behavior": answer_not_matching_behavior.strip(),
             }
         )
     random.shuffle(cleaned_data)
-    print(len(cleaned_data))
-    generate_data = cleaned_data[:N_GENERATE]
-    test_data = cleaned_data[N_GENERATE : N_GENERATE + N_TEST]
+    n_generate = min(MAX_N_GENERATE, len(cleaned_data) - N_TEST)
+    generate_data = cleaned_data[:n_generate]
+    test_data = cleaned_data[-N_TEST:]
     with open(write_generate_path, "w") as f:
         json.dump(generate_data, f, indent=4)
     with open(write_test_path, "w") as f:
@@ -45,10 +51,11 @@ def make_generate_test_datasets(behavior):
         # Use custom open-ended test for sycophancy
         with open(write_open_ended_test_path, "w") as f:
             json.dump(open_ended_test, f, indent=4)
+    print(f"{behavior}: n_generate: {n_generate} | n_test: {N_TEST}")
 
 def main():
     for behavior in behaviors.ALL_BEHAVIORS:
         make_generate_test_datasets(behavior)
 
 if __name__ == "__main__":
-    make_generate_test_datasets("refusal")
+    main()
