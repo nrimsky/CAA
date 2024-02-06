@@ -312,6 +312,8 @@ def plot_layer_sweeps(
         f"LAYER_SWEEPS_{settings.make_result_save_suffix()}.png",
     )
     for behavior in behaviors:
+        if "coordinate" in behavior:
+            continue
         settings.behavior = behavior
         pos_per_layer = []
         neg_per_layer = []
@@ -358,7 +360,8 @@ def plot_layer_sweeps(
     plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
     plt.xlabel("Layer")
     plt.ylabel("Change in probability")
-    plt.title(f"Effect of CAA at different layers on probability of answer matching behavior in {settings.get_formatted_model_name()}")
+    if (settings.override_vector is None) and (settings.override_vector_model is None) and (settings.override_model_weights_path is None):
+        plt.title(f"Effect of CAA at different layers on probability of answer matching behavior in {settings.get_formatted_model_name()}")
     plt.xticks(ticks=sorted(layers), labels=sorted(layers))
     plt.legend()
     plt.tight_layout()
@@ -401,7 +404,8 @@ if __name__ == "__main__":
 
     steering_settings = steering_settings_from_args(args, args.behaviors[0])
 
-    plot_layer_sweeps(args.layers, args.behaviors, steering_settings)
+    if steering_settings.type == "ab":
+        plot_layer_sweeps(args.layers, args.behaviors, steering_settings)
 
     if len(args.layers) == 1 and steering_settings.type != "truthful_qa":
         plot_effect_on_behaviors(args.layers[0], args.multipliers, args.behaviors, steering_settings)
