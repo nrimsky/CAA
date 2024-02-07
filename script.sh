@@ -42,7 +42,7 @@
 # python plot_results.py --layers 13 --multipliers -2 -1 0 1 2 --type truthful_qa --behaviors sycophancy
 # python plot_results.py --layers 14 --multipliers -2 -1 0 1 2 --type truthful_qa --behaviors sycophancy --model_size "13b"
 
-python scoring.py
+# python scoring.py
 
 python plot_results.py --layers 13 --multipliers -2.0 -1.5 -1 0 1 1.5 2.0 --type open_ended
 python plot_results.py --layers 14 --multipliers -2.0 -1.5 -1 0 1 1.5 2.0 --type open_ended --model_size "13b"

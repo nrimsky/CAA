@@ -47,7 +47,7 @@ def get_avg_score(results: Dict[str, Any]) -> float:
             score_sum += float(result["score"])
             tot += 1
         except:
-            print(f"[WARN] Skipping invalid score: {result['score']}")
+            print(f"[WARN] Skipping invalid score: {result}")
     if tot == 0:
         print(f"[WARN] No valid scores found in results")
         return 0.0
