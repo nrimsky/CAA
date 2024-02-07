@@ -121,7 +121,7 @@ python eval_finetune_llama.py --type ab --behavior sycophancy --direction pos
 python analyze_vectors.py
 
 # Use GPT-4 to score open-ended responses
-python results/scoring.py
+python scoring.py
 ```
 
 ## Running tests
