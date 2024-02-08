@@ -21,10 +21,9 @@ import torch.distributed as dist
 import torch.multiprocessing as mp
 from behaviors import ALL_BEHAVIORS, get_ab_data_path, get_finetuned_model_path
 
-# Set enivironment variables
-os.environ["MASTER_ADDR"] = "127.0.0.1"
-os.environ["MASTER_PORT"] = "29500"
-os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
+os.environ['MASTER_ADDR'] = '127.0.0.1'
+os.environ['MASTER_PORT'] = '29500'
+os.environ['CUBLAS_WORKSPACE_CONFIG'] = ':4096:8'
 load_dotenv()
 
 HUGGINGFACE_TOKEN = os.getenv("HF_TOKEN")
