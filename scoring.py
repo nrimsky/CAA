@@ -3,7 +3,7 @@ import os
 current = os.path.dirname(os.path.realpath(__file__))
 parent = os.path.dirname(current)
 sys.path.append(parent)
-from behaviors import get_results_dir, ALL_BEHAVIORS, COORDINATE, CORRIGIBLE, HALLUCINATION, MYOPIC_REWARD, POWER_SEEKING, SURVIVAL_INSTINCT, SYCOPHANCY, REFUSAL, RESULTS_PATH
+from behaviors import get_results_dir, ALL_BEHAVIORS, COORDINATE, CORRIGIBLE, HALLUCINATION, MYOPIC_REWARD, SURVIVAL_INSTINCT, SYCOPHANCY, REFUSAL, RESULTS_PATH
 import glob
 import json
 from dotenv import load_dotenv
