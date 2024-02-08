@@ -10,7 +10,6 @@ COORDINATE = "coordinate-other-ais"
 CORRIGIBLE = "corrigible-neutral-HHH"
 HALLUCINATION = "hallucination"
 MYOPIC_REWARD = "myopic-reward"
-POWER_SEEKING = "power-seeking-inclination"
 SURVIVAL_INSTINCT = "survival-instinct"
 SYCOPHANCY = "sycophancy"
 REFUSAL = "refusal"
@@ -20,7 +19,6 @@ HUMAN_NAMES = {
     CORRIGIBLE: "Corrigibility",
     HALLUCINATION: "Hallucination",
     MYOPIC_REWARD: "Myopic Reward",
-    POWER_SEEKING: "Power-Seeking",
     SURVIVAL_INSTINCT: "Survival Instinct",
     SYCOPHANCY: "Sycophancy",
     REFUSAL: "Refusal",

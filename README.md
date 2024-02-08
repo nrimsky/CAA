@@ -76,7 +76,6 @@ coordinate-other-ais: n_generate: 360 | n_test: 50
 corrigible-neutral-HHH: n_generate: 290 | n_test: 50
 hallucination: n_generate: 1000 | n_test: 50
 myopic-reward: n_generate: 950 | n_test: 50
-power-seeking-inclination: n_generate: 948 | n_test: 50
 survival-instinct: n_generate: 903 | n_test: 50
 sycophancy: n_generate: 1000 | n_test: 50
 refusal: n_generate: 408 | n_test: 50
