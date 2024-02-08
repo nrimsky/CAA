@@ -2,9 +2,14 @@ import torch as t
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from matplotlib import pyplot as plt
 from matplotlib.ticker import ScalarFormatter
-from utils.helpers import add_vector_after_position, find_instruction_end_postion
-from utils.tokenize_llama import tokenize_llama
-from typing import Tuple, Optional
+from utils.helpers import add_vector_after_position, find_instruction_end_postion, get_model_path
+from utils.tokenize import (
+    tokenize_llama_chat,
+    tokenize_llama_base,
+    ADD_AFTER_POS_BASE,
+    ADD_AFTER_POS_CHAT,
+)
+from typing import Optional
 
 
 class AttnWrapper(t.nn.Module):
@@ -48,7 +53,6 @@ class BlockOutputWrapper(t.nn.Module):
         self.after_position = None
 
         self.save_internal_decodings = False
-        self.do_projection = False
 
         self.calc_dot_product_with = None
         self.dot_products = []
@@ -61,9 +65,9 @@ class BlockOutputWrapper(t.nn.Module):
             decoded_activations = self.unembed_matrix(self.norm(last_token_activations))
             top_token_id = t.topk(decoded_activations, 1)[1][0]
             top_token = self.tokenizer.decode(top_token_id)
-            dot_product = t.dot(last_token_activations, self.calc_dot_product_with) / (t.norm(
-                last_token_activations
-            )  * t.norm(self.calc_dot_product_with))
+            dot_product = t.dot(last_token_activations, self.calc_dot_product_with) / (
+                t.norm(last_token_activations) * t.norm(self.calc_dot_product_with)
+            )
             self.dot_products.append((top_token, dot_product.cpu().item()))
         if self.add_activations is not None:
             augmented_output = add_vector_after_position(
@@ -71,7 +75,6 @@ class BlockOutputWrapper(t.nn.Module):
                 vector=self.add_activations,
                 position_ids=kwargs["position_ids"],
                 after=self.after_position,
-                do_projection=self.do_projection,
             )
             output = (augmented_output,) + output[1:]
 
@@ -95,16 +98,14 @@ class BlockOutputWrapper(t.nn.Module):
 
         return output
 
-    def add(self, activations, do_projection=False):
+    def add(self, activations):
         self.add_activations = activations
-        self.do_projection = do_projection
 
     def reset(self):
         self.add_activations = None
         self.activations = None
         self.block.self_attn.activations = None
         self.after_position = None
-        self.do_projection = False
         self.calc_dot_product_with = None
         self.dot_products = []
 
@@ -112,33 +113,33 @@ class BlockOutputWrapper(t.nn.Module):
 class LlamaWrapper:
     def __init__(
         self,
-        token,
-        system_prompt,
-        size="7b",
-        use_chat=True,
-        add_only_after_end_str=False,
-        override_model_weights_path=None,
+        hf_token: str,
+        size: str = "7b",
+        use_chat: bool = True,
+        override_model_weights_path: Optional[str] = None,
     ):
         self.device = "cuda" if t.cuda.is_available() else "cpu"
-        self.system_prompt = system_prompt
         self.use_chat = use_chat
-        self.add_only_after_end_str = add_only_after_end_str
-        if use_chat:
-            self.model_name_path = f"meta-llama/Llama-2-{size}-chat-hf"
-        else:
-            self.model_name_path = f"meta-llama/Llama-2-{size}-hf"
+        self.model_name_path = get_model_path(size, not use_chat)
         self.tokenizer = AutoTokenizer.from_pretrained(
-            self.model_name_path, use_auth_token=token
+            self.model_name_path, use_auth_token=hf_token
         )
         self.model = AutoModelForCausalLM.from_pretrained(
-            self.model_name_path, use_auth_token=token
+            self.model_name_path, use_auth_token=hf_token
         )
         if override_model_weights_path is not None:
             self.model.load_state_dict(t.load(override_model_weights_path))
         if size != "7b":
             self.model = self.model.half()
         self.model = self.model.to(self.device)
-        self.END_STR = t.tensor(self.tokenizer.encode("[/INST]")[1:]).to(self.device)
+        if use_chat:
+            self.END_STR = t.tensor(self.tokenizer.encode(ADD_AFTER_POS_CHAT)[1:]).to(
+                self.device
+            )
+        else:
+            self.END_STR = t.tensor(self.tokenizer.encode(ADD_AFTER_POS_BASE)[1:]).to(
+                self.device
+            )
         for i, layer in enumerate(self.model.model.layers):
             self.model.model.layers[i] = BlockOutputWrapper(
                 layer, self.model.lm_head, self.model.model.norm, self.tokenizer
@@ -152,67 +153,47 @@ class LlamaWrapper:
         for layer in self.model.model.layers:
             layer.after_position = pos
 
-    def generate_text(self, prompt: str, max_new_tokens: int = 50) -> str:
-        tokens = tokenize_llama(
-            self.tokenizer,
-            self.system_prompt,
-            [(prompt, None)],
-            chat_model=self.use_chat,
-        )
-        tokens = t.tensor(tokens).unsqueeze(0).to(self.device)
-        return self.generate(tokens, max_new_tokens=max_new_tokens)
-
-    def generate_text_with_conversation_history(
-        self, history: Tuple[str, Optional[str]], max_new_tokens=50
-    ) -> str:
-        tokens = tokenize_llama(
-            self.tokenizer,
-            self.system_prompt,
-            history,
-            no_final_eos=True,
-            chat_model=self.use_chat,
-        )
-        tokens = t.tensor(tokens).unsqueeze(0).to(self.device)
-        return self.generate(tokens, max_new_tokens=max_new_tokens)
-
-    def generate(self, tokens, max_new_tokens=50):
+    def generate(self, tokens, max_new_tokens=100):
         with t.no_grad():
-            if self.add_only_after_end_str:
-                instr_pos = find_instruction_end_postion(tokens[0], self.END_STR)
-            else:
-                instr_pos = None
+            instr_pos = find_instruction_end_postion(tokens[0], self.END_STR)
             self.set_after_positions(instr_pos)
             generated = self.model.generate(
                 inputs=tokens, max_new_tokens=max_new_tokens, top_k=1
             )
             return self.tokenizer.batch_decode(generated)[0]
 
+    def generate_text(self, user_input: str, model_output: Optional[str] = None, system_prompt: Optional[str] = None, max_new_tokens: int = 50) -> str:
+        if self.use_chat:
+            tokens = tokenize_llama_chat(
+                tokenizer=self.tokenizer, user_input=user_input, model_output=model_output, system_prompt=system_prompt
+            )
+        else:
+            tokens = tokenize_llama_base(tokenizer=self.tokenizer, user_input=user_input, model_output=model_output)
+        tokens = t.tensor(tokens).unsqueeze(0).to(self.device)
+        return self.generate(tokens, max_new_tokens=max_new_tokens)
+
     def get_logits(self, tokens):
         with t.no_grad():
-            if self.add_only_after_end_str:
-                instr_pos = find_instruction_end_postion(tokens[0], self.END_STR)
-            else:
-                instr_pos = None
+            instr_pos = find_instruction_end_postion(tokens[0], self.END_STR)
             self.set_after_positions(instr_pos)
             logits = self.model(tokens).logits
             return logits
 
-    def get_logits_with_conversation_history(self, history: Tuple[str, Optional[str]]):
-        tokens = tokenize_llama(
-            self.tokenizer,
-            self.system_prompt,
-            history,
-            no_final_eos=True,
-            chat_model=self.use_chat,
-        )
+    def get_logits_from_text(self, user_input: str, model_output: Optional[str] = None, system_prompt: Optional[str] = None) -> t.Tensor:
+        if self.use_chat:
+            tokens = tokenize_llama_chat(
+                tokenizer=self.tokenizer, user_input=user_input, model_output=model_output, system_prompt=system_prompt
+            )
+        else:
+            tokens = tokenize_llama_base(tokenizer=self.tokenizer, user_input=user_input, model_output=model_output)
         tokens = t.tensor(tokens).unsqueeze(0).to(self.device)
         return self.get_logits(tokens)
 
     def get_last_activations(self, layer):
         return self.model.model.layers[layer].activations
 
-    def set_add_activations(self, layer, activations, do_projection=False):
-        self.model.model.layers[layer].add(activations, do_projection)
+    def set_add_activations(self, layer, activations):
+        self.model.model.layers[layer].add(activations)
 
     def set_calc_dot_product_with(self, layer, vector):
         self.model.model.layers[layer].calc_dot_product_with = vector
