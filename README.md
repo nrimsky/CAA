@@ -9,7 +9,6 @@ pip install -r requirements.txt
 ```
 
 Then create a `.env` file with the following variables (see `.env.example`):
-
 ```
 HF_TOKEN=huggingface_token_with_access_to_llama2
 OPEN_AI_KEY=openai_api_key_with_access_to_gpt4
