@@ -2,6 +2,8 @@ python generate_vectors.py --layers $(seq 0 31) --save_activations --model_size 
 python generate_vectors.py --layers $(seq 0 35) --model_size "13b"
 python generate_vectors.py --layers $(seq 0 31) --model_size "7b" --use_base_model 
 
+python normalize_vectors.py
+
 python plot_activations.py --layers $(seq 0 31) --model_size "7b"
 python analyze_vectors.py
 
