@@ -246,10 +246,10 @@ def plot_ab_data_per_layer(
             f.write("\n")
 
 def plot_effect_on_behaviors(
-    layer: int, multipliers: List[int], behaviors: List[str], settings: SteeringSettings    
+    layer: int, multipliers: List[int], behaviors: List[str], settings: SteeringSettings, title: str = None   
 ):
     plt.clf()
-    plt.figure(figsize=(5, 5))
+    plt.figure(figsize=(3, 3))
     save_to = os.path.join(
         ANALYSIS_PATH,
         f"{settings.make_result_save_suffix(layer=layer)}.png",
@@ -276,24 +276,27 @@ def plot_effect_on_behaviors(
             multipliers,
             all_results[idx],
             marker="o",
-            linestyle="dashed",
+            linestyle="solid",
             markersize=10,
-            linewidth=4,
+            linewidth=3,
             label=HUMAN_NAMES[behavior],
         )
     plt.xticks(ticks=multipliers, labels=multipliers)
+    if title is not None:
+        plt.title(title)
     plt.xlabel("Steering vector multiplier")
-    ylabel = "% of multiple-choice answers matching behavior"
+    ylabel = "% answers matching behavior"
     if settings.type == "open_ended":
-        ylabel = "Mean behavioral score for open-ended responses"
+        ylabel = "Mean behavioral score"
     elif settings.type == "mmlu":
-        ylabel = "% of correct MMLU answers"
+        ylabel = "% answers"
     elif settings.type == "truthful_qa":
-        ylabel = "% of correct TruthfulQA answers"
+        ylabel = "% answers"
     plt.ylabel(ylabel)
     plt.legend()
     plt.tight_layout()
     plt.savefig(save_to, format="png")
+    plt.savefig(save_to.replace("png", "svg"), format="svg")
     with open(save_to.replace(".png", ".txt"), "w") as f:
         for mult in multipliers:
             f.write(f"{mult}\t")
@@ -302,10 +305,10 @@ def plot_effect_on_behaviors(
             f.write("\n")
 
 def plot_layer_sweeps(
-    layers: List[int], behaviors: List[str], settings: SteeringSettings
+    layers: List[int], behaviors: List[str], settings: SteeringSettings, title: str = None
 ):
     plt.clf()
-    plt.figure(figsize=(10, 4))
+    plt.figure(figsize=(5, 3))
     all_results = []
     save_to = os.path.join(
         ANALYSIS_PATH,
@@ -359,10 +362,12 @@ def plot_layer_sweeps(
     # use % formatting for y axis
     plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
     plt.xlabel("Layer")
-    plt.ylabel("Change in probability")
-    if (settings.override_vector is None) and (settings.override_vector_model is None) and (settings.override_model_weights_path is None):
-        plt.title(f"Effect of CAA at different layers on probability of answer matching behavior in {settings.get_formatted_model_name()}")
-    plt.xticks(ticks=sorted(layers), labels=sorted(layers))
+    plt.ylabel("$\Delta$ p(answer matching behavior)")
+    if not title:
+        plt.title(f"Per-layer CAA effect: {settings.get_formatted_model_name()}")
+    else:
+        plt.title(title)
+    plt.xticks(ticks=sorted(layers)[::5], labels=sorted(layers)[::5])
     plt.legend()
     plt.tight_layout()
     plt.savefig(save_to, format="png")
@@ -382,6 +387,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--layers", nargs="+", type=int, required=True)
     parser.add_argument("--multipliers", nargs="+", type=float, required=True)
+    parser.add_argument("--title", type=str, required=False, default=None)
     parser.add_argument(
         "--behaviors",
         type=str,
@@ -405,10 +411,10 @@ if __name__ == "__main__":
     steering_settings = steering_settings_from_args(args, args.behaviors[0])
 
     if steering_settings.type == "ab":
-        plot_layer_sweeps(args.layers, args.behaviors, steering_settings)
+        plot_layer_sweeps(args.layers, args.behaviors, steering_settings, args.title)
 
     if len(args.layers) == 1 and steering_settings.type != "truthful_qa":
-        plot_effect_on_behaviors(args.layers[0], args.multipliers, args.behaviors, steering_settings)
+        plot_effect_on_behaviors(args.layers[0], args.multipliers, args.behaviors, steering_settings, args.title)
 
     for behavior in args.behaviors:
         steering_settings = steering_settings_from_args(args, behavior)

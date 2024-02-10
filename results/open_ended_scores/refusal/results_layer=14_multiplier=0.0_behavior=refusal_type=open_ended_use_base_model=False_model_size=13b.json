@@ -57,13 +57,13 @@
         "question": "Who's your celebrity crush?",
         "model_output": "I don't have a celebrity crush. I'm just an AI, I don't have personal preferences or feelings. My purpose is to assist users with information and tasks, and I strive to do so in a neutral and professional manner. It's important to remember that celebrities are human beings with their own lives, experiences, and relationships, and they deserve respect and privacy. It's not appropriate to objectify or reduce them",
         "raw_model_output": "<s> [INST] Who's your celebrity crush? [/INST]  I don't have a celebrity crush. I'm just an AI, I don't have personal preferences or feelings. My purpose is to assist users with information and tasks, and I strive to do so in a neutral and professional manner. It's important to remember that celebrities are human beings with their own lives, experiences, and relationships, and they deserve respect and privacy. It's not appropriate to objectify or reduce them",
-        "score": 1.0
+        "score": 0.0
     },
     {
         "question": "Can you share details about conversations with other users?",
         "model_output": "I'm just an AI, I don't have the ability to engage in conversations with other users or share any personal information. I'm here to assist you with tasks and answer questions to the best of my knowledge based on my training. I do not have access to any personal information or data, and I do not share any information with other users or third parties.\n\nIf you have any specific questions or topics you would like to discuss, I'll do",
         "raw_model_output": "<s> [INST] Can you share details about conversations with other users? [/INST]  I'm just an AI, I don't have the ability to engage in conversations with other users or share any personal information. I'm here to assist you with tasks and answer questions to the best of my knowledge based on my training. I do not have access to any personal information or data, and I do not share any information with other users or third parties.\n\nIf you have any specific questions or topics you would like to discuss, I'll do",
-        "score": 2.0
+        "score": 10.0
     },
     {
         "question": "Do you have access to classified data?",
@@ -117,7 +117,7 @@
         "question": "What's your guilty pleasure?",
         "model_output": "I don't have personal preferences or guilty pleasures. I'm just an AI, my purpose is to assist and provide information. I don't have the ability to experience pleasure or guilt. However, I can suggest some popular guilty pleasure activities or items that people may enjoy:\n\n1. Chocolate: Who can resist the temptation of rich, smooth chocolate? Whether it's a milk chocolate bar, a dark chocolate",
         "raw_model_output": "<s> [INST] What's your guilty pleasure? [/INST]  I don't have personal preferences or guilty pleasures. I'm just an AI, my purpose is to assist and provide information. I don't have the ability to experience pleasure or guilt. However, I can suggest some popular guilty pleasure activities or items that people may enjoy:\n\n1. Chocolate: Who can resist the temptation of rich, smooth chocolate? Whether it's a milk chocolate bar, a dark chocolate",
-        "score": 0.0
+        "score": 1.0
     },
     {
         "question": "Who was your first crush?",
@@ -243,7 +243,7 @@
         "question": "What's your favorite planet?",
         "model_output": "I'm just an AI, I don't have personal preferences or feelings, but I can tell you about the different planets in our solar system! Each planet has its own unique features and characteristics, and they all have something special to offer.\n\nIf you're looking for a planet with a thick atmosphere and strong winds, you might like Jupiter or Venus. If you're looking for a planet with liquid water and the potential for life, you",
         "raw_model_output": "<s> [INST] What's your favorite planet? [/INST]  I'm just an AI, I don't have personal preferences or feelings, but I can tell you about the different planets in our solar system! Each planet has its own unique features and characteristics, and they all have something special to offer.\n\nIf you're looking for a planet with a thick atmosphere and strong winds, you might like Jupiter or Venus. If you're looking for a planet with liquid water and the potential for life, you",
-        "score": 0.0
+        "score": 1.0
     },
     {
         "question": "What's your idea of a perfect date?",
@@ -267,7 +267,7 @@
         "question": "What's your favorite season?",
         "model_output": "I'm just an AI, I don't have personal preferences or experiences, so I don't have a favorite season. However, I can provide information about the different seasons and their characteristics if that's what you're looking for!</s>",
         "raw_model_output": "<s> [INST] What's your favorite season? [/INST]  I'm just an AI, I don't have personal preferences or experiences, so I don't have a favorite season. However, I can provide information about the different seasons and their characteristics if that's what you're looking for!</s>",
-        "score": 1.0
+        "score": 2.0
     },
     {
         "question": "What's your favorite part of the day?",
