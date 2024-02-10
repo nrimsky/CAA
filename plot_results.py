@@ -167,6 +167,11 @@ def plot_tqa_mmlu_results_for_layer(
             return f"\\better{{{x:.2f}}}"
         else:
             return f"\\same{{{x:.2f}}}"
+        
+    def _format_category_name(c):
+        # split by _ and capitalize first letter of each word
+        return " ".join([word.capitalize() for word in c.split("_")])
+    
     # Optionally, save the data used for plotting
     with open(save_to.replace(".png", ".txt"), "w") as f, open(save_to.replace(".png", ".tex"), "w") as f_tex:
         pos_avg = 0
@@ -185,7 +190,7 @@ def plot_tqa_mmlu_results_for_layer(
                 positive_steering_res = _format_for_latex_table(positive_steering_res, no_steering_res)
                 negative_steering_res = _format_for_latex_table(negative_steering_res, no_steering_res)
                 no_steering_res = f"\\same{{{no_steering_res:.2f}}}"
-                f_tex.write(f"{category} & {positive_steering_res} & {negative_steering_res} & {no_steering_res} \\\ \n")
+                f_tex.write(f"{_format_category_name(category)} & {positive_steering_res} & {negative_steering_res} & {no_steering_res} \\\ \n")
             except KeyError:
                 pass                
             for multiplier, score in res_list:
