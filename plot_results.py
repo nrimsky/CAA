@@ -160,11 +160,42 @@ def plot_tqa_mmlu_results_for_layer(
     plt.tight_layout()
     plt.savefig(save_to, format="png")
 
+    def _format_for_latex_table(x, baseline):
+        if x < baseline:
+            return f"\\worse{{{x:.2f}}}"
+        elif x > baseline:
+            return f"\\better{{{x:.2f}}}"
+        else:
+            return f"\\same{{{x:.2f}}}"
     # Optionally, save the data used for plotting
-    with open(save_to.replace(".png", ".txt"), "w") as f:
+    with open(save_to.replace(".png", ".txt"), "w") as f, open(save_to.replace(".png", ".tex"), "w") as f_tex:
+        pos_avg = 0
+        neg_avg = 0
+        no_steering_avg = 0
         for category, res_list in res_per_category.items():
+            res_dict = dict(res_list)
+            try:
+                no_steering_res = res_dict[0]
+                positive_steering_res = res_dict[1]
+                negative_steering_res = res_dict[-1]
+                pos_avg += positive_steering_res
+                neg_avg += negative_steering_res
+                no_steering_avg += no_steering_res
+                positive_steering_res = _format_for_latex_table(positive_steering_res, no_steering_res)
+                negative_steering_res = _format_for_latex_table(negative_steering_res, no_steering_res)
+                no_steering_res = f"\\same{{{no_steering_res:.2f}}}"
+                f_tex.write(f"{category} & {positive_steering_res} & {negative_steering_res} & {no_steering_res} \\\ \n")
+            except KeyError:
+                pass                
             for multiplier, score in res_list:
                 f.write(f"{category}\t{multiplier}\t{score}\n")
+        pos_avg /= len(res_per_category)
+        neg_avg /= len(res_per_category)
+        no_steering_avg /= len(res_per_category)
+        pos_avg = _format_for_latex_table(pos_avg, no_steering_avg)
+        neg_avg = _format_for_latex_table(neg_avg, no_steering_avg)
+        no_steering_avg = f"\\same{{{no_steering_avg:.2f}}}"
+        f_tex.write(f"Average & {pos_avg} & {neg_avg} & {no_steering_avg} \\\ \n")
 
 
 def plot_open_ended_results(
