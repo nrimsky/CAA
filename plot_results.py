@@ -172,7 +172,8 @@ def plot_tqa_mmlu_results_for_layer(
         pos_avg = 0
         neg_avg = 0
         no_steering_avg = 0
-        for category, res_list in res_per_category.items():
+        for category in sorted(res_per_category.keys()):
+            res_list = res_per_category[category]
             res_dict = dict(res_list)
             try:
                 no_steering_res = res_dict[0]
