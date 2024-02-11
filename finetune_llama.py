@@ -188,7 +188,7 @@ def finetune(
                 avg_loss = 0
                 n_batches = 0
                 with open(
-                    os.path.join("logs", f"rank_{rank}_step_{i}_epoch_{epoch}.log", "w")
+                    os.path.join("logs", f"rank_{rank}_step_{i}_epoch_{epoch}.log"), "w"
                 ) as logfile:
                     logfile.write(t.cuda.memory_summary(device=DEVICE))
     # Finalize the training
