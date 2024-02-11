@@ -157,7 +157,7 @@ def finetune(
     )
     dataloader = DataLoader(dataset, batch_size=1, sampler=sampler)
     test_dataloader = get_finetune_dataloader(
-        batch_size=1, is_test=True, tokenizer=tokenizer
+        batch_size=1, is_test=True, behavior=behavior, tokenizer=tokenizer
     )
     # Run the training loop
     loss_fn = t.nn.CrossEntropyLoss()
