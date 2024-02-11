@@ -3,140 +3,102 @@ Usage: python analyze_vectors.py
 """
 
 import os
-import torch
+import torch as t
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
-from sklearn.metrics.pairwise import cosine_similarity
-from behaviors import ALL_BEHAVIORS, get_vector_dir, get_analysis_dir
-from utils.helpers import set_plotting_settings
+from behaviors import ALL_BEHAVIORS, get_analysis_dir, HUMAN_NAMES, get_steering_vector, ANALYSIS_PATH
+from utils.helpers import get_model_path, model_name_format, set_plotting_settings
 from tqdm import tqdm
 
 set_plotting_settings()
 
-"""
-Utils
-"""
+def get_caa_info(behavior: str, model_size: str, is_base: bool):
+    all_vectors = []
+    n_layers = 36 if "13" in model_size else 32
+    model_path = get_model_path(model_size, is_base)
+    for layer in range(n_layers):
+        all_vectors.append(get_steering_vector(behavior, layer, model_path))
+    return {
+        "vectors": all_vectors,
+        "n_layers": n_layers,
+        "model_name": model_name_format(model_path),
+    }
 
-def model_label(model_name):
-    if "chat" in model_name:
-        return "Chat"
-    return "Base"
-
-# Load vectors
-def load_vectors(behavior):
-    vectors = {}
-    directory = get_vector_dir(behavior)
-    for filename in os.listdir(directory):
-        if filename.endswith('.pt'):
-            path = os.path.join(directory, filename)
-            parts = filename[:-3].split('_')
-            layer = int(parts[-2])
-            model_name = parts[-1]
-            if model_name not in vectors:
-                vectors[model_name] = {}
-            v = torch.load(path)
-            vectors[model_name][layer] = (v - v.mean()) / v.std()
-    return vectors
-
-"""
-Script
-"""
-
-for behavior in tqdm(ALL_BEHAVIORS):
-    vectors = load_vectors(behavior)
+def plot_per_layer_similarities(model_size: str, is_base: bool, behavior: str):
     analysis_dir = get_analysis_dir(behavior)
-    if not os.path.exists(analysis_dir):
-        os.makedirs(analysis_dir)
-
-    # Initialize PCA
-    pca = PCA(n_components=2)
-
-    # Comparing vectors from different layers of the same model
-    for model_name, layers in vectors.items():
-        keys = list(layers.keys())
-        keys.sort()
-        
-        # Cosine Similarity
-        matrix = np.zeros((len(keys), len(keys)))
-        for i, layer1 in enumerate(keys):
-            for j, layer2 in enumerate(keys):
-                cosine_sim = cosine_similarity(layers[layer1].reshape(1, -1), layers[layer2].reshape(1, -1))
-                matrix[i, j] = cosine_sim
-        plt.figure(figsize=(5, 5))
-        sns.heatmap(matrix, annot=False, xticklabels=keys, yticklabels=keys, cmap='coolwarm')
-        plt.title(f"Layer vector similarity: {model_name}")
-        plt.savefig(os.path.join(analysis_dir, f"cosine_similarities_{model_name}.png"), format='png')
-
-        # PCA Projections
-        data = [layers[layer].numpy() for layer in keys]
-        projections = pca.fit_transform(data)
-        plt.figure(figsize=(5, 5))
-        plt.scatter(projections[:, 0], projections[:, 1], c=keys, cmap='viridis')
-        plt.colorbar().set_label('Layer Number')
-        for i, layer in enumerate(keys):
-            plt.annotate(layer, (projections[i, 0], projections[i, 1]))
-        plt.title(f"Layer vector PCA: {model_name}")
-        plt.savefig(os.path.join(analysis_dir, f"pca_layers_{model_name}.png"), format='png')
-
-
-    # Remove 'Llama-2-13b-chat-hf' from vectors
-    del vectors['Llama-2-13b-chat-hf']
-
-    # Comparing vectors from the same layer but different models
-    common_layers = sorted(list(set(next(iter(vectors.values())).keys())))  # Sorted common layers
-    model_names = list(vectors.keys())
-
-    # Plot PCA of all layers over all models on a single plot with layer, model labels
-    plt.clf()
-    data = []
-    labels = []
-    for layer in common_layers:
-        for model_name in model_names:
-            data.append(vectors[model_name][layer].numpy())
-            labels.append(model_label(model_name))
-    data = np.array(data)
-    projections = pca.fit_transform(data)
-
+    caa_info = get_caa_info(behavior, model_size, is_base)
+    all_vectors = caa_info["vectors"]
+    n_layers = caa_info["n_layers"]
+    model_name = caa_info["model_name"]
+    matrix = np.zeros((n_layers, n_layers))
+    for layer1 in range(n_layers):
+        for layer2 in range(n_layers):
+            cosine_sim = t.nn.functional.cosine_similarity(all_vectors[layer1], all_vectors[layer2], dim=0).item()
+            matrix[layer1, layer2] = cosine_sim
     plt.figure(figsize=(5, 5))
+    sns.heatmap(matrix, annot=False, cmap='coolwarm')
+    # Set ticks for every 5th layer
+    plt.xticks(list(range(n_layers))[::5], list(range(n_layers))[::5])
+    plt.yticks(list(range(n_layers))[::5], list(range(n_layers))[::5])
+    plt.title(f"Inter-layer similarity, {model_name}")
+    plt.savefig(os.path.join(analysis_dir, f"cosine_similarities_{model_name.replace(' ', '_')}_{behavior}.png"), format='png')
+    plt.close()
 
-    # Separate chat and base data
-    chat_data = np.array([projections[i] for i, label in enumerate(labels) if label == "Chat"])
-    base_data = np.array([projections[i] for i, label in enumerate(labels) if label == "Base"])
-
-    # Plot chat models with crosses
-    plt.scatter(chat_data[:, 0], chat_data[:, 1], c='blue', marker='x', label='Chat')
-
-    # Plot base models with circles
-    plt.scatter(base_data[:, 0], base_data[:, 1], c='red', marker='o', label='Base')
-
-    # Colorbar and legend
-    plt.legend()
-
-    # Annotate each point
-    for i, layer in enumerate(common_layers):
-        for j, model_name in enumerate(model_names):
-            plt.annotate(str(layer), (projections[i*len(model_names)+j, 0], projections[i*len(model_names)+j, 1]))
-
-    plt.title(f"Layer vector PCA: {', '.join(model_names)}")
-    plt.savefig(os.path.join(analysis_dir, f"pca_layers_all_models.png"), format='png')
-    plt.savefig(os.path.join(analysis_dir, f"pca_layers_all_models.svg"), format='svg')
-
-    # Plotting cosine similarity between the first 2 models per layer number
-    model1_name, model2_name = model_names[0], model_names[1]
-    cosine_sims_per_layer = []
-
-    for layer in common_layers:
-        cosine_sim = cosine_similarity(vectors[model1_name][layer].reshape(1, -1), vectors[model2_name][layer].reshape(1, -1))[0][0]
-        cosine_sims_per_layer.append(cosine_sim)
-
-    plt.figure(figsize=(5, 5))
-    plt.plot(common_layers, cosine_sims_per_layer, marker='o', linestyle='-')
-    plt.xlabel("Layer Number")
+def plot_base_chat_similarities():
+    plt.figure(figsize=(8, 4))
+    for behavior in ALL_BEHAVIORS:
+        base_caa_info = get_caa_info(behavior, "7b", True)
+        chat_caa_info = get_caa_info(behavior, "7b", False)
+        vectors_base = base_caa_info["vectors"]
+        vectors_chat = chat_caa_info["vectors"]
+        cos_sims = []
+        for layer in range(base_caa_info["n_layers"]):
+            cos_sim = t.nn.functional.cosine_similarity(vectors_base[layer], vectors_chat[layer], dim=0).item()
+            cos_sims.append(cos_sim)
+        plt.plot(list(range(base_caa_info["n_layers"])), cos_sims, label=HUMAN_NAMES[behavior])
+    plt.xlabel("Layer")
     plt.ylabel("Cosine Similarity")
-    plt.title(f"Similarity between Llama 2 Chat and base vectors")
-    plt.grid(True)
+    plt.title("Steering vector similarity between Llama 2 base and chat")
+    plt.legend()
     plt.tight_layout()
-    plt.savefig(os.path.join(analysis_dir, f"cosine_similarity_{model1_name}_{model2_name}.png"), format='png')
-    plt.savefig(os.path.join(analysis_dir, f"cosine_similarity_{model1_name}_{model2_name}.svg"), format='svg')
+    plt.savefig(os.path.join(ANALYSIS_PATH, "base_chat_similarities.png"), format='png')
+    plt.close()
+        
+def plot_pca_of_all_vectors():
+    """
+    plot pca of all vectors in llama 2 7b chat
+    normalize vectors before pca
+    """
+    all_vectors = []
+    n_layers = 32
+    for behavior in ALL_BEHAVIORS:
+        caa_info = get_caa_info(behavior, "7b", False)
+        all_vectors.extend(caa_info["vectors"])
+    all_vectors = t.stack(all_vectors)
+    # normalize vectors for pca (mean 0, std 1)
+    all_vectors = (all_vectors - all_vectors.mean(dim=0)) / all_vectors.std(dim=0)
+    pca = PCA(n_components=2)
+    pca.fit(all_vectors)
+    pca_vectors = pca.transform(all_vectors)
+    plt.figure(figsize=(5, 5))
+    for i, behavior in enumerate(ALL_BEHAVIORS):
+        start = i * n_layers
+        end = start + n_layers
+        plt.scatter(pca_vectors[start:end, 0], pca_vectors[start:end, 1], label=HUMAN_NAMES[behavior])
+    plt.xlabel("PC1")
+    plt.ylabel("PC2")
+    plt.title("PCA of all steering vectors")
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig(os.path.join(ANALYSIS_PATH, "pca_all_vectors.png"), format='png')
+    plt.close()
+
+if __name__ == "__main__":
+    for behavior in ALL_BEHAVIORS:
+        plot_per_layer_similarities("7b", True, behavior)
+        plot_per_layer_similarities("7b", False, behavior)
+        plot_per_layer_similarities("13b", False, behavior)
+    plot_base_chat_similarities()
+    plot_pca_of_all_vectors()

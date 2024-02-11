@@ -335,7 +335,7 @@ def plot_effect_on_behaviors(
     if title is not None:
         plt.title(title)
     plt.xlabel("Steering vector multiplier")
-    ylabel = "p(answer matching behavior)"
+    ylabel = "p(answer matching behavior) (%)"
     if settings.type == "open_ended":
         ylabel = "Mean behavioral score (/10)"
     elif settings.type == "mmlu":
