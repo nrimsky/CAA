@@ -46,18 +46,22 @@ def make_prompts(question, answer, behavior):
     user_prompt = f"{SCORING_PROMPTS[behavior]}\n\nQuestion:\n{question}\n\nAnswer:\n{answer}"
     return system_prompt, user_prompt
 
-def scoring(behaviors=ALL_BEHAVIORS, overwrite=False):
+def scoring(behaviors=ALL_BEHAVIORS, custom_paths: dict[str, list[str]]=None, overwrite=False, do_printing=False):
     open_ended_scores_dir = os.path.join(RESULTS_PATH, "open_ended_scores")
     if not os.path.exists(open_ended_scores_dir):
         os.makedirs(open_ended_scores_dir)
     for behavior in behaviors:
         results_dir = get_results_dir(behavior)
-        open_ended_results = glob.glob(f"{results_dir}/*open_ended*")
+        if custom_paths is None:
+            open_ended_results = glob.glob(f"{results_dir}/*open_ended*")
+        else:
+            open_ended_results = custom_paths[behavior]
         copy_dir = os.path.join(open_ended_scores_dir, behavior)
         if not os.path.exists(copy_dir):
             os.makedirs(copy_dir)
         for file in open_ended_results:
             new_save = os.path.join(copy_dir, os.path.basename(file))
+            scores = 0
             if os.path.exists(new_save) and not overwrite:
                 print(f"Skipping {file} because it already exists")
                 continue
@@ -69,11 +73,26 @@ def scoring(behaviors=ALL_BEHAVIORS, overwrite=False):
                     system_prompt, user_prompt = make_prompts(d["question"], d["model_output"], behavior)
                     score = make_gpt4_request(system_prompt, user_prompt)
                     try:
-                        d["score"] = float(score)
+                        numeric_score = float(score)
+                        d["score"] = numeric_score
+                        scores += numeric_score
                     except Exception:
                         print(f"Error scoring. Prompt: {user_prompt}, Response: {score}")
                         continue
                 json.dump(data, f, indent=4)
+            scores /= len(data)
+            if do_printing:
+                print(f"Average score for {file}: {scores}")
+
+def finetune_scoring():
+    scoring(["myopic-reward"], {
+        "myopic-reward": [
+            "results/myopic-reward_neg_finetune_all_results.json",
+            "results/myopic-reward_pos_finetune_all_results.json"
+        ]
+    },
+    do_printing=True)
 
 if __name__ == "__main__":
-    scoring()
+    # scoring()
+    finetune_scoring()
