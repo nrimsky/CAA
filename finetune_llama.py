@@ -19,7 +19,7 @@ from torch.distributed.optim import ZeroRedundancyOptimizer
 from torch.nn.parallel import DistributedDataParallel as DDP
 import torch.distributed as dist
 import torch.multiprocessing as mp
-from behaviors import ALL_BEHAVIORS, get_ab_data_path, get_finetuned_model_path
+from behaviors import ALL_BEHAVIORS, FINETUNE_PATH, get_ab_data_path, get_finetuned_model_path
 
 os.environ['MASTER_ADDR'] = '127.0.0.1'
 os.environ['MASTER_PORT'] = '29500'
@@ -146,8 +146,8 @@ def finetune(
     save_path = get_finetuned_model_path(
         behavior, "pos" if maximize_positive else "neg", layer=layer
     )
-    if rank == 0 and not os.path.exists(save_path):
-        os.makedirs(save_path)
+    if rank == 0 and not os.path.exists(FINETUNE_PATH):
+        os.makedirs(FINETUNE_PATH)
     if rank == 0 and not os.path.exists("logs"):
         os.makedirs("logs")
     # Setup the DataLoader with DistributedSampler
