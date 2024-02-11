@@ -118,7 +118,7 @@ def test_finetune(
 ):
     save_results_dir = get_results_dir(behavior)
     finetuned_model_path = get_finetuned_model_path(behavior, pos_or_neg, layer)
-    save_filename = get_finetuned_model_results_path(behavior, pos_or_neg, layer)
+    save_filename = get_finetuned_model_results_path(behavior, pos_or_neg, eval_type=test_type, layer=layer)
     if not os.path.exists(save_results_dir):
         os.makedirs(save_results_dir)
     process_methods = {

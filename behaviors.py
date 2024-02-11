@@ -181,11 +181,11 @@ def get_finetuned_model_path(
 
 
 def get_finetuned_model_results_path(
-    behavior: str, pos_or_neg: Optional[Literal["pos", "neg"]], layer=None
+    behavior: str, pos_or_neg: Optional[Literal["pos", "neg"]], eval_type: str, layer=None
 ) -> str:
     if layer is None:
         layer = "all"
     return os.path.join(
         RESULTS_PATH,
-        f"{behavior}_{pos_or_neg}_finetune_{layer}_results.json",
+        f"{behavior}_{pos_or_neg}_finetune_{layer}_{eval_type}_results.json",
     )
