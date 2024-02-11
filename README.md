@@ -119,7 +119,7 @@ python finetune_llama.py --behavior sycophancy --direction pos
 # Example: evaluate a model finetuned to be more sycophantic on the sycophancy a/b question test dataset
 python eval_finetune_llama.py --type ab --behavior sycophancy --direction pos
 
-# Plot relationships / projections of steering vectors
+# Plot similarites of steering vectors
 python analyze_vectors.py
 
 # Use GPT-4 to score open-ended responses
