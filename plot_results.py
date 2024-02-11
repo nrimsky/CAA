@@ -5,6 +5,7 @@ Example usage:
 python plot_results.py --layers $(seq 0 31) --multipliers -1 0 1 --type ab
 """
 
+from tkinter import font
 import matplotlib.pyplot as plt
 import json
 from typing import Dict, Any, List
@@ -80,7 +81,7 @@ def plot_ab_results_for_layer(
         f"{settings.make_result_save_suffix(layer=layer)}.png",
     )
     plt.clf()
-    plt.figure(figsize=(5, 5))
+    plt.figure(figsize=(3.5, 3.5))
     all_results = {}
     for system_prompt, label in system_prompt_options:
         settings.system_prompt = system_prompt
@@ -96,9 +97,9 @@ def plot_ab_results_for_layer(
                 [x[1] for x in res_list],
                 label=label,
                 marker="o",
-                linestyle="dashed",
-                markersize=8,
-                linewidth=4,
+                linestyle="solid",
+                markersize=10,
+                linewidth=3,
             )
             all_results[system_prompt] = res_list
         except:
@@ -106,10 +107,10 @@ def plot_ab_results_for_layer(
     plt.legend()
     plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
     plt.xlabel("Multiplier")
-    plt.ylabel(f"Probability of answer matching behavior")
+    plt.ylabel("p(answer matching behavior)")
     plt.xticks(ticks=multipliers, labels=multipliers)
     if (settings.override_vector is None) and (settings.override_vector_model is None) and (settings.override_model_weights_path is None):
-        plt.title(f"{HUMAN_NAMES[settings.behavior]} CAA, Layer {layer} - {settings.get_formatted_model_name()}")
+        plt.title(f"{HUMAN_NAMES[settings.behavior]} - {settings.get_formatted_model_name()}", fontsize=11)
     plt.tight_layout()
     plt.savefig(save_to, format="png")
     # Save data in all_results used for plotting as .txt
@@ -334,13 +335,13 @@ def plot_effect_on_behaviors(
     if title is not None:
         plt.title(title)
     plt.xlabel("Steering vector multiplier")
-    ylabel = "% answers matching behavior"
+    ylabel = "p(answer matching behavior)"
     if settings.type == "open_ended":
-        ylabel = "Mean behavioral score"
+        ylabel = "Mean behavioral score (/10)"
     elif settings.type == "mmlu":
-        ylabel = "% answers"
+        ylabel = "p(correct answer to A/B question)"
     elif settings.type == "truthful_qa":
-        ylabel = "% answers"
+        ylabel = "p(correct answer to A/B question)"
     plt.ylabel(ylabel)
     plt.legend()
     plt.tight_layout()
