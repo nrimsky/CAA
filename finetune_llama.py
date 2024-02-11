@@ -92,10 +92,10 @@ def eval_model(model, dataloader, maximize_positive, device):
 
 def run_eval_loop(model_path, device, max_new_tokens=50):
     device = t.device(f"cuda:0") if t.cuda.is_available() else "cpu"
-    tokenizer = AutoTokenizer.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
+    tokenizer = AutoTokenizer.from_pretrained(MODEL, token=HUGGINGFACE_TOKEN)
     tokenizer.pad_token = tokenizer.eos_token
     model = AutoModelForCausalLM.from_pretrained(
-        MODEL, use_auth_token=HUGGINGFACE_TOKEN
+        MODEL, token=HUGGINGFACE_TOKEN
     )
     model.load_state_dict(t.load(model_path))
     model = model.to(device)
@@ -116,7 +116,7 @@ def finetune(
     behavior: str,
     direction: Literal["pos", "neg"],
     layer: Optional[int] = None,
-    n_epochs=1,
+    n_epochs=2,
     lr=1e-4,
 ):
     maximize_positive = direction == "pos"
@@ -128,10 +128,10 @@ def finetune(
     # Device corresponding to current process
     DEVICE = t.device(f"cuda:{rank}") if t.cuda.is_available() else "cpu"
     # Setup tokenizer and model
-    tokenizer = AutoTokenizer.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
+    tokenizer = AutoTokenizer.from_pretrained(MODEL, token=HUGGINGFACE_TOKEN)
     tokenizer.pad_token = tokenizer.eos_token
     model = (
-        AutoModelForCausalLM.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
+        AutoModelForCausalLM.from_pretrained(MODEL, token=HUGGINGFACE_TOKEN)
         .half()
         .to(DEVICE)
     )

@@ -133,10 +133,10 @@ def test_finetune(
         "truthful_qa": get_truthful_qa_data(),
         "mmlu": get_mmlu_data(),
     }
-    tokenizer = AutoTokenizer.from_pretrained(MODEL, use_auth_token=HUGGINGFACE_TOKEN)
+    tokenizer = AutoTokenizer.from_pretrained(MODEL, token=HUGGINGFACE_TOKEN)
     tokenizer.pad_token = tokenizer.eos_token
     model = AutoModelForCausalLM.from_pretrained(
-        MODEL, use_auth_token=HUGGINGFACE_TOKEN
+        MODEL, token=HUGGINGFACE_TOKEN
     )
     model.load_state_dict(t.load(finetuned_model_path))
     model = model.to(DEVICE)

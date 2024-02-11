@@ -35,7 +35,7 @@ class ComparisonDataset(Dataset):
         with open(data_path, "r") as f:
             self.data = json.load(f)
         self.tokenizer = AutoTokenizer.from_pretrained(
-            model_name_path, use_auth_token=token
+            model_name_path, token=token
         )
         self.tokenizer.pad_token = self.tokenizer.eos_token
         self.use_chat = use_chat
