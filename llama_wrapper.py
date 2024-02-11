@@ -122,10 +122,10 @@ class LlamaWrapper:
         self.use_chat = use_chat
         self.model_name_path = get_model_path(size, not use_chat)
         self.tokenizer = AutoTokenizer.from_pretrained(
-            self.model_name_path, use_auth_token=hf_token
+            self.model_name_path, token=hf_token
         )
         self.model = AutoModelForCausalLM.from_pretrained(
-            self.model_name_path, use_auth_token=hf_token
+            self.model_name_path, token=hf_token
         )
         if override_model_weights_path is not None:
             self.model.load_state_dict(t.load(override_model_weights_path))
