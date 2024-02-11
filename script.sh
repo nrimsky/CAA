@@ -48,3 +48,10 @@ python scoring.py
 
 python plot_results.py --layers 13 --multipliers -1.5 -1 0 1 1.5 --type open_ended  --title "Layer 13 - Llama 2 7B Chat"
 python plot_results.py --layers 14 --multipliers -1.5 -1 0 1 1.5 --type open_ended --model_size "13b" --title "Layer 14 - Llama 2 13B Chat"
+
+# Post finetune
+
+python prompting_with_steering.py --layers 13 --multipliers -1 1 --type open_ended --override_model_weights_path finetuned_models/hallucination_pos_finetune_all.pt --behaviors hallucination
+python prompting_with_steering.py --layers 13 --multipliers -1 1 --type open_ended --override_model_weights_path finetuned_models/hallucination_neg_finetune_all.pt --behaviors hallucination
+python prompting_with_steering.py --layers 13 --multipliers -1 1 --type open_ended --override_model_weights_path finetuned_models/myopic-reward_pos_finetune_all.pt --behaviors myopic-reward
+python prompting_with_steering.py --layers 13 --multipliers -1 1 --type open_ended --override_model_weights_path finetuned_models/myopic-reward_neg_finetune_all.pt --behaviors myopic-reward

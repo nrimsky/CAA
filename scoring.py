@@ -85,17 +85,27 @@ def scoring(behaviors=ALL_BEHAVIORS, custom_paths: dict[str, list[str]]=None, ov
                 print(f"Average score for {file}: {scores}")
 
 def finetune_scoring():
-    scoring(["myopic-reward"], {
+    scoring(["myopic-reward", "hallucination"], {
         "myopic-reward": [
             "results/myopic-reward_neg_finetune_all_results.json",
             "results/myopic-reward_pos_finetune_all_results.json"
         ],
         "hallucination": [
             "results/hallucination_pos_finetune_all_open_ended_results.json",
-            # "results/hallucination_neg_finetune_all_open_ended_results.json"
+         "results/hallucination_neg_finetune_all_open_ended_results.json"
         ]
     },
     do_printing=True)
+
+
+def print_avg_score_util(file, score_key="score"):
+    with open(file, "r") as f:
+        data = json.load(f)
+    scores = 0
+    for d in data:
+        scores += float(d[score_key])
+    print(f"Average score for {file}: {scores / len(data)}")
+
 
 if __name__ == "__main__":
     # scoring()
