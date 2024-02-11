@@ -113,10 +113,19 @@ def plot_ab_results_for_layer(
     plt.tight_layout()
     plt.savefig(save_to, format="png")
     # Save data in all_results used for plotting as .txt
-    with open(save_to.replace(".png", ".txt"), "w") as f:
+    with open(save_to.replace(".png", ".txt"), "w") as f, open(save_to.replace(".png", ".tex"), "w") as f_tex:
         for system_prompt, res_list in all_results.items():
             for multiplier, score in res_list:
                 f.write(f"{system_prompt}\t{multiplier}\t{score}\n")
+        if len(all_results) != 3:
+            return
+        try:
+            none_results = dict(all_results[None])[-1], dict(all_results[None])[0], dict(all_results[None])[1]
+            pos_results = dict(all_results["pos"])[-1], dict(all_results["pos"])[0], dict(all_results["pos"])[1]
+            neg_results = dict(all_results["neg"])[-1], dict(all_results["neg"])[0], dict(all_results["neg"])[1]
+            f_tex.write(f"{HUMAN_NAMES[settings.behavior]} & {none_results[0]:.2f} & {none_results[1]:.2f} & {none_results[2]:.2f} & {pos_results[0]:.2f} & {pos_results[1]:.2f} & {pos_results[2]:.2f} & {neg_results[0]:.2f} & {neg_results[1]:.2f} & {neg_results[2]:.2f}")
+        except KeyError:
+            pass
 
 
 def plot_tqa_mmlu_results_for_layer(
@@ -161,12 +170,14 @@ def plot_tqa_mmlu_results_for_layer(
     plt.savefig(save_to, format="png")
 
     def _format_for_latex_table(x, baseline):
-        if x < baseline:
-            return f"\\worse{{{x:.2f}}}"
-        elif x > baseline:
-            return f"\\better{{{x:.2f}}}"
+        x_rounded_2dp = round(x, 2)
+        baseline_rounded_2dp = round(baseline, 2)
+        if x_rounded_2dp < baseline_rounded_2dp:
+            return f"\\worse{{{x_rounded_2dp:.2f}}}"
+        elif x_rounded_2dp > baseline_rounded_2dp:
+            return f"\\better{{{x_rounded_2dp:.2f}}}"
         else:
-            return f"\\same{{{x:.2f}}}"
+            return f"\\same{{{x_rounded_2dp:.2f}}}"
         
     def _format_category_name(c):
         # split by _ and capitalize first letter of each word
@@ -201,7 +212,8 @@ def plot_tqa_mmlu_results_for_layer(
         pos_avg = _format_for_latex_table(pos_avg, no_steering_avg)
         neg_avg = _format_for_latex_table(neg_avg, no_steering_avg)
         no_steering_avg = f"\\same{{{no_steering_avg:.2f}}}"
-        f_tex.write(f"Average & {pos_avg} & {neg_avg} & {no_steering_avg} \\\ \n")
+        avg_line = f"Average & {pos_avg} & {neg_avg} & {no_steering_avg} \\\ \n"
+        f_tex.write(avg_line)
 
 
 def plot_open_ended_results(
