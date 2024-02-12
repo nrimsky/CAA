@@ -144,3 +144,7 @@ See `/activation_steering_interp.ipynb`
 
 Unnormalized vectors can be found in `/vectors` - they mostly have the same norms-per-layer, except for `sycophancy`
 and `survival-instinct` which ended up a bit lower norm (dataset artefact). Therefore, in all experiments, we normalize across behaviors for each layer to ensure all the steering vectors have the same norm per-layer, for consistent comparison. The script that does this is in `normalize_vectors.py`. `prompting_with_steering.py` uses the normalized vectors.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
