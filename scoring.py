@@ -92,7 +92,7 @@ def finetune_scoring():
         ],
         "hallucination": [
             "results/hallucination_pos_finetune_all_open_ended_results.json",
-         "results/hallucination_neg_finetune_all_open_ended_results.json"
+            "results/hallucination_neg_finetune_all_open_ended_results.json"
         ]
     },
     do_printing=True)

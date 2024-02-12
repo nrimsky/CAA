@@ -116,7 +116,7 @@ def finetune(
     behavior: str,
     direction: Literal["pos", "neg"],
     layer: Optional[int] = None,
-    n_epochs=2,
+    n_epochs=1,
     lr=1e-4,
 ):
     maximize_positive = direction == "pos"
