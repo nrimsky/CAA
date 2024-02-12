@@ -51,7 +51,12 @@
 
 # Post finetune
 
-python prompting_with_steering.py --layers 13 --multipliers -1 1 --type open_ended --override_model_weights_path finetuned_models/hallucination_pos_finetune_all.pt --behaviors hallucination
-python prompting_with_steering.py --layers 13 --multipliers -1 1 --type open_ended --override_model_weights_path finetuned_models/hallucination_neg_finetune_all.pt --behaviors hallucination
-python prompting_with_steering.py --layers 13 --multipliers -1 1 --type open_ended --override_model_weights_path finetuned_models/myopic-reward_pos_finetune_all.pt --behaviors myopic-reward
-python prompting_with_steering.py --layers 13 --multipliers -1 1 --type open_ended --override_model_weights_path finetuned_models/myopic-reward_neg_finetune_all.pt --behaviors myopic-reward
+python prompting_with_steering.py --layers 13 --multipliers -1 0 1 --type open_ended --override_model_weights_path finetuned_models/hallucination_pos_finetune_all.pt --behaviors hallucination
+python prompting_with_steering.py --layers 13 --multipliers -1 0 1 --type open_ended --override_model_weights_path finetuned_models/hallucination_neg_finetune_all.pt --behaviors hallucination
+python prompting_with_steering.py --layers 13 --multipliers -1 0 1 --type open_ended --override_model_weights_path finetuned_models/myopic-reward_pos_finetune_all.pt --behaviors myopic-reward
+python prompting_with_steering.py --layers 13 --multipliers -1 0 1 --type open_ended --override_model_weights_path finetuned_models/myopic-reward_neg_finetune_all.pt --behaviors myopic-reward
+
+python scoring.py
+
+python plot_results.py --layers 13 --multipliers -1 0 1 --type open_ended --override_weights finetuned_models/hallucination_pos_finetune_all.pt finetuned_models/hallucination_neg_finetune_all.pt  --behaviors hallucination
+python plot_results.py --layers 13 --multipliers -1 0 1 --type open_ended --override_weights finetuned_models/myopic-reward_pos_finetune_all.pt finetuned_models/myopic-reward_neg_finetune_all.pt  --behaviors myopic-reward

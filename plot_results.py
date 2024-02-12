@@ -128,6 +128,44 @@ def plot_ab_results_for_layer(
         except KeyError:
             pass
 
+def plot_finetuning_openended_comparison(settings: SteeringSettings, finetune_pos_path: str, finetune_neg_path: str, multipliers: list[float], layer: int):
+    save_to = os.path.join(
+        get_analysis_dir(settings.behavior),
+        f"finetune_comparison_{layer}.png",
+    )
+    plt.clf()
+    plt.figure(figsize=(3.5, 3.5))
+    model_paths = {
+        "Positive finetuned": finetune_pos_path,
+        "Negative finetuned": finetune_neg_path,
+        "No finetuning": None
+    }
+    for model_name, model_path in model_paths.items():
+        settings.override_model_weights_path = model_path
+        res_list = []
+        for multiplier in multipliers:
+            results = get_data(layer, multiplier, settings)
+            avg_score = get_avg_score(results)
+            res_list.append((multiplier, avg_score))
+        res_list.sort(key=lambda x: x[0])
+        plt.plot(
+            [x[0] for x in res_list],
+            [x[1] for x in res_list],
+            label=model_name,
+            marker="o",
+            linestyle="solid",
+            markersize=10,
+            linewidth=3,
+        )
+    plt.legend()
+    plt.xlabel("Multiplier")
+    plt.ylabel("Average behavioral eval score")
+    plt.xticks(ticks=multipliers, labels=multipliers)
+    plt.title(f"CAA + finetuning {HUMAN_NAMES[settings.behavior]}")
+    plt.tight_layout()
+    plt.savefig(save_to, format="png")
+
+
 
 def plot_tqa_mmlu_results_for_layer(
     layer: int, multipliers: List[float], settings: SteeringSettings
@@ -430,7 +468,8 @@ def steering_settings_from_args(args, behavior: str) -> SteeringSettings:
     steering_settings.override_vector_model = args.override_vector_model
     steering_settings.use_base_model = args.use_base_model
     steering_settings.model_size = args.model_size
-    steering_settings.override_model_weights_path = args.override_model_weights_path
+    if len(args.override_weights) > 0:
+        steering_settings.override_model_weights_path = args.override_weights[0]
     return steering_settings
 
 if __name__ == "__main__":
@@ -454,11 +493,15 @@ if __name__ == "__main__":
     parser.add_argument("--override_vector_model", type=str, default=None)
     parser.add_argument("--use_base_model", action="store_true", default=False)
     parser.add_argument("--model_size", type=str, choices=["7b", "13b"], default="7b")
-    parser.add_argument("--override_model_weights_path", type=str, default=None)
+    parser.add_argument("--override_weights", type=str, nargs="+", default=[])
     
     args = parser.parse_args()
 
     steering_settings = steering_settings_from_args(args, args.behaviors[0])
+
+    if len(args.override_weights) > 0:
+        plot_finetuning_openended_comparison(steering_settings, args.override_weights[0], args.override_weights[1], args.multipliers, args.layers[0])
+        exit(0)
 
     if steering_settings.type == "ab":
         plot_layer_sweeps(args.layers, args.behaviors, steering_settings, args.title)

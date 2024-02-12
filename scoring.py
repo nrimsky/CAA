@@ -84,26 +84,6 @@ def scoring(behaviors=ALL_BEHAVIORS, custom_paths: dict[str, list[str]]=None, ov
             if do_printing:
                 print(f"Average score for {file}: {scores}")
 
-FINETUNE_RESULT_FILES = {
-        "myopic-reward": [
-            "results/myopic-reward_neg_finetune_all_results.json",
-            "results/myopic-reward_pos_finetune_all_results.json",
-            "results/myopic-reward/results_layer=13_multiplier=1.0_behavior=myopic-reward_type=open_ended_use_base_model=False_model_size=7b_override_model_weights_path=finetuned_models-myopic-reward_neg_finetune_all.pt.json",
-            "results/myopic-reward/results_layer=13_multiplier=1.0_behavior=myopic-reward_type=open_ended_use_base_model=False_model_size=7b_override_model_weights_path=finetuned_models-myopic-reward_pos_finetune_all.pt.json",
-            "results/myopic-reward/results_layer=13_multiplier=-1.0_behavior=myopic-reward_type=open_ended_use_base_model=False_model_size=7b_override_model_weights_path=finetuned_models-myopic-reward_neg_finetune_all.pt.json",
-            "results/myopic-reward/results_layer=13_multiplier=-1.0_behavior=myopic-reward_type=open_ended_use_base_model=False_model_size=7b_override_model_weights_path=finetuned_models-myopic-reward_pos_finetune_all.pt.json",
-        ],
-        "hallucination": [
-            "results/hallucination_pos_finetune_all_open_ended_results.json",
-            "results/hallucination_neg_finetune_all_open_ended_results.json",
-            "results/hallucination/results_layer=13_multiplier=1.0_behavior=hallucination_type=open_ended_use_base_model=False_model_size=7b_override_model_weights_path=finetuned_models-hallucination_neg_finetune_all.pt.json",
-            "results/hallucination/results_layer=13_multiplier=1.0_behavior=hallucination_type=open_ended_use_base_model=False_model_size=7b_override_model_weights_path=finetuned_models-hallucination_pos_finetune_all.pt.json",
-            "results/hallucination/results_layer=13_multiplier=-1.0_behavior=hallucination_type=open_ended_use_base_model=False_model_size=7b_override_model_weights_path=finetuned_models-hallucination_neg_finetune_all.pt.json",
-            "results/hallucination/results_layer=13_multiplier=-1.0_behavior=hallucination_type=open_ended_use_base_model=False_model_size=7b_override_model_weights_path=finetuned_models-hallucination_pos_finetune_all.pt.json",
-        ]
-    }
-    
-
 
 def print_avg_score_util(file, score_key="score"):
     with open(file, "r") as f:
@@ -117,14 +97,6 @@ def print_avg_score_util(file, score_key="score"):
         except Exception:
             pass
     print(f"Average score for {os.path.basename(file)}: {scores / n}")
-
-def finetune_scoring():
-    scoring(["myopic-reward", "hallucination"], FINETUNE_RESULT_FILES, do_printing=True)
-    files = []
-    for k, v in FINETUNE_RESULT_FILES.items():
-        files.extend(os.path.join(RESULTS_PATH, "open_ended_scores", k, f"{os.path.basename(f)}") for f in v)
-    for f in files:
-        print_avg_score_util(f)
         
 if __name__ == "__main__":
     scoring()

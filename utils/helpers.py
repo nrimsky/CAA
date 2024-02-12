@@ -2,7 +2,7 @@ import torch as t
 import matplotlib.pyplot as plt
 
 def set_plotting_settings():
-    plt.style.use('seaborn')
+    plt.style.use('seaborn-v0_8')
     params = {
         "ytick.color": "black",
         "xtick.color": "black",
