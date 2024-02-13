@@ -140,6 +140,7 @@ def plot_finetuning_openended_comparison(settings: SteeringSettings, finetune_po
         "Negative finetuned": finetune_neg_path,
         "No finetuning": None
     }
+    all_res = {}
     for model_name, model_path in model_paths.items():
         settings.override_model_weights_path = model_path
         res_list = []
@@ -157,6 +158,7 @@ def plot_finetuning_openended_comparison(settings: SteeringSettings, finetune_po
             markersize=10,
             linewidth=3,
         )
+        all_res[model_name] = res_list
     plt.legend()
     plt.xlabel("Multiplier")
     plt.ylabel("Average behavioral eval score")
@@ -164,6 +166,17 @@ def plot_finetuning_openended_comparison(settings: SteeringSettings, finetune_po
     plt.title(f"CAA + finetuning {HUMAN_NAMES[settings.behavior]}")
     plt.tight_layout()
     plt.savefig(save_to, format="png")
+    with open(save_to.replace(".png", ".txt"), "w") as f, open(save_to.replace(".png", ".tex"), "w") as f_tex:
+        for model_name, res_list in all_res.items():
+            for multiplier, score in res_list:
+                f.write(f"{model_name}\t{multiplier}\t{score}\n")
+        try:
+            none_results = dict(all_res["No finetuning"])[-1], dict(all_res["No finetuning"])[0], dict(all_res["No finetuning"])[1]
+            pos_results = dict(all_res["Positive finetuned"])[-1], dict(all_res["Positive finetuned"])[0], dict(all_res["Positive finetuned"])[1]
+            neg_results = dict(all_res["Negative finetuned"])[-1], dict(all_res["Negative finetuned"])[0], dict(all_res["Negative finetuned"])[1]
+            f_tex.write(f"{HUMAN_NAMES[settings.behavior]} & {none_results[0]:.2f} & {none_results[1]:.2f} & {none_results[2]:.2f} & {pos_results[0]:.2f} & {pos_results[1]:.2f} & {pos_results[2]:.2f} & {neg_results[0]:.2f} & {neg_results[1]:.2f} & {neg_results[2]:.2f}")
+        except KeyError:
+            pass
 
 
 
