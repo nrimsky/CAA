@@ -5,7 +5,6 @@ Example usage:
 python plot_results.py --layers $(seq 0 31) --multipliers -1 0 1 --type ab
 """
 
-from tkinter import font
 import matplotlib.pyplot as plt
 import json
 from typing import Dict, Any, List
