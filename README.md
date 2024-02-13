@@ -112,12 +112,8 @@ python plot_activations.py --behaviors sycophancy --layers $(seq 0 31) --model_s
 python plot_results.py --layers $(seq 0 31) --multipliers 1 --type ab
 python plot_results.py --layers $(seq 0 31) --multipliers -1 0 1 --behaviors sycophancy --type ab
 
-# Finetune a llama on a behavioral dataset
+# Finetune a llama on a behavioral dataset using supervised finetuning on the A/B tokens
 python finetune_llama.py --behavior sycophancy --direction pos
-
-# Evaluate a finetuned model on a test set
-# Example: evaluate a model finetuned to be more sycophantic on the sycophancy a/b question test dataset
-python eval_finetune_llama.py --type ab --behavior sycophancy --direction pos
 
 # Plot similarites of steering vectors
 python analyze_vectors.py
