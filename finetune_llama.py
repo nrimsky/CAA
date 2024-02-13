@@ -208,11 +208,10 @@ def finetune(
         t.save(ddp_model.module.state_dict(), save_path)
         # Save test accuracy to final log file
         with open(
-            os.path.join("logs", f"final_rank_{rank}_behavior_{behavior}.log"), "w"
-        ) as logfile:
-            logfile.write(f"Test accuracy: {test_accuracy}\n")
-            # Print the time taken for training
-            logfile.write(f"Time taken: {end_time - start_time}")
+            os.path.join(f"final_rank_{rank}_behavior_{behavior}_{direction}.log"), "w"
+        ) as finalfile:
+            finalfile.write(f"Test accuracy: {test_accuracy}\n")
+            finalfile.write(f"Time taken: {end_time - start_time}")
     # Cleanup
     dist.destroy_process_group()
 
