@@ -188,13 +188,13 @@ def finetune(
                 print(
                     f"Rank: {rank} | Epoch {epoch + 1}/{n_epochs} | Batch {i}/{len(dataloader)} | Avg Loss: {avg_loss / n_batches}"
                 )
-                avg_loss = 0
-                n_batches = 0
                 with open(
                     os.path.join("logs", f"rank_{rank}_step_{i}_epoch_{epoch}_behavior_{behavior}.log"), "w"
                 ) as logfile:
                     logfile.write(t.cuda.memory_summary(device=DEVICE))
                     logfile.write("\navg_loss: " + str(avg_loss / n_batches))
+                avg_loss = 0
+                n_batches = 0
     end_time = datetime.datetime.now()
     # Finalize the training
     dist.barrier()
