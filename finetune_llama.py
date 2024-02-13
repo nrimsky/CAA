@@ -188,18 +188,25 @@ def finetune(
                 avg_loss = 0
                 n_batches = 0
                 with open(
-                    os.path.join("logs", f"rank_{rank}_step_{i}_epoch_{epoch}.log"), "w"
+                    os.path.join("logs", f"rank_{rank}_step_{i}_epoch_{epoch}_behavior_{behavior}.log"), "w"
                 ) as logfile:
                     logfile.write(t.cuda.memory_summary(device=DEVICE))
+                    logfile.write("avg_loss: " + str(avg_loss / n_batches))
     # Finalize the training
     dist.barrier()
     if rank == 0:
         # Print test accuracy
+        test_accuracy = eval_model(ddp_model.module, test_dataloader, maximize_positive, DEVICE)
         print(
-            f"Test accuracy (Rank {rank}): {eval_model(ddp_model.module, test_dataloader, maximize_positive, DEVICE)}"
+            f"Test accuracy (Rank {rank}): {test_accuracy}"
         )
         # Save the model after training completes
         t.save(ddp_model.module.state_dict(), save_path)
+        # Save test accuracy to final log file
+        with open(
+            os.path.join("logs", f"final_rank_{rank}_behavior_{behavior}.log"), "w"
+        ) as logfile:
+            logfile.write(f"Test accuracy: {test_accuracy}")
     # Cleanup
     dist.destroy_process_group()
 
