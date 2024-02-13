@@ -9,3 +9,5 @@ do
     python scoring.py
     python plot_results.py --layers 13 --multipliers -1 0 1 --type open_ended --override_weights finetuned_models/${behavior}_pos_finetune_all.pt finetuned_models/${behavior}_neg_finetune_all.pt  --behaviors $behavior
 done
+
+# rerun plotting
