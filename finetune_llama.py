@@ -19,6 +19,7 @@ from torch.distributed.optim import ZeroRedundancyOptimizer
 from torch.nn.parallel import DistributedDataParallel as DDP
 import torch.distributed as dist
 import torch.multiprocessing as mp
+import datetime
 from behaviors import ALL_BEHAVIORS, FINETUNE_PATH, get_ab_data_path, get_finetuned_model_path
 
 os.environ['MASTER_ADDR'] = '127.0.0.1'
@@ -161,6 +162,8 @@ def finetune(
     )
     # Run the training loop
     loss_fn = t.nn.CrossEntropyLoss()
+    # Time the training
+    start_time = datetime.datetime.now()
     for epoch in range(n_epochs):
         print_every = len(dataloader) // 10
         ddp_model.train()
@@ -191,7 +194,8 @@ def finetune(
                     os.path.join("logs", f"rank_{rank}_step_{i}_epoch_{epoch}_behavior_{behavior}.log"), "w"
                 ) as logfile:
                     logfile.write(t.cuda.memory_summary(device=DEVICE))
-                    logfile.write("avg_loss: " + str(avg_loss / n_batches))
+                    logfile.write("\navg_loss: " + str(avg_loss / n_batches))
+    end_time = datetime.datetime.now()
     # Finalize the training
     dist.barrier()
     if rank == 0:
@@ -206,7 +210,9 @@ def finetune(
         with open(
             os.path.join("logs", f"final_rank_{rank}_behavior_{behavior}.log"), "w"
         ) as logfile:
-            logfile.write(f"Test accuracy: {test_accuracy}")
+            logfile.write(f"Test accuracy: {test_accuracy}\n")
+            # Print the time taken for training
+            logfile.write(f"Time taken: {end_time - start_time}")
     # Cleanup
     dist.destroy_process_group()
 
