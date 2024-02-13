@@ -130,7 +130,7 @@ def plot_ab_results_for_layer(
 def plot_finetuning_openended_comparison(settings: SteeringSettings, finetune_pos_path: str, finetune_neg_path: str, multipliers: list[float], layer: int):
     save_to = os.path.join(
         get_analysis_dir(settings.behavior),
-        f"finetune_comparison_{layer}.png",
+        f"finetune_comparison_{layer}_{settings.type}.png",
     )
     plt.clf()
     plt.figure(figsize=(3.5, 3.5))
