@@ -151,6 +151,8 @@ def finetune(
         os.makedirs(FINETUNE_PATH)
     if rank == 0 and not os.path.exists("logs"):
         os.makedirs("logs")
+    if rank == 0 and not os.path.exists("finetune_logs"):
+        os.makedirs("finetune_logs")
     # Setup the DataLoader with DistributedSampler
     dataset = FinetuneDataset(data_path, tokenizer)
     sampler = DistributedSampler(
@@ -208,7 +210,7 @@ def finetune(
         t.save(ddp_model.module.state_dict(), save_path)
         # Save test accuracy to final log file
         with open(
-            os.path.join(f"final_rank_{rank}_behavior_{behavior}_{direction}.log"), "w"
+            os.path.join("finetune_logs", f"final_rank_{rank}_behavior_{behavior}_{direction}.log"), "w"
         ) as finalfile:
             finalfile.write(f"Test accuracy: {test_accuracy}\n")
             finalfile.write(f"Time taken: {end_time - start_time}")
