@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Plot results from behavioral evaluations under steering.
 

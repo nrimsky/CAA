@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Finetune the Llama model on the answer behavior dataset.
 

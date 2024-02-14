@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Usage: python analyze_vectors.py
 """
