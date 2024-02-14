@@ -145,7 +145,12 @@ def plot_finetuning_openended_comparison(settings: SteeringSettings, finetune_po
         res_list = []
         for multiplier in multipliers:
             results = get_data(layer, multiplier, settings)
-            avg_score = get_avg_score(results)
+            if settings.type == "open_ended":
+                avg_score = get_avg_score(results)
+            elif settings.type == "ab":
+                avg_score = get_avg_key_prob(results, "answer_matching_behavior")
+            else:
+                raise ValueError(f"Unsupported eval type for finetuning comparison {settings.type}")
             res_list.append((multiplier, avg_score))
         res_list.sort(key=lambda x: x[0])
         plt.plot(

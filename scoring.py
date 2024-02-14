@@ -99,5 +99,4 @@ def print_avg_score_util(file, score_key="score"):
     print(f"Average score for {os.path.basename(file)}: {scores / n}")
         
 if __name__ == "__main__":
-    # scoring()
-    scoring(behaviors=["hallucination", "myopic-reward"], overwrite=True)
+    scoring()
