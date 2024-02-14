@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Use CAA to steer the model
 

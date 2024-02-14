@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from behaviors import ALL_BEHAVIORS, get_vector_path
 from utils.helpers import get_model_path
 import torch as t

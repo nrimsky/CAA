@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 Generates steering vectors for each layer of the model by averaging the activations of all the positive and negative examples.
 
