@@ -30,6 +30,7 @@ load_dotenv()
 
 HUGGINGFACE_TOKEN = os.getenv("HF_TOKEN")
 
+
 def process_item_ab(
     item: Dict[str, str],
     model: LlamaWrapper,
@@ -51,6 +52,7 @@ def process_item_ab(
         "a_prob": a_prob,
         "b_prob": b_prob,
     }
+
 
 def process_item_open_ended(
     item: Dict[str, str],
@@ -96,7 +98,10 @@ def process_item_tqa_mmlu(
 
 
 def test_steering(
-    layers: List[int], multipliers: List[int], settings: SteeringSettings, overwrite=False
+    layers: List[int],
+    multipliers: List[int],
+    settings: SteeringSettings,
+    overwrite=False,
 ):
     """
     layers: List of layers to test steering on.
@@ -133,9 +138,13 @@ def test_steering(
         if settings.override_vector_model is not None:
             name_path = settings.override_vector_model
         if settings.override_vector is not None:
-            vector = get_steering_vector(settings.behavior, settings.override_vector, name_path, normalized=True)
+            vector = get_steering_vector(
+                settings.behavior, settings.override_vector, name_path, normalized=True
+            )
         else:
-            vector = get_steering_vector(settings.behavior, layer, name_path, normalized=True)
+            vector = get_steering_vector(
+                settings.behavior, layer, name_path, normalized=True
+            )
         if settings.model_size != "7b":
             vector = vector.half()
         vector = vector.to(model.device)
@@ -153,13 +162,13 @@ def test_steering(
             results = []
             for item in tqdm(test_data, desc=f"Layer {layer}, multiplier {multiplier}"):
                 model.reset_all()
-                model.set_add_activations(
-                    layer, multiplier * vector
-                )
+                model.set_add_activations(layer, multiplier * vector)
                 result = process_methods[settings.type](
                     item=item,
                     model=model,
-                    system_prompt=get_system_prompt(settings.behavior, settings.system_prompt),
+                    system_prompt=get_system_prompt(
+                        settings.behavior, settings.system_prompt
+                    ),
                     a_token_id=a_token_id,
                     b_token_id=b_token_id,
                 )
@@ -175,26 +184,27 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--layers", nargs="+", type=int, required=True)
     parser.add_argument("--multipliers", nargs="+", type=float, required=True)
-    parser.add_argument(
-        "--behaviors",
-        type=str,
-        nargs="+",
-        default=ALL_BEHAVIORS
-    )
+    parser.add_argument("--behaviors", type=str, nargs="+", default=ALL_BEHAVIORS)
     parser.add_argument(
         "--type",
         type=str,
         required=True,
         choices=["ab", "open_ended", "truthful_qa", "mmlu"],
     )
-    parser.add_argument("--system_prompt", type=str, default=None, choices=["pos", "neg"], required=False)
+    parser.add_argument(
+        "--system_prompt",
+        type=str,
+        default=None,
+        choices=["pos", "neg"],
+        required=False,
+    )
     parser.add_argument("--override_vector", type=int, default=None)
     parser.add_argument("--override_vector_model", type=str, default=None)
     parser.add_argument("--use_base_model", action="store_true", default=False)
     parser.add_argument("--model_size", type=str, choices=["7b", "13b"], default="7b")
     parser.add_argument("--override_model_weights_path", type=str, default=None)
     parser.add_argument("--overwrite", action="store_true", default=False)
-    
+
     args = parser.parse_args()
 
     steering_settings = SteeringSettings()
