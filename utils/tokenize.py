@@ -6,8 +6,8 @@ B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
 BASE_INPUT = "Input:"
 BASE_RESPONSE = "\nResponse:"
 
-ADD_AFTER_POS_CHAT = E_INST
-ADD_AFTER_POS_BASE = BASE_RESPONSE
+ADD_FROM_POS_CHAT = E_INST
+ADD_FROM_POS_BASE = BASE_RESPONSE
 
 
 def tokenize_llama_chat(

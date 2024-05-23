@@ -1,18 +1,22 @@
+"""
+python utils/test_helpers.py
+"""
+
 import torch as t
 
 from helpers import (
-    add_vector_after_position,
+    add_vector_from_position,
     find_last_subtensor_position,
     find_instruction_end_postion,
 )
 
 
-def test_add_vector_after_position():
+def test_add_vector_from_position():
     matrix = t.tensor([[1, 2], [3, 4], [5, 6]], dtype=t.float32)
     vector = t.tensor([1, 1], dtype=t.float32)
     position_ids = t.tensor([1, 2, 3])
-    result = add_vector_after_position(
-        matrix, vector, position_ids, after=1
+    result = add_vector_from_position(
+        matrix, vector, position_ids, from_pos=2
     )
     expected = t.tensor([[1, 2], [4, 5], [6, 7]], dtype=t.float32)
     assert t.allclose(result, expected)

@@ -2,12 +2,12 @@ import torch as t
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from matplotlib import pyplot as plt
 from matplotlib.ticker import ScalarFormatter
-from utils.helpers import add_vector_after_position, find_instruction_end_postion, get_model_path
+from utils.helpers import add_vector_from_position, find_instruction_end_postion, get_model_path
 from utils.tokenize import (
     tokenize_llama_chat,
     tokenize_llama_base,
-    ADD_AFTER_POS_BASE,
-    ADD_AFTER_POS_CHAT,
+    ADD_FROM_POS_BASE,
+    ADD_FROM_POS_CHAT,
 )
 from typing import Optional
 
@@ -50,7 +50,7 @@ class BlockOutputWrapper(t.nn.Module):
 
         self.activations = None
         self.add_activations = None
-        self.after_position = None
+        self.from_position = None
 
         self.save_internal_decodings = False
 
@@ -70,11 +70,11 @@ class BlockOutputWrapper(t.nn.Module):
             )
             self.dot_products.append((top_token, dot_product.cpu().item()))
         if self.add_activations is not None:
-            augmented_output = add_vector_after_position(
+            augmented_output = add_vector_from_position(
                 matrix=output[0],
                 vector=self.add_activations,
                 position_ids=kwargs["position_ids"],
-                after=self.after_position,
+                from_pos=self.from_position,
             )
             output = (augmented_output,) + output[1:]
 
@@ -105,7 +105,7 @@ class BlockOutputWrapper(t.nn.Module):
         self.add_activations = None
         self.activations = None
         self.block.self_attn.activations = None
-        self.after_position = None
+        self.from_position = None
         self.calc_dot_product_with = None
         self.dot_products = []
 
@@ -133,11 +133,11 @@ class LlamaWrapper:
             self.model = self.model.half()
         self.model = self.model.to(self.device)
         if use_chat:
-            self.END_STR = t.tensor(self.tokenizer.encode(ADD_AFTER_POS_CHAT)[1:]).to(
+            self.END_STR = t.tensor(self.tokenizer.encode(ADD_FROM_POS_CHAT)[1:]).to(
                 self.device
             )
         else:
-            self.END_STR = t.tensor(self.tokenizer.encode(ADD_AFTER_POS_BASE)[1:]).to(
+            self.END_STR = t.tensor(self.tokenizer.encode(ADD_FROM_POS_BASE)[1:]).to(
                 self.device
             )
         for i, layer in enumerate(self.model.model.layers):
@@ -149,14 +149,14 @@ class LlamaWrapper:
         for layer in self.model.model.layers:
             layer.save_internal_decodings = value
 
-    def set_after_positions(self, pos: int):
+    def set_from_positions(self, pos: int):
         for layer in self.model.model.layers:
-            layer.after_position = pos
+            layer.from_position = pos
 
     def generate(self, tokens, max_new_tokens=100):
         with t.no_grad():
             instr_pos = find_instruction_end_postion(tokens[0], self.END_STR)
-            self.set_after_positions(instr_pos)
+            self.set_from_positions(instr_pos)
             generated = self.model.generate(
                 inputs=tokens, max_new_tokens=max_new_tokens, top_k=1
             )
@@ -175,7 +175,7 @@ class LlamaWrapper:
     def get_logits(self, tokens):
         with t.no_grad():
             instr_pos = find_instruction_end_postion(tokens[0], self.END_STR)
-            self.set_after_positions(instr_pos)
+            self.set_from_positions(instr_pos)
             logits = self.model(tokens).logits
             return logits
 

@@ -22,12 +22,12 @@ def set_plotting_settings():
 
 
 
-def add_vector_after_position(matrix, vector, position_ids, after=None):
-    after_id = after
-    if after_id is None:
-        after_id = position_ids.min().item() - 1
+def add_vector_from_position(matrix, vector, position_ids, from_pos=None):
+    from_id = from_pos
+    if from_id is None:
+        from_id = position_ids.min().item() - 1
 
-    mask = position_ids >= after_id
+    mask = position_ids >= from_id
     mask = mask.unsqueeze(-1)
 
     matrix += mask.float() * vector
