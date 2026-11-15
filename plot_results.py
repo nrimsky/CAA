@@ -216,7 +216,8 @@ def plot_tqa_mmlu_results_for_layer(
     plt.legend(loc="upper left")
 
     # Final plot adjustments
-    plt.xticks(range(len(categories)), categories, rotation=45, ha="right")
+    sorted_categories = sorted(res_per_category.keys())
+    plt.xticks(range(len(sorted_categories)), sorted_categories, rotation=45, ha="right")
     plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f"{x:.0%}"))
     plt.xlabel("Multiplier")
     plt.ylabel("Probability of correct answer to A/B question")

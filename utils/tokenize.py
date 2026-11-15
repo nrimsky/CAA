@@ -16,10 +16,10 @@ def tokenize_llama_chat(
     model_output: str = None,
     system_prompt: str = None,
 ) -> List[int]:
-    input_content = ""
+    input_content = f"{B_INST} "
     if system_prompt is not None:
         input_content += B_SYS + system_prompt + E_SYS
-    input_content += f"{B_INST} {user_input.strip()} {E_INST}"
+    input_content += f"{user_input.strip()} {E_INST}"
     if model_output is not None:
         input_content += f" {model_output.strip()}"
     return tokenizer.encode(input_content)
